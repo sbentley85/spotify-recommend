@@ -3,7 +3,8 @@ import { stringify } from "querystring";
 
 let accessToken: string;
 const clientId = '2605e63cad504fc6889cb31b91f1eff3'
-const redirectUri = 'http://localhost:3000'
+
+const redirectUri = (process.env.NODE_ENV === 'production') ? 'https://spotify-recommend.netlify.app' : 'http://localhost:3000'
 
 document.body.onload = function() {
     
