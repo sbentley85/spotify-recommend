@@ -6,15 +6,21 @@ import TopTracks from "./TopTracks";
 import TopArtists from "./TopArtists";
 import ChoicesInput from "./ChoicesInput";
 import "semantic-ui-css/semantic.min.css";
+import ChoicesSlider from "./ChoicesSlider";
 
 const Choices = (props: any) => {
 	const methods = ["Artist", "Tracks", "Playlists", "Search"];
-	const [selection, setSelection] = useState("Artists");
+	const [selection, setSelection] = useState("top-artists");
+	const [searchType, setSearchType] = useState("Artists");
+
 	const updateSelection = (event: any, data: any) => {
-		console.log("setting selection method");
 		const choice = data.value;
-		console.log(choice);
 		setSelection(choice);
+	};
+
+	const updateSearchType = (event: any, data: any) => {
+		if (event.target.checked) setSearchType("Tracks");
+		else setSearchType("Artists");
 	};
 
 	return (
@@ -22,9 +28,11 @@ const Choices = (props: any) => {
 			<Grid.Row columns={1}>
 				<Grid.Column>
 					<ChoicesInput
+						searchType={searchType}
 						selection={selection}
 						updateSelection={updateSelection}
 					/>
+					<ChoicesSlider updateSearchType={updateSearchType} />
 				</Grid.Column>
 			</Grid.Row>
 			<Grid.Row columns={4}>

@@ -1,37 +1,52 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
+import Artist from "./Artist";
 
 const ChoicesInput = (props: any) => {
-	const searchOptions = [
+	const ArtistOptions = [
 		{
-			key: "Tracks",
-			text: "My Top Tracks",
-			value: "Tracks",
-		},
-		{
-			key: "Artists",
+			key: "top-artists",
 			text: "My Top Artists",
-			value: "Artists",
+			value: "top-artists",
 		},
 		{
-			key: "Playlists",
-			text: "My Playlists",
-			value: "Playlists",
-		},
-		{
-			key: "Search",
+			key: "search",
 			text: "Search",
-			value: "Search",
+			value: "search",
+		},
+	];
+
+	const TrackOptions = [
+		{
+			key: "top-tracks",
+			text: "My Top Tracks",
+			value: "top-tracks",
+		},
+		{
+			key: "my-playlists",
+			text: "My Playlists",
+			value: "my-playlists",
+		},
+		{
+			key: "search",
+			text: "Search",
+			value: "search",
 		},
 	];
 	return (
-		<Dropdown
-			onChange={props.updateSelection}
-			placeholder="Select"
-			selection
-			value={props.selection}
-			options={searchOptions}
-		/>
+		<div>
+			<Dropdown
+				onChange={props.updateSelection}
+				placeholder="Select"
+				selection
+				value={props.selection}
+				options={
+					props.searchType === "Artists"
+						? ArtistOptions
+						: TrackOptions
+				}
+			/>
+		</div>
 	);
 };
 
