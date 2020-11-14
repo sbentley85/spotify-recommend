@@ -1,17 +1,19 @@
 import React, {useState} from 'react';
 import './App.css';
 import Spotify from './util/spotify'
-import SearchBar from './components/SearchBar'
+import SearchBar from './components/SearchBar/SearchBar'
 import MyPlaylists from './components/MyPlaylists';
 import MyRecommendations from './components/MyRecommendations'
 import Picks from './components/Picks'
 import TopTracks from './components/TopTracks'
 import TopArtists from './components/TopArtists'
+import 'semantic-ui-css/semantic.min.css'
+import SearchResults from './components/SearchBar/SearchResults'
 
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [recommendations, setRecommendations] = useState(null)
+  const [searchTracks, setSearchTracks] = useState(null)
 
   const updateSearchTerm = (event: any) => {
     const term = event.target.value;
@@ -20,7 +22,7 @@ function App() {
 
   const onSearch = async () => {
     const tracks = await Spotify.search(searchTerm);
-    setRecommendations(tracks);
+    setSearchTracks(tracks);
 
   }
 
@@ -35,6 +37,7 @@ function App() {
         <SearchBar {...searchBarProps}/>
 
       <div className="content">
+        {searchTracks ? <SearchResults tracks={searchTracks}/> : <></>}
         <MyPlaylists />
         <TopTracks />
         <TopArtists />

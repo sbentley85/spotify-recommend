@@ -8,11 +8,9 @@ const MyPlaylists = () => {
 	useEffect(()=> {
 
 		const getPlaylists = async () => {
-			console.log('getting my playlists')
 			const playlists = await spotify.getPlaylists();
 			setMyPlaylists(playlists);
 		}
-
 		if(myPlaylists.length === 0) getPlaylists();
 		
 	}) 

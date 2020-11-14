@@ -22,7 +22,8 @@ code {
 #my-playlists,
 #my-recommendations,
 #picks,
-#my-top-tracks {
+#my-top-tracks,
+#search-results {
 	margin: 1rem;
 	padding: 1rem;
 	border: 1px solid black;

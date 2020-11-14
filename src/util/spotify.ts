@@ -1,4 +1,4 @@
-import { stringify } from "querystring";
+
 
 
 let accessToken: string;
@@ -21,7 +21,7 @@ const Spotify = {
     getAccessToken () {
         
         if (accessToken) {
-            console.log(`Existing token: ${accessToken}`)
+
             return accessToken;
         }
         // check for access token match
@@ -110,13 +110,13 @@ const Spotify = {
     },
 
     getTopTracks () {
-        console.log('getting top tracks');
+
         const accessToken = Spotify.getAccessToken();
         const headers = { Authorization: `Bearer ${accessToken}` };
 
-        return fetch('https://api.spotify.com/v1/me/top/tracks', {headers: headers}).then(response => response.json()
+        return fetch('https://api.spotify.com/v1/me/top/tracks?time_range=long_term', {headers: headers}).then(response => response.json()
         ).then((jsonResponse) => {
-            console.log(jsonResponse)
+
             return jsonResponse.items.map((track: any) => ({
                 id: track.id,
                 name: track.name,
