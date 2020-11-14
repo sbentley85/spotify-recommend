@@ -1,11 +1,12 @@
 import React from 'react';
 
-const SearchBar = () => {
+const SearchBar = (props: any) => {
     return (
-        <div>
-            <input type="text"/>
+        <div id="searchbar">
+            <input type="text" id="input" onChange={props.updateSearchTerm}/>
+            <button onClick={props.onSearch}>Search</button>
         </div>
     );
 };
 
-export default SearchBar;<input type="text"/>
+export default SearchBar;
