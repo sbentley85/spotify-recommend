@@ -11,26 +11,3 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 		monospace;
 }
-
-#my-playlists {
-	border: 1px solid black;
-}
-
-#my-recommendations {
-}
-
-#my-playlists,
-#my-recommendations,
-#picks,
-#my-top-tracks,
-#search-results {
-	margin: 1rem;
-	padding: 1rem;
-	border: 1px solid black;
-}
-
-.content {
-	display: flex;
-	justify-content: space-around;
-	flex-wrap: wrap;
-}
