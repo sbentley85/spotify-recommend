@@ -19,8 +19,13 @@ const Choices = (props: any) => {
 	};
 
 	const updateSearchType = (event: any, data: any) => {
-		if (event.target.checked) setSearchType("Tracks");
-		else setSearchType("Artists");
+		if (event.target.checked) {
+			setSearchType("Tracks");
+			setSelection("top-tracks");
+		} else {
+			setSearchType("Artists");
+			setSelection("top-artists");
+		}
 	};
 
 	return (
@@ -36,18 +41,26 @@ const Choices = (props: any) => {
 				</Grid.Column>
 			</Grid.Row>
 			<Grid.Row columns={4}>
-				<Grid.Column>
-					<SearchBar />
-				</Grid.Column>
-				<Grid.Column>
-					<MyPlaylists />
-				</Grid.Column>
-				<Grid.Column>
-					<TopTracks />
-				</Grid.Column>
-				<Grid.Column>
-					<TopArtists />
-				</Grid.Column>
+				{selection === "search" ? (
+					<Grid.Column>
+						<SearchBar searchType={searchType} />
+					</Grid.Column>
+				) : null}
+				{selection === "my-playlists" ? (
+					<Grid.Column>
+						<MyPlaylists />
+					</Grid.Column>
+				) : null}
+				{selection === "top-tracks" ? (
+					<Grid.Column>
+						<TopTracks />
+					</Grid.Column>
+				) : null}
+				{selection === "top-artists" ? (
+					<Grid.Column>
+						<TopArtists />
+					</Grid.Column>
+				) : null}
 			</Grid.Row>
 		</>
 	);
