@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const Playlist = (props: any) => {
 	return (
-		<div>
+		<div id={props.playlist.id} onClick={props.selectPlaylist}>
 			{props.playlist.name}
 		</div>
 	);

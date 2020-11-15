@@ -26,7 +26,7 @@ const TermInput = (props: any) => {
 				onChange={props.updateTerm}
 				placeholder="Select"
 				selection
-				value={props.selection}
+				value={props.term}
 				options={termOptions}
 			/>
 		</div>

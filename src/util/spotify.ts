@@ -193,19 +193,33 @@ const Spotify = {
 			.then((response) => response.json())
 			.then((jsonResponse) => {
 				return jsonResponse.items.map(
-					(playlist: { id: number; name: string }) => ({
+					(playlist: { id: number; name: string; tracks: any }) => ({
 						id: playlist.id,
 						name: playlist.name,
+						length: playlist.tracks.total,
 					})
 				);
 			});
 	},
-	getPlaylistTracks() {
+	getPlaylistTracks(id: string) {
 		console.log("getting playlist tracks");
-		// /v1/playlists/{playlist_id}/tracks
+		console.log(id);
 
 		const accessToken = Spotify.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
+
+		return fetch(`https://api.spotify.com/v1/playlists/${id}/tracks`, {
+			headers: headers,
+		})
+			.then((response) => response.json())
+			.then((jsonResponse) => {
+				console.log(jsonResponse);
+				return jsonResponse.items.map((track: any) => ({
+					id: track.track.id,
+					name: track.track.name,
+					artist: track.track.artists[0].name,
+				}));
+			});
 	},
 };
 

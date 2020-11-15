@@ -1,26 +1,33 @@
-import React,{ useEffect, useState } from 'react';
-import spotify from '../util/spotify'
-import Playlist from './Playlist'
+import React, { useEffect, useState } from "react";
+import spotify from "../util/spotify";
+import Playlist from "./Playlist";
 
-const MyPlaylists = () => {
-	const [myPlaylists, setMyPlaylists] = useState([])
+const MyPlaylists = (props: { selectPlaylist: any }) => {
+	const [myPlaylists, setMyPlaylists] = useState([]);
 
-	useEffect(()=> {
-
+	useEffect(() => {
 		const getPlaylists = async () => {
 			const playlists = await spotify.getPlaylists();
 			setMyPlaylists(playlists);
-		}
-		if(myPlaylists.length === 0) getPlaylists();
-		
-	}) 
-
+		};
+		if (myPlaylists.length === 0) getPlaylists();
+	});
 
 	return (
 		<div id="my-playlists">
-			{myPlaylists.length !== 0 ? myPlaylists!.map((playlist: {name: string, id: string}) => {
-				return <Playlist playlist={playlist} key={playlist.id}/>
-			}) : <></>}
+			{myPlaylists.length !== 0 ? (
+				myPlaylists!.map((playlist: { name: string; id: string }) => {
+					return (
+						<Playlist
+							selectPlaylist={props.selectPlaylist}
+							playlist={playlist}
+							key={playlist.id}
+						/>
+					);
+				})
+			) : (
+				<></>
+			)}
 		</div>
 	);
 };

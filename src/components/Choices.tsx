@@ -7,18 +7,28 @@ import TopArtists from "./TopArtists";
 import ChoicesInput from "./ChoicesInput";
 import "semantic-ui-css/semantic.min.css";
 import ChoicesSlider from "./ChoicesSlider";
+import Spotify from "../util/spotify";
 
 import TermInput from "./termInput";
+import TrackList from "./TrackList";
 
 const Choices = (props: any) => {
 	const methods = ["Artist", "Tracks", "Playlists", "Search"];
 	const [selection, setSelection] = useState("top-artists");
 	const [searchType, setSearchType] = useState("Artists");
 	const [term, setTerm] = useState("long_term");
+	const [selectedPlaylist, setSelectedPlaylist] = useState("");
+	const [playlistTracks, setPlaylistTracks] = useState([]);
 
 	const updateSelection = (event: any, data: any) => {
 		const choice = data.value;
 		setSelection(choice);
+	};
+
+	const selectPlaylist = async (event: any) => {
+		await setSelectedPlaylist(event.target.id);
+		const tracks = await Spotify.getPlaylistTracks(event.target.id);
+		setPlaylistTracks(tracks);
 	};
 
 	const updateTerm = (event: any, data: any) => {
@@ -55,9 +65,16 @@ const Choices = (props: any) => {
 					</Grid.Column>
 				) : null}
 				{selection === "my-playlists" ? (
-					<Grid.Column>
-						<MyPlaylists />
-					</Grid.Column>
+					<>
+						<Grid.Column>
+							<MyPlaylists selectPlaylist={selectPlaylist} />
+						</Grid.Column>
+						<Grid.Column>
+							{selectedPlaylist !== "" ? (
+								<TrackList tracks={playlistTracks} />
+							) : null}
+						</Grid.Column>
+					</>
 				) : null}
 				{selection === "top-tracks" ? (
 					<Grid.Column>
