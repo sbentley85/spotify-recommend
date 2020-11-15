@@ -146,12 +146,12 @@ const Spotify = {
 			});
 	},
 
-	getTopTracks() {
+	getTopTracks(term: string) {
 		const accessToken = Spotify.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
 		return fetch(
-			"https://api.spotify.com/v1/me/top/tracks?time_range=long_term",
+			`https://api.spotify.com/v1/me/top/tracks?time_range=${term}`,
 			{ headers: headers }
 		)
 			.then((response) => response.json())
@@ -164,13 +164,16 @@ const Spotify = {
 			});
 	},
 
-	getTopArtists() {
+	getTopArtists(term: string) {
 		const accessToken = Spotify.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
-		return fetch("https://api.spotify.com/v1/me/top/artists", {
-			headers: headers,
-		})
+		return fetch(
+			`https://api.spotify.com/v1/me/top/artists?time_range=${term}`,
+			{
+				headers: headers,
+			}
+		)
 			.then((response) => response.json())
 			.then((jsonResponse) => {
 				return jsonResponse.items.map((artist: any) => ({

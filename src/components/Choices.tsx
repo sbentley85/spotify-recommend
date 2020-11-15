@@ -8,14 +8,22 @@ import ChoicesInput from "./ChoicesInput";
 import "semantic-ui-css/semantic.min.css";
 import ChoicesSlider from "./ChoicesSlider";
 
+import TermInput from "./termInput";
+
 const Choices = (props: any) => {
 	const methods = ["Artist", "Tracks", "Playlists", "Search"];
 	const [selection, setSelection] = useState("top-artists");
 	const [searchType, setSearchType] = useState("Artists");
+	const [term, setTerm] = useState("long_term");
 
 	const updateSelection = (event: any, data: any) => {
 		const choice = data.value;
 		setSelection(choice);
+	};
+
+	const updateTerm = (event: any, data: any) => {
+		const termSelection = data.value;
+		setTerm(termSelection);
 	};
 
 	const updateSearchType = (event: any, data: any) => {
@@ -53,12 +61,14 @@ const Choices = (props: any) => {
 				) : null}
 				{selection === "top-tracks" ? (
 					<Grid.Column>
-						<TopTracks />
+						<TermInput updateTerm={updateTerm} term={term} />
+						<TopTracks term={term} />
 					</Grid.Column>
 				) : null}
 				{selection === "top-artists" ? (
 					<Grid.Column>
-						<TopArtists />
+						<TermInput updateTerm={updateTerm} term={term} />
+						<TopArtists term={term} />
 					</Grid.Column>
 				) : null}
 			</Grid.Row>
