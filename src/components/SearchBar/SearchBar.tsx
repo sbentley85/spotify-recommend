@@ -29,8 +29,22 @@ const SearchBar = (props: any) => {
 		<div id="searchbar">
 			<SearchInput onChange={updateSearchTerm} />
 			<SearchButton onSearch={onSearch} />
-			{searchTracks ? <SearchResults tracks={searchTracks} /> : <></>}
-			{searchArtists ? <SearchResults artists={searchArtists} /> : <></>}
+			{searchTracks ? (
+				<SearchResults
+					addToPicks={props.addTopicks}
+					tracks={searchTracks}
+				/>
+			) : (
+				<></>
+			)}
+			{searchArtists ? (
+				<SearchResults
+					addToPicks={props.addToPicks}
+					artists={searchArtists}
+				/>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 };

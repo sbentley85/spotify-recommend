@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import spotify from "../util/spotify";
 import TrackList from "./TrackList";
 
-const TopTracks = (props: { term: string }) => {
+const TopTracks = (props: { term: string; addToPicks: any }) => {
 	const [topTracks, setTopTracks] = useState([]);
 	const [term, setTerm] = useState("long-term");
 
@@ -13,11 +13,11 @@ const TopTracks = (props: { term: string }) => {
 			setTopTracks(tracks);
 			setTerm(props.term);
 		};
-		if (topTracks.length === 0 || term != props.term) getTopTracks();
+		if (topTracks.length === 0 || term !== props.term) getTopTracks();
 	});
 	return (
 		<div id="my-top-tracks">
-			<TrackList tracks={topTracks} />
+			<TrackList addToPicks={props.addToPicks} tracks={topTracks} />
 		</div>
 	);
 };

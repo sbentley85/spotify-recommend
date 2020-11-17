@@ -202,9 +202,6 @@ const Spotify = {
 			});
 	},
 	getPlaylistTracks(id: string) {
-		console.log("getting playlist tracks");
-		console.log(id);
-
 		const accessToken = Spotify.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
@@ -213,7 +210,6 @@ const Spotify = {
 		})
 			.then((response) => response.json())
 			.then((jsonResponse) => {
-				console.log(jsonResponse);
 				return jsonResponse.items.map((track: any) => ({
 					id: track.track.id,
 					name: track.track.name,

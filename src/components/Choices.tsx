@@ -7,18 +7,21 @@ import TopArtists from "./TopArtists";
 import ChoicesInput from "./ChoicesInput";
 import "semantic-ui-css/semantic.min.css";
 import ChoicesSlider from "./ChoicesSlider";
+import BackButton from "./BackButton";
 import Spotify from "../util/spotify";
 
 import TermInput from "./termInput";
 import TrackList from "./TrackList";
+import MyRecommendations from "./MyRecommendations";
+import Picks from "./Picks";
 
 const Choices = (props: any) => {
-	const methods = ["Artist", "Tracks", "Playlists", "Search"];
 	const [selection, setSelection] = useState("top-artists");
 	const [searchType, setSearchType] = useState("Artists");
 	const [term, setTerm] = useState("long_term");
 	const [selectedPlaylist, setSelectedPlaylist] = useState("");
 	const [playlistTracks, setPlaylistTracks] = useState([]);
+	const [picks, setPicks] = useState([]);
 
 	const updateSelection = (event: any, data: any) => {
 		const choice = data.value;
@@ -26,6 +29,8 @@ const Choices = (props: any) => {
 	};
 
 	const selectPlaylist = async (event: any) => {
+		setPlaylistTracks([]);
+		setSelectedPlaylist("");
 		await setSelectedPlaylist(event.target.id);
 		const tracks = await Spotify.getPlaylistTracks(event.target.id);
 		setPlaylistTracks(tracks);
@@ -46,6 +51,15 @@ const Choices = (props: any) => {
 		}
 	};
 
+	const clearTracks = () => {
+		setPlaylistTracks([]);
+	};
+
+	const addToPicks = (event: any, id: string) => {
+		console.log("adding to picks");
+		console.log(id);
+	};
+
 	return (
 		<>
 			<Grid.Row columns={1}>
@@ -58,36 +72,50 @@ const Choices = (props: any) => {
 					<ChoicesSlider updateSearchType={updateSearchType} />
 				</Grid.Column>
 			</Grid.Row>
-			<Grid.Row columns={4}>
+			<Grid.Row columns={3}>
 				{selection === "search" ? (
 					<Grid.Column>
-						<SearchBar searchType={searchType} />
+						<SearchBar
+							addToPicks={addToPicks}
+							searchType={searchType}
+						/>
 					</Grid.Column>
 				) : null}
 				{selection === "my-playlists" ? (
 					<>
 						<Grid.Column>
-							<MyPlaylists selectPlaylist={selectPlaylist} />
-						</Grid.Column>
-						<Grid.Column>
-							{selectedPlaylist !== "" ? (
-								<TrackList tracks={playlistTracks} />
-							) : null}
+							{playlistTracks.length > 0 ? (
+								<>
+									<BackButton clearTracks={clearTracks} />
+									<TrackList
+										addToPicks={addToPicks}
+										tracks={playlistTracks}
+									/>
+								</>
+							) : (
+								<MyPlaylists selectPlaylist={selectPlaylist} />
+							)}
 						</Grid.Column>
 					</>
 				) : null}
 				{selection === "top-tracks" ? (
 					<Grid.Column>
 						<TermInput updateTerm={updateTerm} term={term} />
-						<TopTracks term={term} />
+						<TopTracks addToPicks={addToPicks} term={term} />
 					</Grid.Column>
 				) : null}
 				{selection === "top-artists" ? (
 					<Grid.Column>
 						<TermInput updateTerm={updateTerm} term={term} />
-						<TopArtists term={term} />
+						<TopArtists addToPicks={addToPicks} term={term} />
 					</Grid.Column>
 				) : null}
+				<Grid.Column>
+					<Picks />
+				</Grid.Column>
+				<Grid.Column>
+					<MyRecommendations />
+				</Grid.Column>
 			</Grid.Row>
 		</>
 	);
