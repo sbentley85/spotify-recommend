@@ -5,7 +5,7 @@ const Track = (props: {
 	addToPicks: any;
 }) => {
 	return (
-		<div onClick={(e) => props.addToPicks(e, props.track.id)}>
+		<div onClick={(e) => props.addToPicks(e, props.track)}>
 			{props.track.artist + " - " + props.track.name}
 		</div>
 	);

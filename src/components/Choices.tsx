@@ -21,18 +21,24 @@ const Choices = (props: any) => {
 	const [term, setTerm] = useState("long_term");
 	const [selectedPlaylist, setSelectedPlaylist] = useState("");
 	const [playlistTracks, setPlaylistTracks] = useState([]);
-	const [picks, setPicks] = useState([]);
+	const [picks, setPicks] = useState<Array<IPicks>>([]);
+
+	interface IPicks {
+		name: string;
+		id: string;
+		artist?: string;
+	}
 
 	const updateSelection = (event: any, data: any) => {
 		const choice = data.value;
 		setSelection(choice);
 	};
 
-	const selectPlaylist = async (event: any) => {
+	const selectPlaylist = async (event: any, id: string) => {
 		setPlaylistTracks([]);
 		setSelectedPlaylist("");
-		await setSelectedPlaylist(event.target.id);
-		const tracks = await Spotify.getPlaylistTracks(event.target.id);
+		await setSelectedPlaylist(id);
+		const tracks = await Spotify.getPlaylistTracks(id);
 		setPlaylistTracks(tracks);
 	};
 
@@ -42,6 +48,7 @@ const Choices = (props: any) => {
 	};
 
 	const updateSearchType = (event: any, data: any) => {
+		setPicks([]);
 		if (event.target.checked) {
 			setSearchType("Tracks");
 			setSelection("top-tracks");
@@ -55,9 +62,16 @@ const Choices = (props: any) => {
 		setPlaylistTracks([]);
 	};
 
-	const addToPicks = (event: any, id: string) => {
+	const addToPicks = (
+		event: any,
+		choice: { id: string; name: string; artist?: string }
+	) => {
 		console.log("adding to picks");
-		console.log(id);
+		console.log(choice);
+
+		let existing = picks;
+		existing.push(choice);
+		setPicks(existing);
 	};
 
 	return (
@@ -111,7 +125,7 @@ const Choices = (props: any) => {
 					</Grid.Column>
 				) : null}
 				<Grid.Column>
-					<Picks />
+					<Picks searchType={searchType} picks={picks} />
 				</Grid.Column>
 				<Grid.Column>
 					<MyRecommendations />

@@ -1,10 +1,22 @@
-import React from 'react';
+import React from "react";
+import IPicks from "./Choices";
+import TrackList from "./TrackList";
+import ArtistList from "./ArtistList";
 
-const Picks = () => {
+const Picks = (props: { picks: any; searchType: string }) => {
 	return (
-		<div id="picks">
-			These are my picks
-		</div>
+		<>
+			{props.searchType === "Artists" ? (
+				<ArtistList artists={props.picks} />
+			) : (
+				<></>
+			)}
+			{props.searchType === "Tracks" ? (
+				<TrackList tracks={props.picks} />
+			) : (
+				<></>
+			)}
+		</>
 	);
 };
 

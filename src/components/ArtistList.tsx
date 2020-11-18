@@ -3,7 +3,7 @@ import Artist from "./Artist";
 
 const ArtistList = (props: {
 	artists: { name: string; id: string }[];
-	addToPicks: any;
+	addToPicks?: any;
 }) => {
 	return (
 		<div>
