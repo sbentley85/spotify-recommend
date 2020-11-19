@@ -15,6 +15,7 @@ const TopArtists = (props: { term: string; addToPicks: any }) => {
 		};
 		if (topArtists.length === 0 || term !== props.term) getTopArtists();
 	});
+
 	return (
 		<div id="my-top-tracks">
 			<ArtistList addToPicks={props.addToPicks} artists={topArtists} />

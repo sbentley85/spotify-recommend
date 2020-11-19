@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid } from "semantic-ui-react";
 import SearchBar from "./SearchBar/SearchBar";
 import MyPlaylists from "./MyPlaylists";
@@ -68,10 +68,8 @@ const Choices = (props: any) => {
 	) => {
 		console.log("adding to picks");
 		console.log(choice);
-
-		let existing = picks;
-		existing.push(choice);
-		setPicks(existing);
+		const newPicks = [...picks, choice];
+		setPicks(newPicks);
 	};
 
 	return (

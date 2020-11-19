@@ -7,6 +7,7 @@ const ArtistList = (props: {
 }) => {
 	return (
 		<div>
+			jjj
 			{props.artists.map((artist: { name: string; id: string }) => {
 				return (
 					<Artist

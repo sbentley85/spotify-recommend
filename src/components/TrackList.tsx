@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Track from "./Track";
+import IPicks from "./Choices";
 
 const TrackList = (props: {
 	addToPicks?: any;

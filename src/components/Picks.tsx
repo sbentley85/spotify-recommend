@@ -1,5 +1,5 @@
-import React from "react";
-import IPicks from "./Choices";
+import React, { useEffect, useState } from "react";
+
 import TrackList from "./TrackList";
 import ArtistList from "./ArtistList";
 
