@@ -6,7 +6,7 @@ const ArtistList = (props: {
 	handlePicks?: any;
 }) => {
 	return (
-		<div>
+		<div className="artistList">
 			{props.artists.map((artist: { name: string; id: string }) => {
 				return (
 					<Artist

@@ -9,8 +9,7 @@ function App() {
 	return (
 		<div className="App">
 			<Container>
-				<h1>Spotify Recommend</h1>
-				<Grid columns={1}>
+				<Grid stackable columns={1}>
 					<Choices />
 				</Grid>
 			</Container>

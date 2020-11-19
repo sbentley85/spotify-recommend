@@ -113,59 +113,75 @@ const Choices = (props: any) => {
 
 			setRecommendations(recommendations);
 		};
-		if (picks.length !== 0) getRecommendations();
+		picks.length !== 0 ? getRecommendations() : setRecommendations([]);
 	}, [picks]);
 
 	return (
 		<>
-			<Grid.Row columns={1}>
+			<Grid.Row columns={2}>
 				<Grid.Column>
 					<ChoicesInput
 						searchType={searchType}
 						selection={selection}
 						updateSelection={updateSelection}
 					/>
+				</Grid.Column>
+				<Grid.Column>
 					<ChoicesSlider updateSearchType={updateSearchType} />
 				</Grid.Column>
 			</Grid.Row>
-			<Grid.Row columns={3}>
-				{selection === "search" ? (
-					<Grid.Column>
-						<SearchBar
-							handlePicks={handlePicks}
-							searchType={searchType}
-						/>
-					</Grid.Column>
-				) : null}
-				{selection === "my-playlists" ? (
-					<>
-						<Grid.Column>
-							{playlistTracks.length > 0 ? (
-								<>
-									<BackButton clearTracks={clearTracks} />
-									<TrackList
-										handlePicks={handlePicks}
-										tracks={playlistTracks}
+			<Grid.Row columns={2}>
+				<Grid.Column>
+					<div id="select">
+						{selection === "search" ? (
+							<SearchBar
+								handlePicks={handlePicks}
+								searchType={searchType}
+							/>
+						) : null}
+						{selection === "my-playlists" ? (
+							<>
+								{playlistTracks.length > 0 ? (
+									<>
+										<BackButton clearTracks={clearTracks} />
+										<TrackList
+											handlePicks={handlePicks}
+											tracks={playlistTracks}
+										/>
+									</>
+								) : (
+									<MyPlaylists
+										selectPlaylist={selectPlaylist}
 									/>
-								</>
-							) : (
-								<MyPlaylists selectPlaylist={selectPlaylist} />
-							)}
-						</Grid.Column>
-					</>
-				) : null}
-				{selection === "top-tracks" ? (
-					<Grid.Column>
-						<TermInput updateTerm={updateTerm} term={term} />
-						<TopTracks handlePicks={handlePicks} term={term} />
-					</Grid.Column>
-				) : null}
-				{selection === "top-artists" ? (
-					<Grid.Column>
-						<TermInput updateTerm={updateTerm} term={term} />
-						<TopArtists handlePicks={handlePicks} term={term} />
-					</Grid.Column>
-				) : null}
+								)}
+							</>
+						) : null}
+						{selection === "top-tracks" ? (
+							<>
+								<TermInput
+									updateTerm={updateTerm}
+									term={term}
+								/>
+								<TopTracks
+									handlePicks={handlePicks}
+									term={term}
+								/>
+							</>
+						) : null}
+						{selection === "top-artists" ? (
+							<>
+								<TermInput
+									updateTerm={updateTerm}
+									term={term}
+								/>
+								<TopArtists
+									handlePicks={handlePicks}
+									term={term}
+								/>
+							</>
+						) : null}
+					</div>
+				</Grid.Column>
 				<Grid.Column>
 					<Picks
 						searchType={searchType}
@@ -173,6 +189,8 @@ const Choices = (props: any) => {
 						handlePicks={handlePicks}
 					/>
 				</Grid.Column>
+			</Grid.Row>
+			<Grid.Row columns={1}>
 				<Grid.Column>
 					<MyRecommendations tracks={recommendations} />
 				</Grid.Column>

@@ -38,6 +38,26 @@
 }
 
 .artist,
-.track {
+.track,
+.playlist {
 	cursor: pointer;
+	margin: 0.5rem;
+}
+
+.trackList,
+.artistList,
+#my-playlists {
+	margin: 1rem;
+	padding: 1rem;
+	max-height: 300px;
+	overflow-y: auto;
+}
+
+#searchBar {
+	margin: 1rem;
+}
+
+.select {
+	max-height: 350px;
+	overflow-y: auto;
 }

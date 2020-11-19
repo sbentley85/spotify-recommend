@@ -2,7 +2,10 @@ import React from "react";
 
 const Playlist = (props: any) => {
 	return (
-		<div onClick={(e) => props.selectPlaylist(e, props.playlist.id)}>
+		<div
+			onClick={(e) => props.selectPlaylist(e, props.playlist.id)}
+			className="playlist"
+		>
 			{props.playlist.name}
 		</div>
 	);

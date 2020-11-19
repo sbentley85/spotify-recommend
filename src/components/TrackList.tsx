@@ -6,7 +6,7 @@ const TrackList = (props: {
 	tracks: { id: string; name: string; artist: string }[];
 }) => {
 	return (
-		<div>
+		<div className="trackList">
 			{props.tracks.map(
 				(
 					track: { id: string; name: string; artist: string },

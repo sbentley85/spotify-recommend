@@ -26,7 +26,7 @@ const SearchBar = (props: any) => {
 	};
 
 	return (
-		<div id="searchbar">
+		<div id="searchBar">
 			<SearchInput onChange={updateSearchTerm} />
 			<SearchButton onSearch={onSearch} />
 			{searchTracks ? (

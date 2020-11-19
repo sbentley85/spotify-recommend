@@ -156,10 +156,13 @@ const Spotify = {
 		)
 			.then((response) => response.json())
 			.then((jsonResponse) => {
+				console.log(jsonResponse);
 				return jsonResponse.items.map((track: any) => ({
 					id: track.id,
 					name: track.name,
 					artist: track.artists[0].name,
+					medImg: track.album.images[1],
+					smImg: track.album.images[2],
 				}));
 			});
 	},
@@ -176,9 +179,12 @@ const Spotify = {
 		)
 			.then((response) => response.json())
 			.then((jsonResponse) => {
+				console.log(jsonResponse);
 				return jsonResponse.items.map((artist: any) => ({
 					id: artist.id,
 					name: artist.name,
+					medImg: artist.images[1],
+					smImg: artist.images[2],
 				}));
 			});
 	},
