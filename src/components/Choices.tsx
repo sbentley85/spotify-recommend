@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Grid } from "semantic-ui-react";
 import SearchBar from "./SearchBar/SearchBar";
 import MyPlaylists from "./MyPlaylists";
@@ -9,7 +9,6 @@ import "semantic-ui-css/semantic.min.css";
 import ChoicesSlider from "./ChoicesSlider";
 import BackButton from "./BackButton";
 import Spotify from "../util/spotify";
-
 import TermInput from "./termInput";
 import TrackList from "./TrackList";
 import MyRecommendations from "./MyRecommendations";
@@ -19,7 +18,6 @@ const Choices = (props: any) => {
 	const [selection, setSelection] = useState("top-artists");
 	const [searchType, setSearchType] = useState("Artists");
 	const [term, setTerm] = useState("long_term");
-	const [selectedPlaylist, setSelectedPlaylist] = useState("");
 	const [playlistTracks, setPlaylistTracks] = useState([]);
 	const [picks, setPicks] = useState<Array<IPicks>>([]);
 
@@ -36,8 +34,7 @@ const Choices = (props: any) => {
 
 	const selectPlaylist = async (event: any, id: string) => {
 		setPlaylistTracks([]);
-		setSelectedPlaylist("");
-		await setSelectedPlaylist(id);
+
 		const tracks = await Spotify.getPlaylistTracks(id);
 		setPlaylistTracks(tracks);
 	};
@@ -63,11 +60,9 @@ const Choices = (props: any) => {
 	};
 
 	const addToPicks = (
-		event: any,
+		event: InputEvent,
 		choice: { id: string; name: string; artist?: string }
 	) => {
-		console.log("adding to picks");
-		console.log(choice);
 		const newPicks = [...picks, choice];
 		setPicks(newPicks);
 	};

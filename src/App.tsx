@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
-import MyRecommendations from "./components/MyRecommendations";
-import Picks from "./components/Picks";
+
 import Choices from "./components/Choices";
 import "semantic-ui-css/semantic.min.css";
 import { Grid, Container } from "semantic-ui-react";
