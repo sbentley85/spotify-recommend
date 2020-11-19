@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid } from "semantic-ui-react";
 import SearchBar from "./SearchBar/SearchBar";
 import MyPlaylists from "./MyPlaylists";
@@ -20,6 +20,7 @@ const Choices = (props: any) => {
 	const [term, setTerm] = useState("long_term");
 	const [playlistTracks, setPlaylistTracks] = useState([]);
 	const [picks, setPicks] = useState<Array<IPicks>>([]);
+	const [recommendations, setRecommendations] = useState([]);
 
 	interface IPicks {
 		name: string;
@@ -45,6 +46,7 @@ const Choices = (props: any) => {
 
 	const updateSearchType = (event: any, data: any) => {
 		setPicks([]);
+		setRecommendations([]);
 		if (event.target.checked) {
 			setSearchType("Tracks");
 			setSelection("top-tracks");
@@ -101,6 +103,18 @@ const Choices = (props: any) => {
 		});
 		setPicks(newPicks);
 	};
+
+	useEffect(() => {
+		const getRecommendations = async () => {
+			const recommendations = await Spotify.getRecommendations(
+				picks,
+				searchType
+			);
+
+			setRecommendations(recommendations);
+		};
+		if (picks.length !== 0) getRecommendations();
+	}, [picks]);
 
 	return (
 		<>
@@ -160,7 +174,7 @@ const Choices = (props: any) => {
 					/>
 				</Grid.Column>
 				<Grid.Column>
-					<MyRecommendations />
+					<MyRecommendations tracks={recommendations} />
 				</Grid.Column>
 			</Grid.Row>
 		</>

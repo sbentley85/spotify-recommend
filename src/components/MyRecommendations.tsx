@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
+import TrackList from "./TrackList";
 
-const MyRecommendations = () => {
+const MyRecommendations = (props: { tracks: any }) => {
 	return (
 		<div id="my-recommendations">
-			These are my recommendations
+			<TrackList tracks={props.tracks} />
 		</div>
 	);
 };

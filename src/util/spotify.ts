@@ -217,6 +217,37 @@ const Spotify = {
 				}));
 			});
 	},
+
+	getRecommendations(picks: any, searchType: string) {
+		// https://api.spotify.com/v1/recommendations?seed_artists=4NHQUGzhtTLFvgF5SZesLK
+		const accessToken = Spotify.getAccessToken();
+		const headers = { Authorization: `Bearer ${accessToken}` };
+		const url = "https://api.spotify.com/v1/recommendations?";
+		const option =
+			searchType === "Artists" ? "seed_artists=" : "seed_tracks=";
+
+		let seedList = "";
+		picks.forEach((pick: any) => {
+			seedList = seedList.concat(pick.id, ",");
+		});
+		seedList = seedList.slice(0, seedList.length - 1);
+
+		return fetch(
+			`https://api.spotify.com/v1/recommendations?${option}${seedList}`,
+			{
+				headers: headers,
+			}
+		)
+			.then((response) => response.json())
+			.then((jsonResponse) => {
+				console.log(jsonResponse);
+				return jsonResponse.tracks.map((track: any) => ({
+					id: track.id,
+					name: track.name,
+					artist: track.artists[0].name,
+				}));
+			});
+	},
 };
 
 export default Spotify;
