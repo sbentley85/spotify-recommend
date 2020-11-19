@@ -5,19 +5,19 @@ import TrackList from "../TrackList";
 const SearchResults = (props: {
 	tracks?: any;
 	artists?: any;
-	addToPicks: any;
+	handlePicks: any;
 }) => {
 	return (
 		<div id="search-results">
 			{props.tracks ? (
 				<TrackList
-					addToPicks={props.addToPicks}
+					handlePicks={props.handlePicks}
 					tracks={props.tracks}
 				/>
 			) : null}
 			{props.artists ? (
 				<ArtistList
-					addToPicks={props.addToPicks}
+					handlePicks={props.handlePicks}
 					artists={props.artists}
 				/>
 			) : null}

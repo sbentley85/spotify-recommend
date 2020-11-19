@@ -3,15 +3,14 @@ import Artist from "./Artist";
 
 const ArtistList = (props: {
 	artists: { name: string; id: string }[];
-	addToPicks?: any;
+	handlePicks?: any;
 }) => {
 	return (
 		<div>
-			jjj
 			{props.artists.map((artist: { name: string; id: string }) => {
 				return (
 					<Artist
-						addToPicks={props.addToPicks}
+						handlePicks={props.handlePicks}
 						artist={artist}
 						key={artist.id}
 					/>

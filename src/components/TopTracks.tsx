@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import spotify from "../util/spotify";
 import TrackList from "./TrackList";
 
-const TopTracks = (props: { term: string; addToPicks: any }) => {
+const TopTracks = (props: { term: string; handlePicks: any }) => {
 	const [topTracks, setTopTracks] = useState([]);
 	const [term, setTerm] = useState("long-term");
 
@@ -17,7 +17,7 @@ const TopTracks = (props: { term: string; addToPicks: any }) => {
 	});
 	return (
 		<div id="my-top-tracks">
-			<TrackList addToPicks={props.addToPicks} tracks={topTracks} />
+			<TrackList handlePicks={props.handlePicks} tracks={topTracks} />
 		</div>
 	);
 };

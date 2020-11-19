@@ -34,7 +34,6 @@ const Choices = (props: any) => {
 
 	const selectPlaylist = async (event: any, id: string) => {
 		setPlaylistTracks([]);
-
 		const tracks = await Spotify.getPlaylistTracks(id);
 		setPlaylistTracks(tracks);
 	};
@@ -59,11 +58,47 @@ const Choices = (props: any) => {
 		setPlaylistTracks([]);
 	};
 
-	const addToPicks = (
+	const handlePicks = (
 		event: InputEvent,
 		choice: { id: string; name: string; artist?: string }
 	) => {
+		if (
+			picks.filter((pick) => {
+				return pick.id === choice.id;
+			}).length !== 0
+		) {
+			removeFromPicks(choice);
+		} else {
+			addToPicks(choice);
+		}
+	};
+
+	const addToPicks = (choice: {
+		id: string;
+		name: string;
+		artist?: string;
+	}) => {
+		if (picks.length === 5) return;
+		if (
+			picks.filter((pick) => {
+				return pick.id === choice.id;
+			}).length !== 0
+		) {
+			return;
+		}
+
 		const newPicks = [...picks, choice];
+		setPicks(newPicks);
+	};
+
+	const removeFromPicks = (choice: {
+		id: string;
+		name: string;
+		artist?: string;
+	}) => {
+		const newPicks = picks.filter((pick) => {
+			return pick.id !== choice.id;
+		});
 		setPicks(newPicks);
 	};
 
@@ -83,7 +118,7 @@ const Choices = (props: any) => {
 				{selection === "search" ? (
 					<Grid.Column>
 						<SearchBar
-							addToPicks={addToPicks}
+							handlePicks={handlePicks}
 							searchType={searchType}
 						/>
 					</Grid.Column>
@@ -95,7 +130,7 @@ const Choices = (props: any) => {
 								<>
 									<BackButton clearTracks={clearTracks} />
 									<TrackList
-										addToPicks={addToPicks}
+										handlePicks={handlePicks}
 										tracks={playlistTracks}
 									/>
 								</>
@@ -108,17 +143,21 @@ const Choices = (props: any) => {
 				{selection === "top-tracks" ? (
 					<Grid.Column>
 						<TermInput updateTerm={updateTerm} term={term} />
-						<TopTracks addToPicks={addToPicks} term={term} />
+						<TopTracks handlePicks={handlePicks} term={term} />
 					</Grid.Column>
 				) : null}
 				{selection === "top-artists" ? (
 					<Grid.Column>
 						<TermInput updateTerm={updateTerm} term={term} />
-						<TopArtists addToPicks={addToPicks} term={term} />
+						<TopArtists handlePicks={handlePicks} term={term} />
 					</Grid.Column>
 				) : null}
 				<Grid.Column>
-					<Picks searchType={searchType} picks={picks} />
+					<Picks
+						searchType={searchType}
+						picks={picks}
+						handlePicks={handlePicks}
+					/>
 				</Grid.Column>
 				<Grid.Column>
 					<MyRecommendations />

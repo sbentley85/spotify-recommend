@@ -3,16 +3,22 @@ import React from "react";
 import TrackList from "./TrackList";
 import ArtistList from "./ArtistList";
 
-const Picks = (props: { picks: any; searchType: string }) => {
+const Picks = (props: { picks: any; searchType: string; handlePicks: any }) => {
 	return (
 		<>
 			{props.searchType === "Artists" ? (
-				<ArtistList artists={props.picks} />
+				<ArtistList
+					handlePicks={props.handlePicks}
+					artists={props.picks}
+				/>
 			) : (
 				<></>
 			)}
 			{props.searchType === "Tracks" ? (
-				<TrackList tracks={props.picks} />
+				<TrackList
+					handlePicks={props.handlePicks}
+					tracks={props.picks}
+				/>
 			) : (
 				<></>
 			)}

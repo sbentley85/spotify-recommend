@@ -2,10 +2,13 @@ import React from "react";
 
 const Artist = (props: {
 	artist: { name: string; id: string };
-	addToPicks?: any;
+	handlePicks?: any;
 }) => {
 	return (
-		<div onClick={(e) => props.addToPicks(e, props.artist)}>
+		<div
+			onClick={(e) => props.handlePicks(e, props.artist)}
+			className="artist"
+		>
 			{props.artist.name}
 		</div>
 	);

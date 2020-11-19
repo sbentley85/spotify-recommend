@@ -2,7 +2,7 @@ import React from "react";
 import Track from "./Track";
 
 const TrackList = (props: {
-	addToPicks?: any;
+	handlePicks?: any;
 	tracks: { id: string; name: string; artist: string }[];
 }) => {
 	return (
@@ -14,7 +14,7 @@ const TrackList = (props: {
 				) => {
 					return (
 						<Track
-							addToPicks={props.addToPicks}
+							handlePicks={props.handlePicks}
 							track={track}
 							key={index}
 						/>

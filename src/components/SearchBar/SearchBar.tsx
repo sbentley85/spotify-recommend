@@ -31,7 +31,7 @@ const SearchBar = (props: any) => {
 			<SearchButton onSearch={onSearch} />
 			{searchTracks ? (
 				<SearchResults
-					addToPicks={props.addTopicks}
+					handlePicks={props.handlePicks}
 					tracks={searchTracks}
 				/>
 			) : (
@@ -39,7 +39,7 @@ const SearchBar = (props: any) => {
 			)}
 			{searchArtists ? (
 				<SearchResults
-					addToPicks={props.addToPicks}
+					handlePicks={props.handlePicks}
 					artists={searchArtists}
 				/>
 			) : (
