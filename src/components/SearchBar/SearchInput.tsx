@@ -1,6 +1,13 @@
-import React from 'react';
-import { Input } from 'semantic-ui-react'
+import React from "react";
+import { Input } from "semantic-ui-react";
 
-const SearchInput = (props: any) => <Input icon="search" placeholder='Search...' onChange={props.onChange} id='input'/>
+const SearchInput = (props: { onChange: any }) => (
+	<Input
+		icon="search"
+		placeholder="Search..."
+		onChange={props.onChange}
+		id="input"
+	/>
+);
 
-export default SearchInput
+export default SearchInput;

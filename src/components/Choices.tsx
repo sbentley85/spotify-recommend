@@ -14,6 +14,14 @@ import TrackList from "./TrackList";
 import MyRecommendations from "./MyRecommendations";
 import Picks from "./Picks";
 
+export interface IPicks {
+	name: string;
+	id: string;
+	artist?: string;
+	smImg?: { height: number; width: number; url: string };
+	medImg?: { height: number; width: number; url: string };
+}
+
 const Choices = (props: any) => {
 	const [selection, setSelection] = useState("top-artists");
 	const [searchType, setSearchType] = useState("Artists");
@@ -21,12 +29,6 @@ const Choices = (props: any) => {
 	const [playlistTracks, setPlaylistTracks] = useState([]);
 	const [picks, setPicks] = useState<Array<IPicks>>([]);
 	const [recommendations, setRecommendations] = useState([]);
-
-	interface IPicks {
-		name: string;
-		id: string;
-		artist?: string;
-	}
 
 	const updateSelection = (event: any, data: any) => {
 		const choice = data.value;
@@ -60,10 +62,7 @@ const Choices = (props: any) => {
 		setPlaylistTracks([]);
 	};
 
-	const handlePicks = (
-		event: InputEvent,
-		choice: { id: string; name: string; artist?: string }
-	) => {
+	const handlePicks = (event: InputEvent, choice: IPicks) => {
 		if (
 			picks.filter((pick) => {
 				return pick.id === choice.id;
@@ -75,11 +74,7 @@ const Choices = (props: any) => {
 		}
 	};
 
-	const addToPicks = (choice: {
-		id: string;
-		name: string;
-		artist?: string;
-	}) => {
+	const addToPicks = (choice: IPicks) => {
 		if (picks.length === 5) return;
 		if (
 			picks.filter((pick) => {
@@ -93,11 +88,7 @@ const Choices = (props: any) => {
 		setPicks(newPicks);
 	};
 
-	const removeFromPicks = (choice: {
-		id: string;
-		name: string;
-		artist?: string;
-	}) => {
+	const removeFromPicks = (choice: IPicks) => {
 		const newPicks = picks.filter((pick) => {
 			return pick.id !== choice.id;
 		});

@@ -4,7 +4,7 @@ import SearchInput from "./SearchInput";
 import Spotify from "../../util/spotify";
 import SearchResults from "./SearchResults";
 
-const SearchBar = (props: any) => {
+const SearchBar = (props: { handlePicks?: any; searchType: string }) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchTracks, setSearchTracks] = useState(null);
 	const [searchArtists, setSearchArtists] = useState(null);

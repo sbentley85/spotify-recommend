@@ -1,13 +1,11 @@
 import React from "react";
 import Artist from "./Artist";
+import { IPicks } from "./Choices";
 
-const ArtistList = (props: {
-	artists: { name: string; id: string }[];
-	handlePicks?: any;
-}) => {
+const ArtistList = (props: { artists: IPicks[]; handlePicks?: any }) => {
 	return (
 		<div className="artistList">
-			{props.artists.map((artist: { name: string; id: string }) => {
+			{props.artists.map((artist: IPicks) => {
 				return (
 					<Artist
 						handlePicks={props.handlePicks}
