@@ -1,5 +1,3 @@
-import { IPlaylist } from "../components/Choices";
-
 let accessToken: string;
 const clientId = "2605e63cad504fc6889cb31b91f1eff3";
 
@@ -239,7 +237,6 @@ const Spotify = {
 		// https://api.spotify.com/v1/recommendations?seed_artists=4NHQUGzhtTLFvgF5SZesLK
 		const accessToken = Spotify.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
-		const url = "https://api.spotify.com/v1/recommendations?";
 		const option =
 			searchType === "Artists" ? "seed_artists=" : "seed_tracks=";
 

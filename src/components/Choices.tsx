@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "semantic-ui-react";
-import SearchBar from "./SearchBar/SearchBar";
-import MyPlaylists from "./MyPlaylists";
-import TopTracks from "./TopTracks";
-import TopArtists from "./TopArtists";
-import ChoicesInput from "./ChoicesInput";
 import "semantic-ui-css/semantic.min.css";
-import ChoicesSlider from "./ChoicesSlider";
-import BackButton from "./BackButton";
 import Spotify from "../util/spotify";
-import TermInput from "./termInput";
-import TrackList from "./TrackList";
 import MyRecommendations from "./MyRecommendations";
 import Picks from "./Picks";
+import Settings from "./Settings";
+import Selection from "./Selection";
 
 export interface IPicks {
 	name: string;
@@ -104,81 +97,40 @@ const Choices = (props: any) => {
 
 	useEffect(() => {
 		const getRecommendations = async () => {
-			const recommendations = await Spotify.getRecommendations(
-				picks,
-				searchType
-			);
+			if (picks.length !== 0) {
+				const recommendations = await Spotify.getRecommendations(
+					picks,
+					searchType
+				);
 
-			setRecommendations(recommendations);
+				setRecommendations(recommendations);
+			}
 		};
 		picks.length !== 0 ? getRecommendations() : setRecommendations([]);
-	}, [picks]);
+	}, [picks, searchType]);
 
 	return (
 		<>
-			<Grid.Row columns={2}>
-				<Grid.Column>
-					<ChoicesInput
-						searchType={searchType}
-						selection={selection}
-						updateSelection={updateSelection}
-					/>
-				</Grid.Column>
-				<Grid.Column>
-					<ChoicesSlider updateSearchType={updateSearchType} />
-				</Grid.Column>
+			<Grid.Row id="settings" columns={2}>
+				<Settings
+					searchType={searchType}
+					selection={selection}
+					updateSelection={updateSelection}
+					updateSearchType={updateSearchType}
+				/>
 			</Grid.Row>
 			<Grid.Row columns={2}>
 				<Grid.Column>
-					<div id="select">
-						{selection === "search" ? (
-							<SearchBar
-								handlePicks={handlePicks}
-								searchType={searchType}
-							/>
-						) : null}
-						{selection === "my-playlists" ? (
-							<>
-								{playlistTracks.length > 0 ? (
-									<>
-										<BackButton clearTracks={clearTracks} />
-										<TrackList
-											handlePicks={handlePicks}
-											tracks={playlistTracks}
-										/>
-									</>
-								) : (
-									<MyPlaylists
-										selectPlaylist={selectPlaylist}
-									/>
-								)}
-							</>
-						) : null}
-						{selection === "top-tracks" ? (
-							<>
-								<TermInput
-									updateTerm={updateTerm}
-									term={term}
-								/>
-								<TopTracks
-									handlePicks={handlePicks}
-									term={term}
-								/>
-							</>
-						) : null}
-						{selection === "top-artists" ? (
-							<>
-								<TermInput
-									updateTerm={updateTerm}
-									term={term}
-								/>
-								<TopArtists
-									handlePicks={handlePicks}
-									term={term}
-								/>
-							</>
-						) : null}
-					</div>
+					<Selection
+						handlePicks={handlePicks}
+						searchType={searchType}
+						playlistTracks={playlistTracks}
+						clearTracks={clearTracks}
+						selectPlaylist={selectPlaylist}
+						selection={selection}
+						term={term}
+						updateTerm={updateTerm}
+					/>
 				</Grid.Column>
 				<Grid.Column>
 					<Picks
