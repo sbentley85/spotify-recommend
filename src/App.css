@@ -63,14 +63,16 @@
 }
 
 .artist,
-.track {
+.track,
+.playlist {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
 .artistImage,
-.trackImage {
+.trackImage,
+.playlistImage {
 	min-width: 64px;
 	min-height: 64px;
 	height: 64px;
@@ -80,7 +82,8 @@
 }
 
 .artistName,
-.trackDetails {
+.trackDetails,
+.playlistName {
 	flex-grow: 1;
 	justify-content: center;
 	display: flex;

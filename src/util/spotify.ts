@@ -1,3 +1,5 @@
+import { IPlaylist } from "../components/Choices";
+
 let accessToken: string;
 const clientId = "2605e63cad504fc6889cb31b91f1eff3";
 
@@ -198,11 +200,18 @@ const Spotify = {
 		})
 			.then((response) => response.json())
 			.then((jsonResponse) => {
+				console.log(jsonResponse);
 				return jsonResponse.items.map(
-					(playlist: { id: number; name: string; tracks: any }) => ({
+					(playlist: {
+						id: number;
+						name: string;
+						tracks: any;
+						images: {}[];
+					}) => ({
 						id: playlist.id,
 						name: playlist.name,
 						length: playlist.tracks.total,
+						img: playlist.images[2] || playlist.images[0],
 					})
 				);
 			});

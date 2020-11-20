@@ -6,7 +6,15 @@ const Playlist = (props: any) => {
 			onClick={(e) => props.selectPlaylist(e, props.playlist.id)}
 			className="playlist"
 		>
-			{props.playlist.name}
+			<div
+				className="playlistImage"
+				style={
+					props.playlist.img
+						? { backgroundImage: `url(${props.playlist.img.url})` }
+						: { backgroundColor: "black" }
+				}
+			></div>
+			<div className="playlistName">{props.playlist.name}</div>
 		</div>
 	);
 };

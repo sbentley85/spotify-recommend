@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import spotify from "../util/spotify";
 import Playlist from "./Playlist";
+import { IPlaylist } from "./Choices";
 
 const MyPlaylists = (props: { selectPlaylist: any }) => {
-	const [myPlaylists, setMyPlaylists] = useState([]);
+	const [myPlaylists, setMyPlaylists] = useState<Array<IPlaylist>>([]);
 
 	useEffect(() => {
 		const getPlaylists = async () => {
@@ -16,7 +17,7 @@ const MyPlaylists = (props: { selectPlaylist: any }) => {
 	return (
 		<div id="my-playlists">
 			{myPlaylists.length !== 0 ? (
-				myPlaylists!.map((playlist: { name: string; id: string }) => {
+				myPlaylists!.map((playlist: IPlaylist) => {
 					return (
 						<Playlist
 							selectPlaylist={props.selectPlaylist}

@@ -22,6 +22,13 @@ export interface IPicks {
 	medImg: { height: number; width: number; url: string };
 }
 
+export interface IPlaylist {
+	name: string;
+	id: string;
+	tracks: IPicks[];
+	img: {};
+}
+
 const Choices = (props: any) => {
 	const [selection, setSelection] = useState("top-artists");
 	const [searchType, setSearchType] = useState("Artists");
