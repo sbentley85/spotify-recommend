@@ -3,15 +3,15 @@ import { Checkbox } from "semantic-ui-react";
 
 const ChoicesSlider = (props: any) => {
 	return (
-		<div>
-			<span>Artists</span>
+		<div className="slider">
+			<span className="sliderLabel">Artists</span>
 			<Checkbox
 				toggle
 				id="type"
 				name="search-type"
 				onChange={props.updateSearchType}
 			/>
-			<span>Tracks</span>
+			<span className="sliderLabel">Tracks</span>
 		</div>
 	);
 };

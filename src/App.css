@@ -51,10 +51,7 @@
 	padding: 1rem;
 	max-height: 400px;
 	overflow-y: auto;
-}
-
-#searchBar {
-	margin: 1rem;
+	border: 1px solid black;
 }
 
 .select {
@@ -79,6 +76,7 @@
 	width: 64px;
 	background-size: cover;
 	border-radius: 100%;
+	border: 2px solid rgb(99, 93, 93);
 }
 
 .artistName,
@@ -91,4 +89,47 @@
 
 #settings {
 	margin: 2rem 0;
+}
+
+.slider {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.sliderLabel {
+	margin: 1rem;
+}
+
+.termInput,
+.searchInput,
+.playlistTitle {
+	position: absolute;
+	left: 50%;
+	top: -5%;
+	transform: translate(-50%, 0);
+	height: 38px;
+	width: 196px;
+}
+
+.playlistTitle {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid rgba(34, 36, 38, 0.15);
+	border-radius: 0.28rem;
+	background-color: white;
+}
+
+.termContainer,
+#searchBar,
+.playlistContainer {
+	position: relative;
+}
+
+#back {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translate(50%, -50%);
 }

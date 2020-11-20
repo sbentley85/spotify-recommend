@@ -21,7 +21,7 @@ const TermInput = (props: any) => {
 	];
 
 	return (
-		<div>
+		<div className="termInput">
 			<Dropdown
 				onChange={props.updateTerm}
 				placeholder="Select"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid } from "semantic-ui-react";
+import { Divider, Grid } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import Spotify from "../util/spotify";
 import MyRecommendations from "./MyRecommendations";
@@ -126,6 +126,7 @@ const Choices = (props: any) => {
 					/>
 				</Grid.Column>
 			</Grid.Row>
+			<Divider />
 			<Grid.Row columns={1}>
 				<Grid.Column>
 					<MyRecommendations tracks={recommendations} />

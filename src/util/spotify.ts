@@ -110,7 +110,7 @@ const Spotify = {
 			});
 	},
 
-	savePlaylist(name: string, trackUris: any) {
+	createPlaylist(name: string, trackUris: any) {
 		if (!name || !trackUris.length) {
 			return;
 		}

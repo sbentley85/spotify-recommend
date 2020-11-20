@@ -8,6 +8,7 @@ import TermInput from "./termInput";
 import TrackList from "./TrackList";
 import BackButton from "./BackButton";
 import Spotify from "../util/spotify";
+import { disconnect } from "process";
 
 const Selection = (props: {
 	handlePicks: any;
@@ -18,11 +19,13 @@ const Selection = (props: {
 	updateTerm: any;
 }) => {
 	const [playlistTracks, setPlaylistTracks] = useState<Array<IPicks>>([]);
+	const [playlistName, setPlaylistName] = useState<string>("");
 
-	const selectPlaylist = async (event: any, id: string) => {
+	const selectPlaylist = async (event: any, id: string, name: string) => {
 		setPlaylistTracks([]);
 		const tracks = await Spotify.getPlaylistTracks(id);
 		setPlaylistTracks(tracks);
+		setPlaylistName(name);
 	};
 
 	const clearTracks = () => {
@@ -40,20 +43,24 @@ const Selection = (props: {
 			{props.selection === "my-playlists" ? (
 				<>
 					{playlistTracks.length > 0 ? (
-						<>
-							<TrackList
-								handlePicks={props.handlePicks}
-								tracks={playlistTracks}
-							/>
+						<div className="playlistContainer">
+							<div className="playlistTitle">{playlistName}</div>
+							<div className="playlistTracks">
+								<TrackList
+									handlePicks={props.handlePicks}
+									tracks={playlistTracks}
+								/>
+							</div>
+
 							<BackButton clearTracks={clearTracks} />
-						</>
+						</div>
 					) : (
 						<MyPlaylists selectPlaylist={selectPlaylist} />
 					)}
 				</>
 			) : null}
 			{props.selection === "top-tracks" ? (
-				<>
+				<div className="termContainer">
 					<TermInput
 						updateTerm={props.updateTerm}
 						term={props.term}
@@ -62,10 +69,10 @@ const Selection = (props: {
 						handlePicks={props.handlePicks}
 						term={props.term}
 					/>
-				</>
+				</div>
 			) : null}
 			{props.selection === "top-artists" ? (
-				<>
+				<div className="termContainer">
 					<TermInput
 						updateTerm={props.updateTerm}
 						term={props.term}
@@ -74,7 +81,7 @@ const Selection = (props: {
 						handlePicks={props.handlePicks}
 						term={props.term}
 					/>
-				</>
+				</div>
 			) : null}
 		</div>
 	);

@@ -12,6 +12,7 @@ const SearchBar = (props: { handlePicks?: any; searchType: string }) => {
 	const updateSearchTerm = (event: any) => {
 		const term = event.target.value;
 		setSearchTerm(term);
+		onSearch();
 	};
 
 	const onSearch = async () => {
@@ -28,8 +29,10 @@ const SearchBar = (props: { handlePicks?: any; searchType: string }) => {
 
 	return (
 		<div id="searchBar">
-			<SearchInput onChange={updateSearchTerm} />
-			<SearchButton onSearch={onSearch} />
+			<div className="searchInput">
+				<SearchInput onChange={updateSearchTerm} onSearch={onSearch} />
+			</div>
+
 			{searchTracks ? (
 				<SearchResults
 					handlePicks={props.handlePicks}
