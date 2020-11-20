@@ -234,7 +234,6 @@ const Spotify = {
 	},
 
 	getRecommendations(picks: any, searchType: string) {
-		// https://api.spotify.com/v1/recommendations?seed_artists=4NHQUGzhtTLFvgF5SZesLK
 		const accessToken = Spotify.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 		const option =

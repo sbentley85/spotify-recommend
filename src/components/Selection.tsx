@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IPicks } from "./Choices";
 import SearchBar from "./SearchBar/SearchBar";
 import MyPlaylists from "./MyPlaylists";
@@ -7,17 +7,28 @@ import TopArtists from "./TopArtists";
 import TermInput from "./termInput";
 import TrackList from "./TrackList";
 import BackButton from "./BackButton";
+import Spotify from "../util/spotify";
 
 const Selection = (props: {
 	handlePicks: any;
 	searchType: string;
-	playlistTracks: IPicks[];
-	clearTracks: any;
-	selectPlaylist: any;
+
 	selection: string;
 	term: string;
 	updateTerm: any;
 }) => {
+	const [playlistTracks, setPlaylistTracks] = useState<Array<IPicks>>([]);
+
+	const selectPlaylist = async (event: any, id: string) => {
+		setPlaylistTracks([]);
+		const tracks = await Spotify.getPlaylistTracks(id);
+		setPlaylistTracks(tracks);
+	};
+
+	const clearTracks = () => {
+		setPlaylistTracks([]);
+	};
+
 	return (
 		<div id="select">
 			{props.selection === "search" ? (
@@ -28,16 +39,16 @@ const Selection = (props: {
 			) : null}
 			{props.selection === "my-playlists" ? (
 				<>
-					{props.playlistTracks.length > 0 ? (
+					{playlistTracks.length > 0 ? (
 						<>
 							<TrackList
 								handlePicks={props.handlePicks}
-								tracks={props.playlistTracks}
+								tracks={playlistTracks}
 							/>
-							<BackButton clearTracks={props.clearTracks} />
+							<BackButton clearTracks={clearTracks} />
 						</>
 					) : (
-						<MyPlaylists selectPlaylist={props.selectPlaylist} />
+						<MyPlaylists selectPlaylist={selectPlaylist} />
 					)}
 				</>
 			) : null}

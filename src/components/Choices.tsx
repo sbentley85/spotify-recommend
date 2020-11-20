@@ -26,19 +26,12 @@ const Choices = (props: any) => {
 	const [selection, setSelection] = useState("top-artists");
 	const [searchType, setSearchType] = useState("Artists");
 	const [term, setTerm] = useState("long_term");
-	const [playlistTracks, setPlaylistTracks] = useState([]);
 	const [picks, setPicks] = useState<Array<IPicks>>([]);
 	const [recommendations, setRecommendations] = useState([]);
 
 	const updateSelection = (event: any, data: any) => {
 		const choice = data.value;
 		setSelection(choice);
-	};
-
-	const selectPlaylist = async (event: any, id: string) => {
-		setPlaylistTracks([]);
-		const tracks = await Spotify.getPlaylistTracks(id);
-		setPlaylistTracks(tracks);
 	};
 
 	const updateTerm = (event: any, data: any) => {
@@ -56,10 +49,6 @@ const Choices = (props: any) => {
 			setSearchType("Artists");
 			setSelection("top-artists");
 		}
-	};
-
-	const clearTracks = () => {
-		setPlaylistTracks([]);
 	};
 
 	const handlePicks = (event: InputEvent, choice: IPicks) => {
@@ -124,9 +113,6 @@ const Choices = (props: any) => {
 					<Selection
 						handlePicks={handlePicks}
 						searchType={searchType}
-						playlistTracks={playlistTracks}
-						clearTracks={clearTracks}
-						selectPlaylist={selectPlaylist}
 						selection={selection}
 						term={term}
 						updateTerm={updateTerm}
