@@ -61,3 +61,27 @@
 	max-height: 350px;
 	overflow-y: auto;
 }
+
+.artist,
+.track {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.artistImage,
+.trackImage {
+	min-width: 64px;
+	min-height: 64px;
+	height: 64px;
+	width: 64px;
+	background-size: cover;
+	border-radius: 100%;
+}
+
+.artistName,
+.trackDetails {
+	flex-grow: 1;
+	justify-content: center;
+	display: flex;
+}

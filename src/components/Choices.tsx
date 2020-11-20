@@ -18,8 +18,8 @@ export interface IPicks {
 	name: string;
 	id: string;
 	artist?: string;
-	smImg?: { height: number; width: number; url: string };
-	medImg?: { height: number; width: number; url: string };
+	smImg: { height: number; width: number; url: string };
+	medImg: { height: number; width: number; url: string };
 }
 
 const Choices = (props: any) => {

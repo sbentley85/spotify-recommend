@@ -21,6 +21,7 @@ const SearchBar = (props: { handlePicks?: any; searchType: string }) => {
 		}
 		if (props.searchType === "Artists") {
 			const artists = await Spotify.searchArtists(searchTerm);
+
 			setSearchArtists(artists);
 		}
 	};

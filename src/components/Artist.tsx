@@ -1,3 +1,4 @@
+import { url } from "inspector";
 import React from "react";
 import { IPicks } from "./Choices";
 
@@ -7,7 +8,15 @@ const Artist = (props: { artist: IPicks; handlePicks?: any }) => {
 			onClick={(e) => props.handlePicks(e, props.artist)}
 			className="artist"
 		>
-			{props.artist.name}
+			<div
+				className="artistImage"
+				style={
+					props.artist.smImg
+						? { backgroundImage: `url(${props.artist.smImg.url})` }
+						: { backgroundColor: "black" }
+				}
+			></div>
+			<div className="artistName">{props.artist.name}</div>
 		</div>
 	);
 };

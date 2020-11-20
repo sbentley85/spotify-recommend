@@ -7,8 +7,17 @@ const Track = (props: { track: IPicks; handlePicks: any }) => {
 			onClick={(e) => props.handlePicks(e, props.track)}
 			className="track"
 		>
-			{/* <img src={props.track.smImg.url} /> */}
-			{props.track.artist + " - " + props.track.name}
+			<div
+				className="trackImage"
+				style={
+					props.track.smImg
+						? { backgroundImage: `url(${props.track.smImg.url})` }
+						: { backgroundColor: "black" }
+				}
+			></div>
+			<div className="trackDetails">
+				{props.track.artist + " - " + props.track.name}
+			</div>
 		</div>
 	);
 };

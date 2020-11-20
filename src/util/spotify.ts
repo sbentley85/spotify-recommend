@@ -52,7 +52,7 @@ const Spotify = {
 	searchTracks(term: string) {
 		sessionStorage.setItem("searchTerm", term);
 		const accessToken = Spotify.getAccessToken();
-		console.log(`Access Token(search): ${accessToken}`);
+
 		let endpoint = `https://api.spotify.com/v1/search?type=track&q=${term}`;
 
 		return fetch(endpoint, {
@@ -77,8 +77,8 @@ const Spotify = {
 						id: track.id,
 						name: track.name,
 						artist: track.artists[0].name,
-						album: track.album.name,
-						uri: track.uri,
+						medImg: track.album.images[1],
+						smImg: track.album.images[2],
 					})
 				);
 			});
@@ -87,7 +87,7 @@ const Spotify = {
 	searchArtists(term: string) {
 		sessionStorage.setItem("searchTerm", term);
 		const accessToken = Spotify.getAccessToken();
-		console.log(`Access Token(search): ${accessToken}`);
+
 		let endpoint = `https://api.spotify.com/v1/search?type=artist&q=${term}`;
 
 		return fetch(endpoint, {
@@ -100,10 +100,12 @@ const Spotify = {
 				if (!jsonResponse.artists) {
 					return [];
 				}
-
+				console.log(jsonResponse);
 				return jsonResponse.artists.items.map((artist: any) => ({
 					id: artist.id,
 					name: artist.name,
+					medImg: artist.images[1],
+					smImg: artist.images[2],
 				}));
 			});
 	},
@@ -121,7 +123,7 @@ const Spotify = {
 			.then((response) => response.json())
 			.then((jsonResponse) => {
 				userId = jsonResponse.id;
-				console.log(userId);
+
 				return fetch(
 					`https://api.spotify.com/v1/users/${userId}/playlists`,
 					{
@@ -133,7 +135,7 @@ const Spotify = {
 					.then((response) => response.json())
 					.then((jsonResponse) => {
 						const playlistId = jsonResponse.id;
-						console.log(playlistId);
+
 						return fetch(
 							`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
 							{
@@ -156,7 +158,6 @@ const Spotify = {
 		)
 			.then((response) => response.json())
 			.then((jsonResponse) => {
-				console.log(jsonResponse);
 				return jsonResponse.items.map((track: any) => ({
 					id: track.id,
 					name: track.name,
@@ -179,7 +180,6 @@ const Spotify = {
 		)
 			.then((response) => response.json())
 			.then((jsonResponse) => {
-				console.log(jsonResponse);
 				return jsonResponse.items.map((artist: any) => ({
 					id: artist.id,
 					name: artist.name,
@@ -220,6 +220,8 @@ const Spotify = {
 					id: track.track.id,
 					name: track.track.name,
 					artist: track.track.artists[0].name,
+					medImg: track.track.album.images[1],
+					smImg: track.track.album.images[2],
 				}));
 			});
 	},
@@ -246,11 +248,12 @@ const Spotify = {
 		)
 			.then((response) => response.json())
 			.then((jsonResponse) => {
-				console.log(jsonResponse);
 				return jsonResponse.tracks.map((track: any) => ({
 					id: track.id,
 					name: track.name,
 					artist: track.artists[0].name,
+					medImg: track.album.images[1],
+					smImg: track.album.images[2],
 				}));
 			});
 	},
