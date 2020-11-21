@@ -20,6 +20,7 @@ export interface IPlaylist {
 	id: string;
 	tracks: IPicks[];
 	img: {};
+	length: number;
 }
 
 const Choices = (props: any) => {

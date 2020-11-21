@@ -1,3 +1,5 @@
+import { IPlaylist } from "../components/Choices";
+
 let accessToken: string;
 const clientId = "2605e63cad504fc6889cb31b91f1eff3";
 
@@ -214,23 +216,35 @@ const Spotify = {
 				);
 			});
 	},
-	getPlaylistTracks(id: string) {
+
+	async getPlaylistTracks(playlist: IPlaylist) {
 		const accessToken = Spotify.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
+		let tracks: any[] = [];
+		for (let i = 0; i < Math.ceil(playlist.length / 100); i++) {
+			const newTracks = await fetch(
+				`https://api.spotify.com/v1/playlists/${
+					playlist.id
+				}/tracks?offset=${i * 100}`,
+				{
+					headers: headers,
+				}
+			)
+				.then((response) => response.json())
+				.then((jsonResponse) =>
+					jsonResponse.items.map((track: any) => ({
+						id: track.track.id,
+						name: track.track.name,
+						artist: track.track.artists[0].name,
+						medImg: track.track.album.images[1],
+						smImg: track.track.album.images[2],
+					}))
+				);
 
-		return fetch(`https://api.spotify.com/v1/playlists/${id}/tracks`, {
-			headers: headers,
-		})
-			.then((response) => response.json())
-			.then((jsonResponse) => {
-				return jsonResponse.items.map((track: any) => ({
-					id: track.track.id,
-					name: track.track.name,
-					artist: track.track.artists[0].name,
-					medImg: track.track.album.images[1],
-					smImg: track.track.album.images[2],
-				}));
-			});
+			tracks = tracks.concat(newTracks);
+		}
+
+		return tracks;
 	},
 
 	getRecommendations(picks: any, searchType: string) {
@@ -246,7 +260,7 @@ const Spotify = {
 		seedList = seedList.slice(0, seedList.length - 1);
 
 		return fetch(
-			`https://api.spotify.com/v1/recommendations?${option}${seedList}`,
+			`https://api.spotify.com/v1/recommendations?${option}${seedList}&limit=50`,
 			{
 				headers: headers,
 			}

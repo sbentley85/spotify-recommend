@@ -3,7 +3,7 @@ import Artist from "./Artist";
 import { IPicks } from "./Choices";
 
 const ArtistList = (props: { artists: IPicks[]; handlePicks?: any }) => {
-	return (
+	return props.artists.length !== 0 ? (
 		<div className="artistList">
 			{props.artists.map((artist: IPicks) => {
 				return (
@@ -15,7 +15,7 @@ const ArtistList = (props: { artists: IPicks[]; handlePicks?: any }) => {
 				);
 			})}
 		</div>
-	);
+	) : null;
 };
 
 export default ArtistList;

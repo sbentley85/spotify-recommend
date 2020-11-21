@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IPicks } from "./Choices";
+import { IPicks, IPlaylist } from "./Choices";
 import SearchBar from "./SearchBar/SearchBar";
 import MyPlaylists from "./MyPlaylists";
 import TopTracks from "./TopTracks";
@@ -8,7 +8,6 @@ import TermInput from "./termInput";
 import TrackList from "./TrackList";
 import BackButton from "./BackButton";
 import Spotify from "../util/spotify";
-import { disconnect } from "process";
 
 const Selection = (props: {
 	handlePicks: any;
@@ -18,14 +17,14 @@ const Selection = (props: {
 	term: string;
 	updateTerm: any;
 }) => {
-	const [playlistTracks, setPlaylistTracks] = useState<Array<IPicks>>([]);
+	const [playlistTracks, setPlaylistTracks] = useState<any>([]);
 	const [playlistName, setPlaylistName] = useState<string>("");
 
-	const selectPlaylist = async (event: any, id: string, name: string) => {
+	const selectPlaylist = async (event: any, playlist: IPlaylist) => {
 		setPlaylistTracks([]);
-		const tracks = await Spotify.getPlaylistTracks(id);
-		setPlaylistTracks(tracks);
-		setPlaylistName(name);
+		const tracks = await Spotify.getPlaylistTracks(playlist);
+		await setPlaylistTracks(tracks);
+		await setPlaylistName(playlist.name);
 	};
 
 	const clearTracks = () => {

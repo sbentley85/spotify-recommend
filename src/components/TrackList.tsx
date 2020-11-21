@@ -3,7 +3,7 @@ import Track from "./Track";
 import { IPicks } from "./Choices";
 
 const TrackList = (props: { handlePicks?: any; tracks: IPicks[] }) => {
-	return (
+	return props.tracks.length !== 0 ? (
 		<div className="trackList">
 			{props.tracks.map((track: IPicks, index: number) => {
 				return (
@@ -15,7 +15,7 @@ const TrackList = (props: { handlePicks?: any; tracks: IPicks[] }) => {
 				);
 			})}
 		</div>
-	);
+	) : null;
 };
 
 export default TrackList;
