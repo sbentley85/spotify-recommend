@@ -3,10 +3,11 @@ import { Input } from "semantic-ui-react";
 
 const SearchInput = (props: { onChange: any; onSearch: any }) => (
 	<Input
-		icon={{ name: "search", onClick: props.onSearch }}
+		icon={{ name: "search" }}
 		placeholder="Search..."
 		onChange={props.onChange}
 		id="input"
+		type="text"
 	/>
 );
 
