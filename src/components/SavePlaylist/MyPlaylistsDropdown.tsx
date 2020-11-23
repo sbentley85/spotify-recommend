@@ -3,7 +3,7 @@ import { Dropdown } from "semantic-ui-react";
 import { IPlaylist } from "../Choices";
 import Spotify from "../../util/spotify";
 
-const MyPlaylistDropdown = (props: {
+const MyPlaylistsDropdown = (props: {
 	selectPlaylist: any;
 	selectedPlaylist: string;
 }) => {
@@ -37,4 +37,4 @@ const MyPlaylistDropdown = (props: {
 	);
 };
 
-export default MyPlaylistDropdown;
+export default MyPlaylistsDropdown;

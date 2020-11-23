@@ -5,8 +5,7 @@ import Spotify from "../../util/spotify";
 
 import PlaylistButton from "./PlaylistButton";
 import PlaylistInput from "./PlaylistInput";
-import MyPlaylistDropdown from "./MyPlaylistDropdown";
-import Picks from "../Picks";
+import MyPlaylistsDropdown from "./MyPlaylistsDropdown";
 
 const SavePlaylist = (props: { tracks: IPicks[]; picks: IPicks[] }) => {
 	const [newPlaylist, setNewPlaylist] = useState<boolean>(false);
@@ -64,7 +63,7 @@ const SavePlaylist = (props: { tracks: IPicks[]; picks: IPicks[] }) => {
 					{newPlaylist ? (
 						<PlaylistInput setName={setName} />
 					) : (
-						<MyPlaylistDropdown
+						<MyPlaylistsDropdown
 							selectPlaylist={selectPlaylist}
 							selectedPlaylist={selectedPlaylist}
 						/>
