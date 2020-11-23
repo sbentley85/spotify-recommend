@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, Icon } from "semantic-ui-react";
 
-const AddButton = () => {
+const AddButton = (props: { handleSave: any }) => {
 	return (
-		<Button id="add" icon>
+		<Button onClick={props.handleSave} id="add" icon>
 			<Icon name="add" />
 		</Button>
 	);

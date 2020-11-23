@@ -112,7 +112,7 @@ const Spotify = {
 			});
 	},
 
-	createPlaylist(name: string, trackUris: any) {
+	createPlaylist(name: string, trackUris: any[]) {
 		if (!name || !trackUris.length) {
 			return;
 		}
@@ -120,6 +120,10 @@ const Spotify = {
 		const accessToken = Spotify.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 		let userId;
+		// let bodyArray: any[] = [];
+		// bodyArray.push(`${encodeURIComponent(trackUris)}`);
+		// console.log(bodyArray);
+		// const bodyObj: { uris: string } = { uris: JSON.stringify(bodyArray) };
 
 		return fetch("https://api.spotify.com/v1/me", { headers: headers })
 			.then((response) => response.json())
