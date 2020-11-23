@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IPicks, IPlaylist } from "./Choices";
+import { IPlaylist } from "./Choices";
 import SearchBar from "./SearchBar/SearchBar";
 import MyPlaylists from "./MyPlaylists";
 import TopTracks from "./TopTracks";

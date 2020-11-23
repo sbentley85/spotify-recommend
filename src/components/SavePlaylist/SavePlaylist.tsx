@@ -5,11 +5,19 @@ import Spotify from "../../util/spotify";
 
 import PlaylistButton from "./PlaylistButton";
 import PlaylistInput from "./PlaylistInput";
-import MyPlaylistDropdown from "./myPlaylistDropdown";
+import MyPlaylistDropdown from "./MyPlaylistDropdown";
 
 const SavePlaylist = (props: { tracks: IPicks[] }) => {
 	const [newPlaylist, setNewPlaylist] = useState<boolean>(false);
 	const [playlistName, setPlaylistName] = useState<string>("");
+	const [selectedPlaylist, setSelectedPlaylist] = useState<string>("");
+
+	const selectPlaylist = (
+		event: React.SyntheticEvent<HTMLElement, Event>,
+		data: any
+	) => {
+		setSelectedPlaylist(data.value || "");
+	};
 
 	const updateNewPlayList = (event: any, data: any) => {
 		setNewPlaylist(event.target.checked);
@@ -24,14 +32,15 @@ const SavePlaylist = (props: { tracks: IPicks[] }) => {
 		const uris = props.tracks.map((track) => {
 			return `spotify:track:${track.id}`;
 		});
-
-		console.log(playlistName);
-		console.log(uris);
 		Spotify.createPlaylist(playlistName, uris);
 	};
 
 	const addToPlaylist = () => {
 		console.log("adding to playlist");
+		const uris = props.tracks.map((track) => {
+			return `spotify:track:${track.id}`;
+		});
+		Spotify.addToPlaylist(selectedPlaylist, uris);
 	};
 
 	const setName = (event: any) => {
@@ -46,7 +55,10 @@ const SavePlaylist = (props: { tracks: IPicks[] }) => {
 					{newPlaylist ? (
 						<PlaylistInput setName={setName} />
 					) : (
-						<MyPlaylistDropdown />
+						<MyPlaylistDropdown
+							selectPlaylist={selectPlaylist}
+							selectedPlaylist={selectedPlaylist}
+						/>
 					)}
 					<PlaylistButton
 						handleSave={handleSave}
