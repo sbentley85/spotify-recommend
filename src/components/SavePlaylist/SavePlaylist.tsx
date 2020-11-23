@@ -6,8 +6,9 @@ import Spotify from "../../util/spotify";
 import PlaylistButton from "./PlaylistButton";
 import PlaylistInput from "./PlaylistInput";
 import MyPlaylistDropdown from "./MyPlaylistDropdown";
+import Picks from "../Picks";
 
-const SavePlaylist = (props: { tracks: IPicks[] }) => {
+const SavePlaylist = (props: { tracks: IPicks[]; picks: IPicks[] }) => {
 	const [newPlaylist, setNewPlaylist] = useState<boolean>(false);
 	const [playlistName, setPlaylistName] = useState<string>("");
 	const [selectedPlaylist, setSelectedPlaylist] = useState<string>("");
@@ -28,19 +29,27 @@ const SavePlaylist = (props: { tracks: IPicks[] }) => {
 	};
 
 	const createPlaylist = () => {
-		console.log("creating a new playlist");
 		const uris = props.tracks.map((track) => {
 			return `spotify:track:${track.id}`;
 		});
-		Spotify.createPlaylist(playlistName, uris);
+
+		const defaultName = props.picks
+			.map((pick) => {
+				return pick.name;
+			})
+			.join(", ");
+
+		const name = playlistName === "" ? defaultName : playlistName;
+		console.log(playlistName);
+		Spotify.createPlaylist(name, uris);
 	};
 
 	const addToPlaylist = () => {
-		console.log("adding to playlist");
 		const uris = props.tracks.map((track) => {
 			return `spotify:track:${track.id}`;
 		});
-		Spotify.addToPlaylist(selectedPlaylist, uris);
+		if (selectedPlaylist === "") return;
+		else Spotify.addToPlaylist(selectedPlaylist, uris);
 	};
 
 	const setName = (event: any) => {

@@ -7,11 +7,11 @@ const MyPlaylistDropdown = (props: {
 	selectPlaylist: any;
 	selectedPlaylist: string;
 }) => {
-	const [myPlaylists, setMyPlaylists] = useState<Array<IPlaylist>>([]);
+	const [myPlaylists, setMyPlaylists] = useState<Array<any>>([]);
 
 	useEffect(() => {
 		const getPlaylists = async () => {
-			const playlists = await Spotify.getPlaylists();
+			const playlists = await Spotify.getMyPlaylists();
 			setMyPlaylists(
 				playlists.map((playlist: IPlaylist) => {
 					return {

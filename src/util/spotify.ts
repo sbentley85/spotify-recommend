@@ -102,7 +102,7 @@ const Spotify = {
 				if (!jsonResponse.artists) {
 					return [];
 				}
-				console.log(jsonResponse);
+
 				return jsonResponse.artists.items.map((artist: any) => ({
 					id: artist.id,
 					name: artist.name,
@@ -222,6 +222,45 @@ const Spotify = {
 						img: playlist.images[2] || playlist.images[0],
 					})
 				);
+			});
+	},
+	async getMyPlaylists() {
+		const accessToken = Spotify.getAccessToken();
+		const headers = { Authorization: `Bearer ${accessToken}` };
+
+		const userId = await this.getUserId();
+
+		return fetch("https://api.spotify.com/v1/me/playlists?limit=50", {
+			headers: headers,
+		})
+			.then((response) => response.json())
+			.then((jsonResponse) => {
+				console.log(jsonResponse);
+				return jsonResponse.items
+					.filter(
+						(playlist: {
+							id: number;
+							name: string;
+							tracks: any;
+							images: {}[];
+							owner: any;
+						}) => {
+							return playlist.owner.id === userId;
+						}
+					)
+					.map(
+						(playlist: {
+							id: number;
+							name: string;
+							tracks: any;
+							images: {}[];
+						}) => ({
+							id: playlist.id,
+							name: playlist.name,
+							length: playlist.tracks.total,
+							img: playlist.images[2] || playlist.images[0],
+						})
+					);
 			});
 	},
 
