@@ -112,6 +112,17 @@ const Spotify = {
 			});
 	},
 
+	getUserId() {
+		const accessToken = Spotify.getAccessToken();
+		const headers = { Authorization: `Bearer ${accessToken}` };
+
+		return fetch("https://api.spotify.com/v1/me", { headers: headers })
+			.then((response) => response.json())
+			.then((jsonResponse) => {
+				return jsonResponse.id;
+			});
+	},
+
 	createPlaylist(name: string, trackUris: any[]) {
 		if (!name || !trackUris.length) {
 			return;
@@ -119,39 +130,32 @@ const Spotify = {
 
 		const accessToken = Spotify.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
-		let userId;
-		// let bodyArray: any[] = [];
-		// bodyArray.push(`${encodeURIComponent(trackUris)}`);
-		// console.log(bodyArray);
-		// const bodyObj: { uris: string } = { uris: JSON.stringify(bodyArray) };
+		return Spotify.getUserId().then((id) => {
+			return fetch(`https://api.spotify.com/v1/users/${id}/playlists`, {
+				headers: headers,
+				method: "POST",
+				body: JSON.stringify({ name: name }),
+			})
+				.then((response) => response.json())
+				.then((jsonResponse) => jsonResponse.id)
+				.then((id) => {
+					return Spotify.addToPlaylist(id, trackUris);
+				});
+		});
+	},
 
-		return fetch("https://api.spotify.com/v1/me", { headers: headers })
-			.then((response) => response.json())
-			.then((jsonResponse) => {
-				userId = jsonResponse.id;
+	addToPlaylist(playlistId: string, trackUris: any[]) {
+		const accessToken = Spotify.getAccessToken();
+		const headers = { Authorization: `Bearer ${accessToken}` };
 
-				return fetch(
-					`https://api.spotify.com/v1/users/${userId}/playlists`,
-					{
-						headers: headers,
-						method: "POST",
-						body: JSON.stringify({ name: name }),
-					}
-				)
-					.then((response) => response.json())
-					.then((jsonResponse) => {
-						const playlistId = jsonResponse.id;
-
-						return fetch(
-							`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
-							{
-								headers: headers,
-								method: "POST",
-								body: JSON.stringify({ uris: trackUris }),
-							}
-						);
-					});
-			});
+		return fetch(
+			`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+			{
+				headers: headers,
+				method: "POST",
+				body: JSON.stringify({ uris: trackUris }),
+			}
+		);
 	},
 
 	getTopTracks(term: string) {
