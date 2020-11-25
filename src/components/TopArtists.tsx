@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import spotify from "../util/spotify";
+import SpotifyUtils from "../util/spotify";
 import ArtistList from "./ArtistList";
 
 const TopArtists = (props: { term: string; handlePicks: any }) => {
@@ -8,7 +8,7 @@ const TopArtists = (props: { term: string; handlePicks: any }) => {
 
 	useEffect(() => {
 		const getTopArtists = async () => {
-			const artists = await spotify.getTopArtists(props.term);
+			const artists = await SpotifyUtils.getTopArtists(props.term);
 
 			setTopArtists(artists);
 			setTerm(props.term);

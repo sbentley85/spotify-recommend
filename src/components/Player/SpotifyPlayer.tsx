@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-
+import { Icon } from "semantic-ui-react";
 import SpotifyUtils from "../../util/spotify";
+import SpotifyPlayerUtils from "../../util/spotify-player";
+import { IPicks } from "../Choices";
 
-const SpotifyPlayer = () => {
+const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 	const [accessToken, setAccessToken] = useState("");
 	const [player, setPlayer] = useState<any>(null);
 	const [scriptsLoaded, setScriptsLoaded] = useState(false);
+	const [deviceId, setDeviceId] = useState<string>("");
+	const [playing, setPlaying] = useState<boolean>(true);
 
 	useEffect(() => {
 		setAccessToken(SpotifyUtils.getAccessToken());
@@ -26,6 +30,7 @@ const SpotifyPlayer = () => {
 	}, []);
 
 	useEffect(() => {
+		// sets up player once scripts are loaded and access token is set
 		if (scriptsLoaded && accessToken) createPlayer();
 	}, [scriptsLoaded, accessToken]);
 
@@ -92,6 +97,7 @@ const SpotifyPlayer = () => {
 					"ready",
 					({ device_id }: DeviceInterface) => {
 						console.log("Ready with Device ID", device_id);
+						setDeviceId(device_id);
 					}
 				);
 
@@ -111,7 +117,37 @@ const SpotifyPlayer = () => {
 		}
 	};
 
-	return <div>{player ? player!._options.name : "No player loaded"}</div>;
+	const play = () => {
+		SpotifyPlayerUtils.play(
+			props.tracks.map((track) => track.uri),
+			deviceId
+		);
+		setPlaying(true);
+	};
+
+	const pause = () => {
+		SpotifyPlayerUtils.pause();
+	};
+
+	const nextTrack = () => {
+		SpotifyPlayerUtils.forward();
+	};
+
+	const previousTrack = () => {
+		SpotifyPlayerUtils.back();
+	};
+
+	return (
+		<div>
+			<p>{player ? player!._options.name : "No player loaded"}</p>
+			<Icon name="play" onClick={play} />
+			<Icon name="pause" onClick={pause} />
+			<Icon name="step backward" onClick={previousTrack} />
+			<Icon name="step forward" onClick={nextTrack} />
+
+			<div></div>
+		</div>
+	);
 };
 
 export default SpotifyPlayer;

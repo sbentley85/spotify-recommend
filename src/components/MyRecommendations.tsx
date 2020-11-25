@@ -7,7 +7,7 @@ import SpotifyPlayer from "./Player/SpotifyPlayer";
 const MyRecommendations = (props: { tracks: IPicks[]; picks: IPicks[] }) => {
 	return (
 		<div id="my-recommendations">
-			<SpotifyPlayer />
+			<SpotifyPlayer tracks={props.tracks} />
 			<TrackList tracks={props.tracks} />
 			<SavePlaylist picks={props.picks} tracks={props.tracks} />
 		</div>
