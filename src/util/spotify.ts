@@ -43,11 +43,12 @@ const Spotify = {
 			return accessToken;
 		} else {
 			const scopes =
-				"playlist-modify-public user-library-read user-top-read";
+				"playlist-modify-public user-library-read user-top-read streaming user-read-email user-read-private";
 			const accessUri = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=${encodeURIComponent(
 				scopes
 			)}&redirect_uri=${redirectUri}`;
 			window.location.href = accessUri;
+			return "";
 		}
 	},
 
@@ -235,7 +236,6 @@ const Spotify = {
 		})
 			.then((response) => response.json())
 			.then((jsonResponse) => {
-				console.log(jsonResponse);
 				return jsonResponse.items
 					.filter(
 						(playlist: {
