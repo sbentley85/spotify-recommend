@@ -9,7 +9,9 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 	const [player, setPlayer] = useState<any>(null);
 	const [scriptsLoaded, setScriptsLoaded] = useState(false);
 	const [deviceId, setDeviceId] = useState<string>("");
-	const [playing, setPlaying] = useState<boolean>(true);
+	const [tracksAdded, setTracksAdded] = useState<boolean>(false);
+	const [playing, setPlaying] = useState<boolean>(false);
+	const [currentTrack, setCurrentTrack] = useState<IPicks>(props.tracks[0]);
 
 	useEffect(() => {
 		setAccessToken(SpotifyUtils.getAccessToken());
@@ -33,6 +35,17 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 		// sets up player once scripts are loaded and access token is set
 		if (scriptsLoaded && accessToken) createPlayer();
 	}, [scriptsLoaded, accessToken]);
+
+	useEffect(() => {
+		if (deviceId && accessToken) {
+			SpotifyPlayerUtils.addToQueue(
+				props.tracks.map((track) => track.uri),
+				deviceId
+			);
+			setTracksAdded(true);
+			setPlaying(true);
+		}
+	}, [props.tracks]);
 
 	const createPlayer = () => {
 		if (!player && scriptsLoaded && accessToken) {
@@ -89,6 +102,33 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 					"player_state_changed",
 					(state: string) => {
 						console.log(state);
+						spotifyPlayer.getCurrentState().then((state: any) => {
+							if (!state) {
+								console.error(
+									"User is not playing music through the Web Playback SDK"
+								);
+								return;
+							}
+
+							let {
+								current_track,
+								next_tracks: [next_track],
+							} = state.track_window;
+
+							console.log("Currently Playing", current_track);
+
+							const nowPlaying: IPicks = {
+								id: current_track.id,
+								uri: current_track.uri,
+								name: current_track.name,
+								artist: current_track.artists[0].name,
+								medImg: current_track.album.images[1],
+								smImg: current_track.album.images[2],
+							};
+							setCurrentTrack(nowPlaying);
+
+							console.log("Playing Next", next_track);
+						});
 					}
 				);
 
@@ -117,31 +157,29 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 		}
 	};
 
-	const play = () => {
-		SpotifyPlayerUtils.play(
-			props.tracks.map((track) => track.uri),
-			deviceId
-		);
-		setPlaying(true);
-	};
-
-	const pause = () => {
-		SpotifyPlayerUtils.pause();
+	const togglePlay = () => {
+		player.togglePlay();
+		setPlaying(!playing);
 	};
 
 	const nextTrack = () => {
-		SpotifyPlayerUtils.forward();
+		player.nextTrack();
 	};
 
 	const previousTrack = () => {
-		SpotifyPlayerUtils.back();
+		player.previousTrack();
 	};
 
 	return (
 		<div>
 			<p>{player ? player!._options.name : "No player loaded"}</p>
-			<Icon name="play" onClick={play} />
-			<Icon name="pause" onClick={pause} />
+			<p>{currentTrack ? currentTrack.name : null}</p>
+			{playing ? (
+				<Icon name="pause" onClick={togglePlay} />
+			) : (
+				<Icon name="play" onClick={togglePlay} />
+			)}
+
 			<Icon name="step backward" onClick={previousTrack} />
 			<Icon name="step forward" onClick={nextTrack} />
 
