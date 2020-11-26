@@ -2,13 +2,13 @@ import React from "react";
 import Artist from "./Artist";
 import { IPicks } from "./Choices";
 
-const ArtistList = (props: { artists: IPicks[]; handlePicks?: any }) => {
+const ArtistList = (props: { artists: IPicks[]; handleClick?: any }) => {
 	return props.artists.length !== 0 ? (
 		<div className="artistList">
 			{props.artists.map((artist: IPicks) => {
 				return (
 					<Artist
-						handlePicks={props.handlePicks}
+						handleClick={props.handleClick}
 						artist={artist}
 						key={artist.id}
 					/>

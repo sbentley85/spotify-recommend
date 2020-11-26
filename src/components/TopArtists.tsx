@@ -18,7 +18,7 @@ const TopArtists = (props: { term: string; handlePicks: any }) => {
 
 	return (
 		<div id="my-top-tracks">
-			<ArtistList handlePicks={props.handlePicks} artists={topArtists} />
+			<ArtistList handleClick={props.handlePicks} artists={topArtists} />
 		</div>
 	);
 };

@@ -1,10 +1,10 @@
 import React from "react";
 import { IPicks } from "./Choices";
 
-const Track = (props: { track: IPicks; handlePicks: any }) => {
+const Track = (props: { track: IPicks; handleClick: any }) => {
 	return (
 		<div
-			onClick={(e) => props.handlePicks(e, props.track)}
+			onClick={(e) => props.handleClick(e, props.track)}
 			className="track"
 		>
 			<div

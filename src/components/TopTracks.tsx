@@ -17,7 +17,7 @@ const TopTracks = (props: { term: string; handlePicks: any }) => {
 	});
 	return (
 		<div id="my-top-tracks">
-			<TrackList handlePicks={props.handlePicks} tracks={topTracks} />
+			<TrackList handleClick={props.handlePicks} tracks={topTracks} />
 		</div>
 	);
 };

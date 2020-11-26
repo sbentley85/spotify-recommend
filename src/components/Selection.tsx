@@ -46,7 +46,7 @@ const Selection = (props: {
 							<div className="playlistTitle">{playlistName}</div>
 							<div className="playlistTracks">
 								<TrackList
-									handlePicks={props.handlePicks}
+									handleClick={props.handlePicks}
 									tracks={playlistTracks}
 								/>
 							</div>

@@ -3,6 +3,7 @@ import { Icon } from "semantic-ui-react";
 import SpotifyUtils from "../../util/spotify";
 import SpotifyPlayerUtils from "../../util/spotify-player";
 import { IPicks } from "../Choices";
+import Track from "../Track";
 
 const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 	const [accessToken, setAccessToken] = useState("");
@@ -37,14 +38,7 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 	}, [scriptsLoaded, accessToken]);
 
 	useEffect(() => {
-		if (deviceId && accessToken) {
-			SpotifyPlayerUtils.addToQueue(
-				props.tracks.map((track) => track.uri),
-				deviceId
-			);
-			setTracksAdded(true);
-			setPlaying(true);
-		}
+		setCurrentTrack(props.tracks[0]);
 	}, [props.tracks]);
 
 	const createPlayer = () => {
@@ -115,8 +109,6 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 								next_tracks: [next_track],
 							} = state.track_window;
 
-							console.log("Currently Playing", current_track);
-
 							const nowPlaying: IPicks = {
 								id: current_track.id,
 								uri: current_track.uri,
@@ -126,8 +118,7 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 								smImg: current_track.album.images[2],
 							};
 							setCurrentTrack(nowPlaying);
-
-							console.log("Playing Next", next_track);
+							setPlaying(!state.paused);
 						});
 					}
 				);
@@ -157,9 +148,24 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 		}
 	};
 
+	const getPlayStatus = () => {
+		player.getCurrentState().then((state: any) => {
+			setPlaying(state.paused);
+		});
+	};
+
 	const togglePlay = () => {
-		player.togglePlay();
-		setPlaying(!playing);
+		if (tracksAdded) player.togglePlay();
+		else {
+			if (deviceId && accessToken) {
+				SpotifyPlayerUtils.addToQueue(
+					props.tracks.map((track) => track.uri),
+					deviceId
+				);
+				setTracksAdded(true);
+				setPlaying(true);
+			}
+		}
 	};
 
 	const nextTrack = () => {
@@ -170,10 +176,13 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 		player.previousTrack();
 	};
 
-	return (
-		<div>
+	return props.tracks.length ? (
+		<div id="player">
 			<p>{player ? player!._options.name : "No player loaded"}</p>
-			<p>{currentTrack ? currentTrack.name : null}</p>
+
+			{currentTrack ? (
+				<Track track={currentTrack} handleClick={togglePlay} />
+			) : null}
 			{playing ? (
 				<Icon name="pause" onClick={togglePlay} />
 			) : (
@@ -185,7 +194,7 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 
 			<div></div>
 		</div>
-	);
+	) : null;
 };
 
 export default SpotifyPlayer;

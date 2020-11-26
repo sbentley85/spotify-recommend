@@ -1,10 +1,10 @@
 import React from "react";
 import { IPicks } from "./Choices";
 
-const Artist = (props: { artist: IPicks; handlePicks?: any }) => {
+const Artist = (props: { artist: IPicks; handleClick?: any }) => {
 	return (
 		<div
-			onClick={(e) => props.handlePicks(e, props.artist)}
+			onClick={(e) => props.handleClick(e, props.artist)}
 			className="artist"
 		>
 			<div

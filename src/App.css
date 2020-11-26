@@ -133,3 +133,7 @@
 	left: 0;
 	transform: translate(50%, -50%);
 }
+
+#player {
+	margin: 1rem;
+}
