@@ -79,7 +79,11 @@ const SpotifyUtils = {
 					}) => ({
 						id: track.id,
 						name: track.name,
-						artist: track.artists[0].name,
+						artist: track.artists
+							.map((artist: any) => {
+								return artist.name;
+							})
+							.join(", "),
 						medImg: track.album.images[1],
 						smImg: track.album.images[2],
 						uri: track.uri,
@@ -174,7 +178,11 @@ const SpotifyUtils = {
 				return jsonResponse.items.map((track: any) => ({
 					id: track.id,
 					name: track.name,
-					artist: track.artists[0].name,
+					artist: track.artists
+						.map((artist: any) => {
+							return artist.name;
+						})
+						.join(", "),
 					medImg: track.album.images[1],
 					smImg: track.album.images[2],
 					uri: track.uri,
@@ -213,7 +221,6 @@ const SpotifyUtils = {
 		})
 			.then((response) => response.json())
 			.then((jsonResponse) => {
-				console.log(jsonResponse);
 				return jsonResponse.items.map(
 					(playlist: {
 						id: number;
@@ -282,16 +289,21 @@ const SpotifyUtils = {
 				}
 			)
 				.then((response) => response.json())
-				.then((jsonResponse) =>
-					jsonResponse.items.map((track: any) => ({
+				.then((jsonResponse) => {
+					return jsonResponse.items.map((track: any) => ({
 						id: track.track.id,
 						name: track.track.name,
-						artist: track.track.artists[0].name,
+
+						artist: track.track.artists
+							.map((artist: any) => {
+								return artist.name;
+							})
+							.join(", "),
 						medImg: track.track.album.images[1],
 						smImg: track.track.album.images[2],
 						uri: track.uri,
-					}))
-				);
+					}));
+				});
 
 			tracks = tracks.concat(newTracks);
 		}
@@ -323,7 +335,11 @@ const SpotifyUtils = {
 				return jsonResponse.tracks.map((track: any) => ({
 					id: track.id,
 					name: track.name,
-					artist: track.artists[0].name,
+					artist: track.artists
+						.map((artist: any) => {
+							return artist.name;
+						})
+						.join(", "),
 					medImg: track.album.images[1],
 					smImg: track.album.images[2],
 					uri: track.uri,

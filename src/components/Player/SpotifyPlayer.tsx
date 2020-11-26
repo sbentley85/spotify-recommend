@@ -48,7 +48,6 @@ const SpotifyPlayer = (props: {
 
 	useEffect(() => {
 		// sends new set of tracks to queue when a recommended track is clicked
-		console.log("setting new tracks");
 		if (props.selectedTrack && deviceId && accessToken) {
 			const uris = props.tracks.map((track) => track.uri);
 			const newTracks = uris.slice(props.selectedTrackIndex);
@@ -60,7 +59,6 @@ const SpotifyPlayer = (props: {
 
 	useEffect(() => {
 		// sends new set of tracks to queue when picks change
-		console.log("picks change - setting new tracks");
 		if (props.tracks.length && deviceId && accessToken) {
 			SpotifyPlayerUtils.addToQueue(
 				props.tracks.map((track) => track.uri),

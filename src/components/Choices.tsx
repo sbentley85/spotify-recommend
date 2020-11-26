@@ -10,7 +10,7 @@ import Selection from "./Selection";
 export interface IPicks {
 	name: string;
 	id: string;
-	artist?: string;
+	artist: string;
 	smImg: { height: number; width: number; url: string };
 	medImg: { height: number; width: number; url: string };
 	uri: string;
