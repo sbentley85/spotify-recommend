@@ -156,6 +156,28 @@
 	align-items: center;
 }
 
+#controls {
+	flex-shrink: 0;
+}
+
+@media only screen and (max-width: 900px) {
+	#player {
+		width: 70%;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	#player {
+		width: 80%;
+	}
+}
+
+@media only screen and (max-width: 490px) {
+	#player {
+		width: 100%;
+	}
+}
+
 .playerControl {
 	margin: 0 1rem !important;
 	cursor: pointer;
