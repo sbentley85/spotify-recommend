@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SpotifyUtils from "../util/spotify";
+import SpotifyUtils from "../../util/spotify";
 import ArtistList from "./ArtistList";
 
 const TopArtists = (props: { term: string; handlePicks: any }) => {

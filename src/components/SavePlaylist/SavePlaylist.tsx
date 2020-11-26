@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PlaylistSlider from "./PlayListSlider";
-import { IPicks } from "../Choices";
+import { IPicks } from "../Choices/Choices";
 import Spotify from "../../util/spotify";
 
 import PlaylistButton from "./PlaylistButton";

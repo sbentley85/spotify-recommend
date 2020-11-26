@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { IPlaylist } from "./Choices";
-import SearchBar from "./SearchBar/SearchBar";
-import MyPlaylists from "./MyPlaylists";
-import TopTracks from "./TopTracks";
-import TopArtists from "./TopArtists";
-import TermInput from "./termInput";
-import TrackList from "./TrackList";
-import BackButton from "./BackButton";
-import Spotify from "../util/spotify";
+import { IPlaylist } from "../Choices/Choices";
+import SearchBar from "../SearchBar/SearchBar";
+import MyPlaylists from "../Playlists/MyPlaylists";
+import TopTracks from "../Tracks/TopTracks";
+import TopArtists from "../Artists/TopArtists";
+import TermInput from "../termInput";
+import TrackList from "../Tracks/TrackList";
+import BackButton from "../Playlists/BackButton";
+import Spotify from "../../util/spotify";
 
 const Selection = (props: {
 	handlePicks: any;

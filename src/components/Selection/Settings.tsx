@@ -1,6 +1,6 @@
 import React from "react";
-import ChoicesInput from "./ChoicesInput";
-import ChoicesSlider from "./ChoicesSlider";
+import ChoicesInput from "../Choices/ChoicesInput";
+import ChoicesSlider from "../Choices/ChoicesSlider";
 import { Grid } from "semantic-ui-react";
 
 const Settings = (props: {

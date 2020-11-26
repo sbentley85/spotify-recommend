@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import TrackList from "./TrackList";
-import { IPicks } from "./Choices";
+import TrackList from "./Tracks/TrackList";
+import { IPicks } from "./Choices/Choices";
 import SavePlaylist from "./SavePlaylist/SavePlaylist";
 import SpotifyPlayer from "./Player/SpotifyPlayer";
 

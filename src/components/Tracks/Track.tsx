@@ -1,5 +1,5 @@
 import React from "react";
-import { IPicks } from "./Choices";
+import { IPicks } from "../Choices/Choices";
 
 const Track = (props: { track: IPicks; handleClick: any }) => {
 	return (

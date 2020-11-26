@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "semantic-ui-react";
-import { IPlaylist } from "../Choices";
+import { IPlaylist } from "../Choices/Choices";
 import Spotify from "../../util/spotify";
 
 const MyPlaylistsDropdown = (props: {

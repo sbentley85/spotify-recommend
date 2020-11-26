@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import spotify from "../util/spotify";
+import spotify from "../../util/spotify";
 import Playlist from "./Playlist";
-import { IPlaylist } from "./Choices";
+import { IPlaylist } from "../Choices/Choices";
 
 const MyPlaylists = (props: { selectPlaylist: any }) => {
 	const [myPlaylists, setMyPlaylists] = useState<Array<IPlaylist>>([]);

@@ -1,6 +1,6 @@
 import React from "react";
 import Track from "./Track";
-import { IPicks } from "./Choices";
+import { IPicks } from "../Choices/Choices";
 
 const TrackList = (props: { handleClick?: any; tracks: IPicks[] }) => {
 	return props.tracks.length !== 0 ? (

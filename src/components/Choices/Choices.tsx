@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Divider, Grid } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import Spotify from "../util/spotify";
-import MyRecommendations from "./MyRecommendations";
-import Picks from "./Picks";
-import Settings from "./Settings";
-import Selection from "./Selection";
+import Spotify from "../../util/spotify";
+import MyRecommendations from "../MyRecommendations";
+import Picks from "../Picks";
+import Settings from "../Selection/Settings";
+import Selection from "../Selection/Selection";
 
 export interface IPicks {
 	name: string;

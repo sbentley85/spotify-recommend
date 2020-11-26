@@ -1,4 +1,4 @@
-import { IPlaylist } from "../components/Choices";
+import { IPlaylist } from "../components/Choices/Choices";
 
 let accessToken: string;
 const clientId = "2605e63cad504fc6889cb31b91f1eff3";

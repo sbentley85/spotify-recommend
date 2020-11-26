@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import SpotifyUtils from "../../util/spotify";
 import SpotifyPlayerUtils from "../../util/spotify-player";
-import { IPicks } from "../Choices";
-import Track from "../Track";
+import { IPicks } from "../Choices/Choices";
+import Track from "../Tracks/Track";
 import Controls from "./Controls";
 
 const SpotifyPlayer = (props: {

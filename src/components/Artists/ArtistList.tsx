@@ -1,6 +1,6 @@
 import React from "react";
 import Artist from "./Artist";
-import { IPicks } from "./Choices";
+import { IPicks } from "../Choices/Choices";
 
 const ArtistList = (props: { artists: IPicks[]; handleClick?: any }) => {
 	return props.artists.length !== 0 ? (

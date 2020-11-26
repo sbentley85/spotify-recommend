@@ -1,6 +1,6 @@
 import React from "react";
-import ArtistList from "../ArtistList";
-import TrackList from "../TrackList";
+import ArtistList from "../Artists/ArtistList";
+import TrackList from "../Tracks/TrackList";
 
 const SearchResults = (props: {
 	tracks?: any;

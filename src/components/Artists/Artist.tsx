@@ -1,5 +1,5 @@
 import React from "react";
-import { IPicks } from "./Choices";
+import { IPicks } from "../Choices/Choices";
 
 const Artist = (props: { artist: IPicks; handleClick?: any }) => {
 	return (
