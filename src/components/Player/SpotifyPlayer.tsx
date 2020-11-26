@@ -177,22 +177,38 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 	};
 
 	return props.tracks.length ? (
-		<div id="player">
-			<p>{player ? player!._options.name : "No player loaded"}</p>
+		<div id="playerContainer">
+			<div id="player">
+				{currentTrack ? (
+					<Track track={currentTrack} handleClick={togglePlay} />
+				) : null}
+				<div id="controls">
+					{playing ? (
+						<Icon
+							name="pause"
+							className="playerControl"
+							onClick={togglePlay}
+						/>
+					) : (
+						<Icon
+							name="play"
+							className="playerControl"
+							onClick={togglePlay}
+						/>
+					)}
 
-			{currentTrack ? (
-				<Track track={currentTrack} handleClick={togglePlay} />
-			) : null}
-			{playing ? (
-				<Icon name="pause" onClick={togglePlay} />
-			) : (
-				<Icon name="play" onClick={togglePlay} />
-			)}
-
-			<Icon name="step backward" onClick={previousTrack} />
-			<Icon name="step forward" onClick={nextTrack} />
-
-			<div></div>
+					<Icon
+						name="step backward"
+						className="playerControl"
+						onClick={previousTrack}
+					/>
+					<Icon
+						name="step forward"
+						className="playerControl"
+						onClick={nextTrack}
+					/>
+				</div>
+			</div>
 		</div>
 	) : null;
 };
