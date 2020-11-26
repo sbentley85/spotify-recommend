@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import spotify from "../util/spotify";
+import SpotifyUtils from "../util/spotify";
 import TrackList from "./TrackList";
 
 const TopTracks = (props: { term: string; handlePicks: any }) => {
@@ -8,7 +8,7 @@ const TopTracks = (props: { term: string; handlePicks: any }) => {
 
 	useEffect(() => {
 		const getTopTracks = async () => {
-			const tracks = await spotify.getTopTracks(props.term);
+			const tracks = await SpotifyUtils.getTopTracks(props.term);
 
 			setTopTracks(tracks);
 			setTerm(props.term);
@@ -17,7 +17,7 @@ const TopTracks = (props: { term: string; handlePicks: any }) => {
 	});
 	return (
 		<div id="my-top-tracks">
-			<TrackList handlePicks={props.handlePicks} tracks={topTracks} />
+			<TrackList handleClick={props.handlePicks} tracks={topTracks} />
 		</div>
 	);
 };

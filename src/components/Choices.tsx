@@ -13,6 +13,7 @@ export interface IPicks {
 	artist?: string;
 	smImg: { height: number; width: number; url: string };
 	medImg: { height: number; width: number; url: string };
+	uri: string;
 }
 
 export interface IPlaylist {

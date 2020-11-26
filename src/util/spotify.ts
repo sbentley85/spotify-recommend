@@ -22,7 +22,7 @@ document.body.onload = function () {
 	}
 };
 
-const Spotify = {
+const SpotifyUtils = {
 	getAccessToken() {
 		if (accessToken) {
 			return accessToken;
@@ -43,17 +43,18 @@ const Spotify = {
 			return accessToken;
 		} else {
 			const scopes =
-				"playlist-modify-public user-library-read user-top-read";
+				"playlist-modify-public user-library-read user-top-read streaming user-read-email user-read-private";
 			const accessUri = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=${encodeURIComponent(
 				scopes
 			)}&redirect_uri=${redirectUri}`;
 			window.location.href = accessUri;
+			return "";
 		}
 	},
 
 	searchTracks(term: string) {
 		sessionStorage.setItem("searchTerm", term);
-		const accessToken = Spotify.getAccessToken();
+		const accessToken = SpotifyUtils.getAccessToken();
 
 		let endpoint = `https://api.spotify.com/v1/search?type=track&q=${term}`;
 
@@ -81,6 +82,7 @@ const Spotify = {
 						artist: track.artists[0].name,
 						medImg: track.album.images[1],
 						smImg: track.album.images[2],
+						uri: track.uri,
 					})
 				);
 			});
@@ -88,7 +90,7 @@ const Spotify = {
 
 	searchArtists(term: string) {
 		sessionStorage.setItem("searchTerm", term);
-		const accessToken = Spotify.getAccessToken();
+		const accessToken = SpotifyUtils.getAccessToken();
 
 		let endpoint = `https://api.spotify.com/v1/search?type=artist&q=${term}`;
 
@@ -108,12 +110,13 @@ const Spotify = {
 					name: artist.name,
 					medImg: artist.images[1],
 					smImg: artist.images[2],
+					uri: artist.uri,
 				}));
 			});
 	},
 
 	getUserId() {
-		const accessToken = Spotify.getAccessToken();
+		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
 		return fetch("https://api.spotify.com/v1/me", { headers: headers })
@@ -128,9 +131,9 @@ const Spotify = {
 			return;
 		}
 
-		const accessToken = Spotify.getAccessToken();
+		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
-		return Spotify.getUserId().then((id) => {
+		return SpotifyUtils.getUserId().then((id) => {
 			return fetch(`https://api.spotify.com/v1/users/${id}/playlists`, {
 				headers: headers,
 				method: "POST",
@@ -139,13 +142,13 @@ const Spotify = {
 				.then((response) => response.json())
 				.then((jsonResponse) => jsonResponse.id)
 				.then((id) => {
-					return Spotify.addToPlaylist(id, trackUris);
+					return SpotifyUtils.addToPlaylist(id, trackUris);
 				});
 		});
 	},
 
 	addToPlaylist(playlistId: string, trackUris: any[]) {
-		const accessToken = Spotify.getAccessToken();
+		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
 		return fetch(
@@ -159,7 +162,7 @@ const Spotify = {
 	},
 
 	getTopTracks(term: string) {
-		const accessToken = Spotify.getAccessToken();
+		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
 		return fetch(
@@ -174,12 +177,13 @@ const Spotify = {
 					artist: track.artists[0].name,
 					medImg: track.album.images[1],
 					smImg: track.album.images[2],
+					uri: track.uri,
 				}));
 			});
 	},
 
 	getTopArtists(term: string) {
-		const accessToken = Spotify.getAccessToken();
+		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
 		return fetch(
@@ -195,12 +199,13 @@ const Spotify = {
 					name: artist.name,
 					medImg: artist.images[1],
 					smImg: artist.images[2],
+					uri: artist.uri,
 				}));
 			});
 	},
 
 	getPlaylists() {
-		const accessToken = Spotify.getAccessToken();
+		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
 		return fetch("https://api.spotify.com/v1/me/playlists?limit=50", {
@@ -225,7 +230,7 @@ const Spotify = {
 			});
 	},
 	async getMyPlaylists() {
-		const accessToken = Spotify.getAccessToken();
+		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
 		const userId = await this.getUserId();
@@ -235,7 +240,6 @@ const Spotify = {
 		})
 			.then((response) => response.json())
 			.then((jsonResponse) => {
-				console.log(jsonResponse);
 				return jsonResponse.items
 					.filter(
 						(playlist: {
@@ -265,7 +269,7 @@ const Spotify = {
 	},
 
 	async getPlaylistTracks(playlist: IPlaylist) {
-		const accessToken = Spotify.getAccessToken();
+		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 		let tracks: any[] = [];
 		for (let i = 0; i < Math.ceil(playlist.length / 100); i++) {
@@ -285,6 +289,7 @@ const Spotify = {
 						artist: track.track.artists[0].name,
 						medImg: track.track.album.images[1],
 						smImg: track.track.album.images[2],
+						uri: track.uri,
 					}))
 				);
 
@@ -295,7 +300,7 @@ const Spotify = {
 	},
 
 	getRecommendations(picks: any, searchType: string) {
-		const accessToken = Spotify.getAccessToken();
+		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 		const option =
 			searchType === "Artists" ? "seed_artists=" : "seed_tracks=";
@@ -314,15 +319,17 @@ const Spotify = {
 		)
 			.then((response) => response.json())
 			.then((jsonResponse) => {
+				console.log(jsonResponse);
 				return jsonResponse.tracks.map((track: any) => ({
 					id: track.id,
 					name: track.name,
 					artist: track.artists[0].name,
 					medImg: track.album.images[1],
 					smImg: track.album.images[2],
+					uri: track.uri,
 				}));
 			});
 	},
 };
 
-export default Spotify;
+export default SpotifyUtils;

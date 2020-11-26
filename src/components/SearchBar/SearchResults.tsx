@@ -11,13 +11,13 @@ const SearchResults = (props: {
 		<div id="search-results">
 			{props.tracks ? (
 				<TrackList
-					handlePicks={props.handlePicks}
+					handleClick={props.handlePicks}
 					tracks={props.tracks}
 				/>
 			) : null}
 			{props.artists ? (
 				<ArtistList
-					handlePicks={props.handlePicks}
+					handleClick={props.handlePicks}
 					artists={props.artists}
 				/>
 			) : null}

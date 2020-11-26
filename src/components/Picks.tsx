@@ -12,7 +12,7 @@ const Picks = (props: {
 		<>
 			{props.searchType === "Artists" ? (
 				<ArtistList
-					handlePicks={props.handlePicks}
+					handleClick={props.handlePicks}
 					artists={props.picks}
 				/>
 			) : (
@@ -20,7 +20,7 @@ const Picks = (props: {
 			)}
 			{props.searchType === "Tracks" ? (
 				<TrackList
-					handlePicks={props.handlePicks}
+					handleClick={props.handlePicks}
 					tracks={props.picks}
 				/>
 			) : (
