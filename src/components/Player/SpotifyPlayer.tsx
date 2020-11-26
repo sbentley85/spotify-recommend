@@ -5,7 +5,11 @@ import SpotifyPlayerUtils from "../../util/spotify-player";
 import { IPicks } from "../Choices";
 import Track from "../Track";
 
-const SpotifyPlayer = (props: { tracks: IPicks[]; selectedTrack?: IPicks }) => {
+const SpotifyPlayer = (props: {
+	tracks: IPicks[];
+	selectedTrack?: IPicks;
+	selectedTrackIndex: number;
+}) => {
 	const [accessToken, setAccessToken] = useState("");
 	const [player, setPlayer] = useState<any>(null);
 	const [scriptsLoaded, setScriptsLoaded] = useState(false);
@@ -44,18 +48,28 @@ const SpotifyPlayer = (props: { tracks: IPicks[]; selectedTrack?: IPicks }) => {
 
 	useEffect(() => {
 		// sends new set of tracks to queue when a recommended track is clicked
-		console.log("sending new track list");
+		console.log("setting new tracks");
 		if (props.selectedTrack && deviceId && accessToken) {
 			const uris = props.tracks.map((track) => track.uri);
-			const index = uris.indexOf(props.selectedTrack!.uri);
-			console.log(index);
-			const newTracks = uris.slice(index);
-
+			const newTracks = uris.slice(props.selectedTrackIndex);
 			SpotifyPlayerUtils.addToQueue(newTracks, deviceId);
 			setTracksAdded(true);
 			setPlaying(true);
 		}
-	}, [props.selectedTrack]);
+	}, [props.selectedTrack, accessToken, deviceId, props.selectedTrackIndex]);
+
+	useEffect(() => {
+		// sends new set of tracks to queue when picks change
+		console.log("picks change - setting new tracks");
+		if (props.tracks.length && deviceId && accessToken) {
+			SpotifyPlayerUtils.addToQueue(
+				props.tracks.map((track) => track.uri),
+				deviceId
+			);
+			setTracksAdded(true);
+			setPlaying(true);
+		}
+	}, [props.tracks, accessToken, deviceId]);
 
 	const createPlayer = () => {
 		if (!player && scriptsLoaded && accessToken) {
@@ -121,7 +135,7 @@ const SpotifyPlayer = (props: { tracks: IPicks[]; selectedTrack?: IPicks }) => {
 
 							let {
 								current_track,
-								next_tracks: [next_track],
+								// next_tracks: [next_track],
 							} = state.track_window;
 
 							const nowPlaying: IPicks = {
@@ -163,11 +177,11 @@ const SpotifyPlayer = (props: { tracks: IPicks[]; selectedTrack?: IPicks }) => {
 		}
 	};
 
-	const getPlayStatus = () => {
-		player.getCurrentState().then((state: any) => {
-			setPlaying(state.paused);
-		});
-	};
+	// const getPlayStatus = () => {
+	// 	player.getCurrentState().then((state: any) => {
+	// 		setPlaying(state.paused);
+	// 	});
+	// };
 
 	const togglePlay = () => {
 		if (tracksAdded) player.togglePlay();

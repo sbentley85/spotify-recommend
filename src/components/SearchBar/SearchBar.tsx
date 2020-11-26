@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SearchButton from "./SearchButton";
 import SearchInput from "./SearchInput";
 import Spotify from "../../util/spotify";
 import SearchResults from "./SearchResults";
