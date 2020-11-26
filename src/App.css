@@ -158,6 +158,7 @@
 
 .playerControl {
 	margin: 0 1rem !important;
+	cursor: pointer;
 }
 
 #my-recommendations {

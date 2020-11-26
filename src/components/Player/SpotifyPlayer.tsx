@@ -5,7 +5,7 @@ import SpotifyPlayerUtils from "../../util/spotify-player";
 import { IPicks } from "../Choices";
 import Track from "../Track";
 
-const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
+const SpotifyPlayer = (props: { tracks: IPicks[]; selectedTrack?: IPicks }) => {
 	const [accessToken, setAccessToken] = useState("");
 	const [player, setPlayer] = useState<any>(null);
 	const [scriptsLoaded, setScriptsLoaded] = useState(false);
@@ -38,8 +38,24 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 	}, [scriptsLoaded, accessToken]);
 
 	useEffect(() => {
+		// sets current track to first item in props.tracks for player to have track details
 		setCurrentTrack(props.tracks[0]);
 	}, [props.tracks]);
+
+	useEffect(() => {
+		// sends new set of tracks to queue when a recommended track is clicked
+		console.log("sending new track list");
+		if (props.selectedTrack && deviceId && accessToken) {
+			const uris = props.tracks.map((track) => track.uri);
+			const index = uris.indexOf(props.selectedTrack!.uri);
+			console.log(index);
+			const newTracks = uris.slice(index);
+
+			SpotifyPlayerUtils.addToQueue(newTracks, deviceId);
+			setTracksAdded(true);
+			setPlaying(true);
+		}
+	}, [props.selectedTrack]);
 
 	const createPlayer = () => {
 		if (!player && scriptsLoaded && accessToken) {
@@ -95,7 +111,6 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 				spotifyPlayer.addListener(
 					"player_state_changed",
 					(state: string) => {
-						console.log(state);
 						spotifyPlayer.getCurrentState().then((state: any) => {
 							if (!state) {
 								console.error(
@@ -183,6 +198,11 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 					<Track track={currentTrack} handleClick={togglePlay} />
 				) : null}
 				<div id="controls">
+					<Icon
+						name="step backward"
+						className="playerControl"
+						onClick={previousTrack}
+					/>
 					{playing ? (
 						<Icon
 							name="pause"
@@ -197,11 +217,6 @@ const SpotifyPlayer = (props: { tracks: IPicks[] }) => {
 						/>
 					)}
 
-					<Icon
-						name="step backward"
-						className="playerControl"
-						onClick={previousTrack}
-					/>
 					<Icon
 						name="step forward"
 						className="playerControl"
