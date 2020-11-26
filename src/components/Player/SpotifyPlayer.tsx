@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Icon } from "semantic-ui-react";
 import SpotifyUtils from "../../util/spotify";
 import SpotifyPlayerUtils from "../../util/spotify-player";
 import { IPicks } from "../Choices";
 import Track from "../Track";
+import Controls from "./Controls";
 
 const SpotifyPlayer = (props: {
 	tracks: IPicks[];
@@ -211,32 +211,12 @@ const SpotifyPlayer = (props: {
 				{currentTrack ? (
 					<Track track={currentTrack} handleClick={togglePlay} />
 				) : null}
-				<div id="controls">
-					<Icon
-						name="step backward"
-						className="playerControl"
-						onClick={previousTrack}
-					/>
-					{playing ? (
-						<Icon
-							name="pause"
-							className="playerControl"
-							onClick={togglePlay}
-						/>
-					) : (
-						<Icon
-							name="play"
-							className="playerControl"
-							onClick={togglePlay}
-						/>
-					)}
-
-					<Icon
-						name="step forward"
-						className="playerControl"
-						onClick={nextTrack}
-					/>
-				</div>
+				<Controls
+					playing={playing}
+					nextTrack={nextTrack}
+					previousTrack={previousTrack}
+					togglePlay={togglePlay}
+				/>
 			</div>
 		</div>
 	) : null;
