@@ -203,7 +203,7 @@ const SpotifyPlayer = (props: {
 		player.previousTrack();
 	};
 
-	return props.tracks.length ? (
+	return props.tracks.length && deviceId ? (
 		<div id="playerContainer">
 			<div id="player">
 				{currentTrack ? (
