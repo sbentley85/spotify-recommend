@@ -1,0 +1,47 @@
+#playerContainer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	/* width: inherit; */
+	width: 100%;
+
+	background-color: white;
+	z-index: 1000;
+	display: flex;
+	justify-content: center;
+	background-color: rgba(226, 221, 230, 1);
+	padding: 0.5rem;
+}
+
+#player {
+	width: 60%;
+	display: flex;
+	align-items: center;
+}
+
+#controls {
+	flex-shrink: 0;
+}
+
+@media only screen and (max-width: 900px) {
+	#player {
+		width: 70%;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	#player {
+		width: 80%;
+	}
+}
+
+@media only screen and (max-width: 490px) {
+	#player {
+		width: 100%;
+	}
+}
+
+.playerControl {
+	margin: 0 1rem !important;
+	cursor: pointer;
+}

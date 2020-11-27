@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Divider, Grid } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import Spotify from "../../util/spotify";
-import MyRecommendations from "../MyRecommendations";
-import Picks from "../Picks";
+import MyRecommendations from "../Recommendations/MyRecommendations";
+import Picks from "./Picks";
 import Settings from "../Selection/Settings";
 import Selection from "../Selection/Selection";
+import choicesStyles from "./choices.module.css";
 
 export interface IPicks {
 	name: string;
@@ -102,7 +103,7 @@ const Choices = (props: any) => {
 
 	return (
 		<>
-			<Grid.Row id="settings" columns={2}>
+			<Grid.Row className={choicesStyles.settings} columns={2}>
 				<Settings
 					searchType={searchType}
 					selection={selection}

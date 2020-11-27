@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import spotify from "../../util/spotify";
 import Playlist from "./Playlist";
 import { IPlaylist } from "../Choices/Choices";
+import playlistStyles from "../Tracks/tracks.module.css";
 
 const MyPlaylists = (props: { selectPlaylist: any }) => {
 	const [myPlaylists, setMyPlaylists] = useState<Array<IPlaylist>>([]);
@@ -15,7 +16,7 @@ const MyPlaylists = (props: { selectPlaylist: any }) => {
 	}, []);
 
 	return (
-		<div id="my-playlists">
+		<div className={playlistStyles.myPlaylists}>
 			{myPlaylists.length !== 0 ? (
 				myPlaylists!.map((playlist: IPlaylist) => {
 					return (

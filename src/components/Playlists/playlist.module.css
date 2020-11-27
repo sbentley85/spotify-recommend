@@ -1,0 +1,15 @@
+.playlistTitle {
+	position: absolute;
+	left: 50%;
+	top: -5%;
+	transform: translate(-50%, 0);
+	height: 38px;
+	width: 196px;
+}
+
+.back {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translate(50%, -50%);
+}

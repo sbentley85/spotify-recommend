@@ -1,0 +1,13 @@
+.settings {
+	margin: 2rem 0;
+}
+
+.slider {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.sliderLabel {
+	margin: 1rem;
+}

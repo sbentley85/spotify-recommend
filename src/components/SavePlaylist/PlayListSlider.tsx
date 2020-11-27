@@ -1,17 +1,18 @@
 import React from "react";
 import { Checkbox } from "semantic-ui-react";
+import choicesStyles from "../Choices/choices.module.css";
 
 const PlayListSlider = (props: { updateNewPlaylist: any }) => {
 	return (
-		<div className="slider">
-			<span className="sliderLabel">Add to existing</span>
+		<div className={choicesStyles.slider}>
+			<span className={choicesStyles.sliderLabel}>Add to existing</span>
 			<Checkbox
 				toggle
 				id="new-playlist"
 				name="new-playlist"
 				onChange={props.updateNewPlaylist}
 			/>
-			<span className="sliderLabel">New Playlist</span>
+			<span className={choicesStyles.sliderLabel}>New Playlist</span>
 		</div>
 	);
 };

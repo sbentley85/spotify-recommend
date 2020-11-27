@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import SearchInput from "./SearchInput";
 import Spotify from "../../util/spotify";
 import SearchResults from "./SearchResults";
+import selectionStyles from "../Selection/selection.module.css";
+import searchStyles from "./search.module.css";
 
 const SearchBar = (props: { handlePicks?: any; searchType: string }) => {
 	const [searchTerm, setSearchTerm] = useState("");
@@ -27,8 +29,8 @@ const SearchBar = (props: { handlePicks?: any; searchType: string }) => {
 	};
 
 	return (
-		<div id="searchBar">
-			<div className="searchInput">
+		<div className={searchStyles.searchBar}>
+			<div className={selectionStyles.searchInput}>
 				<SearchInput onChange={updateSearchTerm} onSearch={onSearch} />
 			</div>
 

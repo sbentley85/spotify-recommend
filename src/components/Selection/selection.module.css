@@ -1,0 +1,29 @@
+.searchInput,
+.termInput,
+.playlistTitle {
+	position: absolute;
+	left: 50%;
+	top: -5%;
+	transform: translate(-50%, 0);
+	height: 38px;
+	width: 196px;
+}
+
+/* added to playlist title to duplicate term input styles */
+.playlistTitle {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid rgba(34, 36, 38, 0.15);
+	border-radius: 0.28rem;
+	background-color: white;
+}
+
+.playlistContainer {
+	position: relative;
+}
+
+/* .select {
+	max-height: 350px;
+	overflow-y: auto;
+} */

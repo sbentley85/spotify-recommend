@@ -1,5 +1,6 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
+import selectionStyles from "./selection.module.css";
 
 const TermInput = (props: any) => {
 	const termOptions = [
@@ -21,7 +22,7 @@ const TermInput = (props: any) => {
 	];
 
 	return (
-		<div className="termInput">
+		<div className={selectionStyles.termInput}>
 			<Dropdown
 				onChange={props.updateTerm}
 				placeholder="Select"

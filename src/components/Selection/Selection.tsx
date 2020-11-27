@@ -4,10 +4,11 @@ import SearchBar from "../SearchBar/SearchBar";
 import MyPlaylists from "../Playlists/MyPlaylists";
 import TopTracks from "../Tracks/TopTracks";
 import TopArtists from "../Artists/TopArtists";
-import TermInput from "../termInput";
+import TermInput from "./termInput";
 import TrackList from "../Tracks/TrackList";
 import BackButton from "../Playlists/BackButton";
 import Spotify from "../../util/spotify";
+import selectionStyles from "./selection.module.css";
 
 const Selection = (props: {
 	handlePicks: any;
@@ -32,7 +33,7 @@ const Selection = (props: {
 	};
 
 	return (
-		<div id="select">
+		<div className={selectionStyles.select}>
 			{props.selection === "search" ? (
 				<SearchBar
 					handlePicks={props.handlePicks}
@@ -42,8 +43,10 @@ const Selection = (props: {
 			{props.selection === "my-playlists" ? (
 				<>
 					{playlistTracks.length > 0 ? (
-						<div className="playlistContainer">
-							<div className="playlistTitle">{playlistName}</div>
+						<div className={selectionStyles.playlistContainer}>
+							<div className={selectionStyles.playlistTitle}>
+								{playlistName}
+							</div>
 							<div className="playlistTracks">
 								<TrackList
 									handleClick={props.handlePicks}

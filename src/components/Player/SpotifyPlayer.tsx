@@ -4,6 +4,7 @@ import SpotifyPlayerUtils from "../../util/spotify-player";
 import { IPicks } from "../Choices/Choices";
 import Track from "../Tracks/Track";
 import Controls from "./Controls";
+import playerStyles from "./player.module.css";
 
 const SpotifyPlayer = (props: {
 	tracks: IPicks[];
@@ -204,8 +205,8 @@ const SpotifyPlayer = (props: {
 	};
 
 	return props.tracks.length && deviceId ? (
-		<div id="playerContainer">
-			<div id="player">
+		<div id={playerStyles.playerContainer}>
+			<div id={playerStyles.player}>
 				{currentTrack ? (
 					<Track track={currentTrack} handleClick={togglePlay} />
 				) : null}

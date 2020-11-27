@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import TrackList from "./Tracks/TrackList";
-import { IPicks } from "./Choices/Choices";
-import SavePlaylist from "./SavePlaylist/SavePlaylist";
-import SpotifyPlayer from "./Player/SpotifyPlayer";
+import TrackList from "../Tracks/TrackList";
+import { IPicks } from "../Choices/Choices";
+import SavePlaylist from "../SavePlaylist/SavePlaylist";
+import SpotifyPlayer from "../Player/SpotifyPlayer";
+import recommendStyles from "./recommendations.module.css";
 
 const MyRecommendations = (props: { tracks: IPicks[]; picks: IPicks[] }) => {
 	const [selectedTrack, setSelectedTrack] = useState<IPicks>();
@@ -13,7 +14,7 @@ const MyRecommendations = (props: { tracks: IPicks[]; picks: IPicks[] }) => {
 		setSelectedTrackIndex(index);
 	};
 	return (
-		<div id="my-recommendations">
+		<div className={recommendStyles.myRecommendations}>
 			<SpotifyPlayer
 				selectedTrack={selectedTrack}
 				selectedTrackIndex={selectedTrackIndex}

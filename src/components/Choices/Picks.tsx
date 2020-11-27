@@ -1,7 +1,7 @@
 import React from "react";
-import TrackList from "./Tracks/TrackList";
-import ArtistList from "./Artists/ArtistList";
-import { IPicks } from "./Choices/Choices";
+import TrackList from "../Tracks/TrackList";
+import ArtistList from "../Artists/ArtistList";
+import { IPicks } from "./Choices";
 
 const Picks = (props: {
 	picks: IPicks[];

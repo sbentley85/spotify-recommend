@@ -1,10 +1,11 @@
 import React from "react";
 import Artist from "./Artist";
 import { IPicks } from "../Choices/Choices";
+import artistStyles from "../Tracks/tracks.module.css";
 
 const ArtistList = (props: { artists: IPicks[]; handleClick?: any }) => {
 	return props.artists.length !== 0 ? (
-		<div className="artistList">
+		<div className={artistStyles.artistList}>
 			{props.artists.map((artist: IPicks) => {
 				return (
 					<Artist
