@@ -14,7 +14,7 @@ const TopTracks = (props: { term: string; handlePicks: any }) => {
 			setTerm(props.term);
 		};
 		if (topTracks.length === 0 || term !== props.term) getTopTracks();
-	});
+	}, []);
 	return (
 		<div id="my-top-tracks">
 			<TrackList handleClick={props.handlePicks} tracks={topTracks} />

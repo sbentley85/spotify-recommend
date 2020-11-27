@@ -7,14 +7,15 @@ const TopArtists = (props: { term: string; handlePicks: any }) => {
 	const [term, setTerm] = useState("long-term");
 
 	useEffect(() => {
+		console.log("getting top artists");
 		const getTopArtists = async () => {
 			const artists = await SpotifyUtils.getTopArtists(props.term);
 
 			setTopArtists(artists);
 			setTerm(props.term);
 		};
-		if (topArtists.length === 0 || term !== props.term) getTopArtists();
-	});
+		if (!topArtists.length || term !== props.term) getTopArtists();
+	}, []);
 
 	return (
 		<div id="my-top-tracks">

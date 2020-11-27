@@ -12,7 +12,7 @@ const MyPlaylists = (props: { selectPlaylist: any }) => {
 			setMyPlaylists(playlists);
 		};
 		if (myPlaylists.length === 0) getPlaylists();
-	});
+	}, []);
 
 	return (
 		<div id="my-playlists">
