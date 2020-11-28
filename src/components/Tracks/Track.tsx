@@ -17,7 +17,13 @@ const Track = (props: { track: IPicks; handleClick: any }) => {
 				}
 			></div>
 			<div className={trackStyles.trackDetails}>
-				{props.track.artist + " - " + props.track.name}
+				<div className={trackStyles.trackDetail}>
+					{props.track.artist}
+
+					{"  -  "}
+
+					{props.track.name}
+				</div>
 			</div>
 		</div>
 	);

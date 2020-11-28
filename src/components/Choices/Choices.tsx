@@ -129,7 +129,7 @@ const Choices = (props: any) => {
 					/>
 				</Grid.Column>
 			</Grid.Row>
-			<Divider />
+
 			<Grid.Row columns={1}>
 				<Grid.Column>
 					<MyRecommendations picks={picks} tracks={recommendations} />

@@ -62,7 +62,7 @@ const Selection = (props: {
 				</>
 			) : null}
 			{props.selection === "top-tracks" ? (
-				<div className="termContainer">
+				<div className={selectionStyles.termContainer}>
 					<TermInput
 						updateTerm={props.updateTerm}
 						term={props.term}
@@ -74,7 +74,7 @@ const Selection = (props: {
 				</div>
 			) : null}
 			{props.selection === "top-artists" ? (
-				<div className="termContainer">
+				<div className={selectionStyles.termContainer}>
 					<TermInput
 						updateTerm={props.updateTerm}
 						term={props.term}

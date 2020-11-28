@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "semantic-ui-react";
+import playerStyles from "./player.module.css";
 
 const Controls = (props: {
 	previousTrack: any;
@@ -8,29 +9,29 @@ const Controls = (props: {
 	playing: boolean;
 }) => {
 	return (
-		<div id="controls">
+		<div className={playerStyles.controls}>
 			<Icon
 				name="step backward"
-				className="playerControl"
+				className={playerStyles.playerControl}
 				onClick={props.previousTrack}
 			/>
 			{props.playing ? (
 				<Icon
 					name="pause"
-					className="playerControl"
+					className={playerStyles.playerControl}
 					onClick={props.togglePlay}
 				/>
 			) : (
 				<Icon
 					name="play"
-					className="playerControl"
+					className={playerStyles.playerControl}
 					onClick={props.togglePlay}
 				/>
 			)}
 
 			<Icon
 				name="step forward"
-				className="playerControl"
+				className={playerStyles.playerControl}
 				onClick={props.nextTrack}
 			/>
 		</div>

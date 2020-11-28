@@ -17,9 +17,12 @@
 	border: 1px solid rgba(34, 36, 38, 0.15);
 	border-radius: 0.28rem;
 	background-color: white;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
-.playlistContainer {
+.playlistContainer,
+.termContainer {
 	position: relative;
 }
 

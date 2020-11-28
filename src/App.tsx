@@ -8,6 +8,7 @@ import { Grid, Container } from "semantic-ui-react";
 function App() {
 	return (
 		<div className="App">
+			<div className="header"></div>
 			<Container>
 				<Grid stackable columns={1}>
 					<Choices />

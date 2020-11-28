@@ -2,11 +2,19 @@
 .track,
 .playlist {
 	cursor: pointer;
-	margin: 0.5rem;
+	margin: 1rem 0.5rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	flex-grow: 1;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	border-radius: 7px;
+	padding: 0.2rem;
+	background-color: rgb(255, 255, 255);
+	max-height: 70px;
+	min-width: 250px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .trackList,
@@ -16,8 +24,9 @@
 	padding: 1rem;
 	max-height: 400px;
 	overflow-y: auto;
-	border: 1px solid black;
-	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	border-radius: 7px;
+	background-color: rgb(241, 240, 240);
 }
 
 .artistImage,
@@ -37,4 +46,14 @@
 	flex-grow: 1;
 	justify-content: center;
 	display: flex;
+	align-items: center;
+	overflow: hidden;
+	max-height: inherit;
+}
+
+.trackDetail {
+	margin: 0 0.7rem;
+
+	overflow: hidden;
+	max-height: inherit;
 }

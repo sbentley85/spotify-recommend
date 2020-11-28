@@ -205,8 +205,8 @@ const SpotifyPlayer = (props: {
 	};
 
 	return props.tracks.length && deviceId ? (
-		<div id={playerStyles.playerContainer}>
-			<div id={playerStyles.player}>
+		<div className={playerStyles.playerContainer}>
+			<div className={playerStyles.player}>
 				{currentTrack ? (
 					<Track track={currentTrack} handleClick={togglePlay} />
 				) : null}

@@ -1,4 +1,4 @@
-#playerContainer {
+.playerContainer {
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -9,34 +9,42 @@
 	z-index: 1000;
 	display: flex;
 	justify-content: center;
-	background-color: rgba(226, 221, 230, 1);
+	background-color: #1e1f26;
 	padding: 0.5rem;
 }
 
-#player {
+.player {
 	width: 60%;
 	display: flex;
 	align-items: center;
+	background-color: rgb(241, 240, 240);
+	border-radius: 7px;
+	flex-wrap: wrap-reverse;
+	justify-content: center;
 }
 
-#controls {
+.controls {
 	flex-shrink: 0;
+	border: 1px solid rgb(96, 96, 117);
+	padding: 0.5rem;
+	border-radius: 20px;
+	margin: 1rem 1rem 0 1rem;
 }
 
 @media only screen and (max-width: 900px) {
-	#player {
-		width: 70%;
-	}
-}
-
-@media only screen and (max-width: 768px) {
-	#player {
+	.player {
 		width: 80%;
 	}
 }
 
+@media only screen and (max-width: 768px) {
+	.player {
+		width: 100%;
+	}
+}
+
 @media only screen and (max-width: 490px) {
-	#player {
+	.player {
 		width: 100%;
 	}
 }
