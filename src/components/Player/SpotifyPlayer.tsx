@@ -18,8 +18,11 @@ const SpotifyPlayer = (props: {
 	const [tracksAdded, setTracksAdded] = useState<boolean>(false);
 	const [playing, setPlaying] = useState<boolean>(false);
 	const [currentTrack, setCurrentTrack] = useState<IPicks>(props.tracks[0]);
+	const [duration, setDuration] = useState<number>(0);
+	const [position, setPosition] = useState<number>(0);
 
 	useEffect(() => {
+		console.log("getting access token");
 		setAccessToken(SpotifyUtils.getAccessToken());
 	}, []);
 
@@ -69,6 +72,25 @@ const SpotifyPlayer = (props: {
 			setPlaying(true);
 		}
 	}, [props.tracks, accessToken, deviceId]);
+
+	useEffect(() => {
+		if (playing) {
+			console.log("getting timings");
+			const interval = setInterval(() => {
+				player.getCurrentState().then((state: any) => {
+					if (state) {
+						// console.log(state);
+						// console.log(playing);
+						setDuration(state.duration);
+						setPosition(state.position);
+					}
+				});
+			}, 1000);
+			return () => clearInterval(interval);
+		} else {
+			console.log("not playing");
+		}
+	}, [currentTrack, playing]);
 
 	const createPlayer = () => {
 		if (!player && scriptsLoaded && accessToken) {
@@ -134,19 +156,25 @@ const SpotifyPlayer = (props: {
 
 							let {
 								current_track,
-								// next_tracks: [next_track],
+								next_tracks: [next_track],
 							} = state.track_window;
+							console.log(current_track);
+							console.log(next_track);
 
 							const nowPlaying: IPicks = {
 								id: current_track.id,
 								uri: current_track.uri,
 								name: current_track.name,
-								artist: current_track.artists[0].name,
+								artist: current_track.artists
+									.map((artist: any) => {
+										return artist.name;
+									})
+									.join(", "),
 								medImg: current_track.album.images[1],
 								smImg: current_track.album.images[2],
 							};
+
 							setCurrentTrack(nowPlaying);
-							setPlaying(!state.paused);
 						});
 					}
 				);
@@ -183,8 +211,11 @@ const SpotifyPlayer = (props: {
 	// };
 
 	const togglePlay = () => {
-		if (tracksAdded) player.togglePlay();
-		else {
+		if (tracksAdded) {
+			player.togglePlay();
+			if (playing) setPlaying(false);
+			else setPlaying(true);
+		} else {
 			if (deviceId && accessToken) {
 				SpotifyPlayerUtils.addToQueue(
 					props.tracks.map((track) => track.uri),
@@ -196,12 +227,23 @@ const SpotifyPlayer = (props: {
 		}
 	};
 
-	const nextTrack = () => {
-		player.nextTrack();
+	const nextTrack = async () => {
+		console.log("playing next track");
+		await player.nextTrack().then(() => {
+			"next track done";
+		});
 	};
 
 	const previousTrack = () => {
 		player.previousTrack();
+	};
+
+	const parseMiliseconds = (miliseconds: number) => {
+		const totalSeconds = miliseconds / 1000;
+		const minutes = Math.floor(totalSeconds / 60);
+		const seconds = Math.round(totalSeconds - minutes * 60);
+		const secondsTxt = "0" + seconds.toString();
+		return `${minutes}:${secondsTxt.slice(secondsTxt.length - 2)}`;
 	};
 
 	return props.tracks.length && deviceId ? (
@@ -210,12 +252,19 @@ const SpotifyPlayer = (props: {
 				{currentTrack ? (
 					<Track track={currentTrack} handleClick={togglePlay} />
 				) : null}
+				<span className={playerStyles.time}>
+					{parseMiliseconds(position)}
+				</span>
+
 				<Controls
 					playing={playing}
 					nextTrack={nextTrack}
 					previousTrack={previousTrack}
 					togglePlay={togglePlay}
 				/>
+				<span className={playerStyles.time}>
+					{parseMiliseconds(duration)}
+				</span>
 			</div>
 		</div>
 	) : null;

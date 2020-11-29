@@ -15,7 +15,7 @@ const TopArtists = (props: { term: string; handlePicks: any }) => {
 			setTerm(props.term);
 		};
 		if (!topArtists.length || term !== props.term) getTopArtists();
-	}, []);
+	}, [props.term]);
 
 	return (
 		<div id="my-top-tracks">
