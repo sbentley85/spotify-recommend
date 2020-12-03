@@ -1,7 +1,11 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
 
-const ChoicesInput = (props: any) => {
+const ChoicesInput = (props: {
+	searchType: string;
+	selection: string;
+	updateSelection: any;
+}) => {
 	const ArtistOptions = [
 		{
 			key: "top-artists",
@@ -35,8 +39,8 @@ const ChoicesInput = (props: any) => {
 	return (
 		<div>
 			<Dropdown
+				data-testid="dropdown"
 				onChange={props.updateSelection}
-				placeholder="Select"
 				selection
 				value={props.selection}
 				options={

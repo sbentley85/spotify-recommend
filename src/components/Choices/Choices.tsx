@@ -26,7 +26,7 @@ export interface IPlaylist {
 }
 
 const Choices = (props: any) => {
-	const [selection, setSelection] = useState("top-artists");
+	const [selection, setSelection] = useState("search");
 	const [searchType, setSearchType] = useState("Artists");
 	const [term, setTerm] = useState("long_term");
 	const [picks, setPicks] = useState<Array<IPicks>>([]);
