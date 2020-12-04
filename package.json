@@ -2,6 +2,11 @@
   "name": "spotify-recommend",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -45,6 +50,7 @@
     ]
   },
   "devDependencies": {
-    "enzyme": "^3.11.0"
+    "enzyme": "^3.11.0",
+    "enzyme-to-json": "^3.6.1"
   }
 }

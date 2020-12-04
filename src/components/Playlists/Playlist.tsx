@@ -1,7 +1,8 @@
 import React from "react";
+import { IPlaylist } from "../Choices/Choices";
 import playlistStyles from "../Tracks/tracks.module.css";
 
-const Playlist = (props: any) => {
+const Playlist = (props: { playlist: IPlaylist; selectPlaylist: any }) => {
 	return (
 		<div
 			onClick={(e) => props.selectPlaylist(e, props.playlist)}

@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Artist Component renders Artist details from props 1`] = `
+<div
+  className="artist"
+  onClick={[Function]}
+>
+  <div
+    className="artistImage"
+    style={
+      Object {
+        "backgroundImage": "url(https://i.scdn.co/image/a5b058c5287ade15994f668a46f5d7f782dae97e)",
+      }
+    }
+  />
+  <div
+    className="artistName"
+  >
+    CHVRCHES
+  </div>
+</div>
+`;
+
+exports[`ArtistList component renders a list of Artist components from props 1`] = `
+<div
+  className="artistList"
+>
+  <Artist
+    artist={
+      Object {
+        "id": "3CjlHNtplJyTf9npxaPl5w",
+        "medImg": Object {
+          "height": 320,
+          "url": "https://i.scdn.co/image/64a6c54b7bea1c2c314da545c3f5048d28f48c3b",
+          "width": 320,
+        },
+        "name": "CHVRCHES",
+        "smImg": Object {
+          "height": 160,
+          "url": "https://i.scdn.co/image/a5b058c5287ade15994f668a46f5d7f782dae97e",
+          "width": 160,
+        },
+        "uri": "spotify:artist:3CjlHNtplJyTf9npxaPl5w",
+      }
+    }
+    handleClick={[MockFunction]}
+    key="3CjlHNtplJyTf9npxaPl5w"
+  />
+  <Artist
+    artist={
+      Object {
+        "id": "3TVXtAsR1Inumwj472S9r4",
+        "medImg": Object {
+          "height": 320,
+          "url": "https://i.scdn.co/image/5ea794cf832550943d5f8122afcf5f23ee9d85b7",
+          "width": 320,
+        },
+        "name": "Drake",
+        "smImg": Object {
+          "height": 160,
+          "url": "https://i.scdn.co/image/8eaace74aaca82eaccde400bbcab2653b9cf86e1",
+          "width": 160,
+        },
+        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4",
+      }
+    }
+    handleClick={[MockFunction]}
+    key="3TVXtAsR1Inumwj472S9r4"
+  />
+</div>
+`;

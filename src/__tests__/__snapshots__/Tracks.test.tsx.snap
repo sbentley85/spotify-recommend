@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Track component renders Track & Artist name from props 1`] = `
+<div
+  className="track"
+  onClick={[Function]}
+>
+  <div
+    className="trackImage"
+    style={
+      Object {
+        "backgroundImage": "url(https://i.scdn.co/image/ab67616d000048517ecffdcb0c079ce32b47be74)",
+      }
+    }
+  />
+  <div
+    className="trackDetails"
+  >
+    <div
+      className="trackDetail"
+    >
+      CHVRCHES
+        -  
+      You Caught the Light
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TrackList component renders a list of tracks from props 1`] = `
+<div
+  className="trackList"
+>
+  <Track
+    handleClick={[MockFunction]}
+    key="0"
+    track={
+      Object {
+        "artist": "CHVRCHES",
+        "id": "69u375BY4upymJzyAnSXRN",
+        "medImg": Object {
+          "height": 300,
+          "url": "https://i.scdn.co/image/ab67616d00001e027ecffdcb0c079ce32b47be74",
+          "width": 300,
+        },
+        "name": "You Caught the Light",
+        "smImg": Object {
+          "height": 64,
+          "url": "https://i.scdn.co/image/ab67616d000048517ecffdcb0c079ce32b47be74",
+          "width": 64,
+        },
+        "uri": "spotify:track:69u375BY4upymJzyAnSXRN",
+      }
+    }
+  />
+  <Track
+    handleClick={[MockFunction]}
+    key="1"
+    track={
+      Object {
+        "artist": "At The Drive In",
+        "id": "3rtJW3GqUTBJXF9nAv3Bp6",
+        "medImg": Object {
+          "height": 300,
+          "url": "https://i.scdn.co/image/ab67616d00001e02d8077764c1d0f76baac75478",
+          "width": 300,
+        },
+        "name": "Cosmonaut",
+        "smImg": Object {
+          "height": 64,
+          "url": "https://i.scdn.co/image/ab67616d00004851d8077764c1d0f76baac75478",
+          "width": 64,
+        },
+        "uri": "spotify:track:3rtJW3GqUTBJXF9nAv3Bp6",
+      }
+    }
+  />
+</div>
+`;

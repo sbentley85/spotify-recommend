@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Playlist component renders playlist details from props 1`] = `
+<div
+  className="playlist"
+  onClick={[Function]}
+>
+  <div
+    className="playlistImage"
+    style={
+      Object {
+        "backgroundImage": "url(https://mosaic.scdn.co/60/ab67616d0000b273308d4353d4ab62712468a5ebab67616d0000b273636a52ebf89cab3ac84578afab67616d0000b273d37568e85d09fb84ea31959cab67616d0000b273e27f0acabbd9001e0df0af34)",
+      }
+    }
+  />
+  <div
+    className="playlistName"
+  >
+    stuff to dl
+  </div>
+</div>
+`;

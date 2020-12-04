@@ -11,7 +11,7 @@ import choicesStyles from "./choices.module.css";
 export interface IPicks {
 	name: string;
 	id: string;
-	artist: string;
+	artist?: string;
 	smImg: { height: number; width: number; url: string };
 	medImg: { height: number; width: number; url: string };
 	uri: string;
@@ -20,13 +20,13 @@ export interface IPicks {
 export interface IPlaylist {
 	name: string;
 	id: string;
-	tracks: IPicks[];
-	img: {};
+	tracks?: IPicks[];
+	img: { height: number; url: string; width: number };
 	length: number;
 }
 
 const Choices = (props: any) => {
-	const [selection, setSelection] = useState("search");
+	const [selection, setSelection] = useState("top-artists");
 	const [searchType, setSearchType] = useState("Artists");
 	const [term, setTerm] = useState("long_term");
 	const [picks, setPicks] = useState<Array<IPicks>>([]);
