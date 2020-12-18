@@ -1,12 +1,12 @@
 import React from "react";
 import TrackList from "../Tracks/TrackList";
 import ArtistList from "../Artists/ArtistList";
-import { IPicks } from "./Choices";
+import { IPicks, IPickCallback } from "./Choices";
 
 const Picks = (props: {
 	picks: IPicks[];
 	searchType: string;
-	handlePicks: any;
+	handlePicks: IPickCallback;
 }) => {
 	return (
 		<>

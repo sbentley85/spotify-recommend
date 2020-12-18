@@ -1,8 +1,9 @@
 import React from "react";
 import { IPicks } from "../Choices/Choices";
 import trackStyles from "./tracks.module.css";
+import { ITrackClick } from "../Recommendations/MyRecommendations";
 
-const Track = (props: { track: IPicks; handleClick: any }) => {
+const Track = (props: { track: IPicks; handleClick: ITrackClick }) => {
 	return (
 		<div
 			onClick={(e) => props.handleClick(e, props.track)}

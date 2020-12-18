@@ -1,10 +1,11 @@
-import React from "react";
-import { Dropdown } from "semantic-ui-react";
+import React, { SyntheticEvent } from "react";
+import { Dropdown, DropdownProps } from "semantic-ui-react";
+import { IDropdownCallback } from "../Choices/Choices";
 
 const ChoicesInput = (props: {
 	searchType: string;
 	selection: string;
-	updateSelection: any;
+	updateSelection: IDropdownCallback;
 }) => {
 	const ArtistOptions = [
 		{

@@ -1,8 +1,8 @@
 import React from "react";
-import { IPicks } from "../Choices/Choices";
+import { IPicks, IPickCallback } from "../Choices/Choices";
 import artistStyles from "../Tracks/tracks.module.css";
 
-const Artist = (props: { artist: IPicks; handleClick?: any }) => {
+const Artist = (props: { artist: IPicks; handleClick: IPickCallback }) => {
 	return (
 		<div
 			onClick={(e) => props.handleClick(e, props.artist)}

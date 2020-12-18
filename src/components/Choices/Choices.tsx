@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Grid } from "semantic-ui-react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
+import { DropdownProps, Grid } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import Spotify from "../../util/spotify";
 import MyRecommendations from "../Recommendations/MyRecommendations";
@@ -8,23 +8,6 @@ import Settings from "../Selection/Settings";
 import Selection from "../Selection/Selection";
 import choicesStyles from "./choices.module.css";
 
-export interface IPicks {
-	name: string;
-	id: string;
-	artist?: string;
-	smImg: { height: number; width: number; url: string };
-	medImg: { height: number; width: number; url: string };
-	uri: string;
-}
-
-export interface IPlaylist {
-	name: string;
-	id: string;
-	tracks?: IPicks[];
-	img: { height: number; url: string; width: number };
-	length: number;
-}
-
 const Choices = (props: any) => {
 	const [selection, setSelection] = useState("top-artists");
 	const [searchType, setSearchType] = useState("Artists");
@@ -32,12 +15,12 @@ const Choices = (props: any) => {
 	const [picks, setPicks] = useState<Array<IPicks>>([]);
 	const [recommendations, setRecommendations] = useState([]);
 
-	const updateSelection = (event: any, data: any) => {
-		const choice = data.value;
+	const updateSelection = (event: SyntheticEvent, data: DropdownProps) => {
+		const choice: any = data.value;
 		setSelection(choice);
 	};
 
-	const updateTerm = (event: any, data: any) => {
+	const updateTerm = (event: SyntheticEvent, data: any) => {
 		const termSelection = data.value;
 		setTerm(termSelection);
 	};
@@ -54,7 +37,7 @@ const Choices = (props: any) => {
 		}
 	};
 
-	const handlePicks = (event: InputEvent, choice: IPicks) => {
+	const handlePicks = (event: SyntheticEvent, choice: IPicks) => {
 		if (
 			picks.filter((pick) => {
 				return pick.id === choice.id;
@@ -138,5 +121,38 @@ const Choices = (props: any) => {
 		</>
 	);
 };
+
+// Interfaces
+
+export interface IPickCallback {
+	(event: SyntheticEvent, choice: IPicks): void;
+}
+
+// export interface IDropdownOption {
+// 	key: string;
+// 	text: string;
+// 	value: string;
+// }
+
+export interface IDropdownCallback {
+	(event: SyntheticEvent<HTMLElement>, data: DropdownProps): void;
+}
+
+export interface IPicks {
+	name: string;
+	id: string;
+	artist?: string;
+	smImg: { height: number; width: number; url: string };
+	medImg: { height: number; width: number; url: string };
+	uri: string;
+}
+
+export interface IPlaylist {
+	name: string;
+	id: string;
+	tracks?: IPicks[];
+	img: { height: number; url: string; width: number };
+	length: number;
+}
 
 export default Choices;
