@@ -143,36 +143,39 @@ const SpotifyPlayer = (props: {
 				spotifyPlayer.addListener(
 					"player_state_changed",
 					(state: string) => {
-						spotifyPlayer.getCurrentState().then((state: any) => {
-							if (!state) {
-								console.error(
-									"User is not playing music through the Web Playback SDK"
-								);
-								return;
-							}
+						spotifyPlayer
+							.getCurrentState()
+							// @ts-ignore
+							.then((state: Spotify.PlaybackState) => {
+								if (!state) {
+									console.error(
+										"User is not playing music through the Web Playback SDK"
+									);
+									return;
+								}
 
-							let {
-								current_track,
-								next_tracks: [next_track],
-							} = state.track_window;
-							console.log(current_track);
-							console.log(next_track);
+								let {
+									current_track,
+									next_tracks: [next_track],
+								} = state.track_window;
+								console.log(current_track);
+								console.log(next_track);
 
-							const nowPlaying: IPicks = {
-								id: current_track.id,
-								uri: current_track.uri,
-								name: current_track.name,
-								artist: current_track.artists
-									.map((artist: any) => {
-										return artist.name;
-									})
-									.join(", "),
-								medImg: current_track.album.images[1],
-								smImg: current_track.album.images[2],
-							};
+								const nowPlaying: IPicks = {
+									id: current_track.id,
+									uri: current_track.uri,
+									name: current_track.name,
+									artist: current_track.artists
+										.map((artist: IPicks) => {
+											return artist.name;
+										})
+										.join(", "),
+									medImg: current_track.album.images[1],
+									smImg: current_track.album.images[2],
+								};
 
-							setCurrentTrack(nowPlaying);
-						});
+								setCurrentTrack(nowPlaying);
+							});
 					}
 				);
 
