@@ -1,5 +1,5 @@
-import React, { SyntheticEvent } from "react";
-import { Dropdown, DropdownProps } from "semantic-ui-react";
+import React from "react";
+import { Dropdown } from "semantic-ui-react";
 import { IDropdownCallback } from "../Choices/Choices";
 
 const ChoicesInput = (props: {

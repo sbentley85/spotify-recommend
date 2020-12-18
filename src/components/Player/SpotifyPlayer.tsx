@@ -74,13 +74,11 @@ const SpotifyPlayer = (props: {
 	}, [props.tracks, accessToken, deviceId]);
 
 	useEffect(() => {
+		// when track is playing checks status and updates timer position
 		if (playing) {
-			console.log("getting timings");
 			const interval = setInterval(() => {
 				player.getCurrentState().then((state: any) => {
 					if (state) {
-						// console.log(state);
-						// console.log(playing);
 						setDuration(state.duration);
 						setPosition(state.position);
 					}
@@ -102,7 +100,6 @@ const SpotifyPlayer = (props: {
 				const spotifyPlayer = new Spotify.Player({
 					name: "Spotify Recommend Player",
 					// @ts-ignore
-
 					getOAuthToken: (cb) => {
 						cb(token);
 					},

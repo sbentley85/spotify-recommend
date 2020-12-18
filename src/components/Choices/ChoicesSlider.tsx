@@ -1,8 +1,9 @@
 import React from "react";
 import { Checkbox } from "semantic-ui-react";
 import choicesStyles from "./choices.module.css";
+import { ISliderCallback } from "../Choices/Choices";
 
-const ChoicesSlider = (props: any) => {
+const ChoicesSlider = (props: { updateSearchType: ISliderCallback }) => {
 	return (
 		<div className={choicesStyles.slider}>
 			<span className={choicesStyles.sliderLabel}>Artists</span>

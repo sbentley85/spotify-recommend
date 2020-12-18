@@ -1,5 +1,5 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
-import { DropdownProps, Grid } from "semantic-ui-react";
+import React, { SyntheticEvent, FormEvent, useEffect, useState } from "react";
+import { CheckboxProps, DropdownProps, Grid } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import Spotify from "../../util/spotify";
 import MyRecommendations from "../Recommendations/MyRecommendations";
@@ -8,7 +8,7 @@ import Settings from "../Selection/Settings";
 import Selection from "../Selection/Selection";
 import choicesStyles from "./choices.module.css";
 
-const Choices = (props: any) => {
+const Choices = () => {
 	const [selection, setSelection] = useState("top-artists");
 	const [searchType, setSearchType] = useState("Artists");
 	const [term, setTerm] = useState("long_term");
@@ -20,15 +20,18 @@ const Choices = (props: any) => {
 		setSelection(choice);
 	};
 
-	const updateTerm = (event: SyntheticEvent, data: any) => {
-		const termSelection = data.value;
+	const updateTerm = (event: SyntheticEvent, data: DropdownProps) => {
+		const termSelection: any = data.value;
 		setTerm(termSelection);
 	};
 
-	const updateSearchType = (event: any, data: any) => {
+	const updateSearchType = (
+		event: FormEvent<HTMLInputElement>,
+		data: CheckboxProps
+	) => {
 		setPicks([]);
 		setRecommendations([]);
-		if (event.target.checked) {
+		if (data.checked) {
 			setSearchType("Tracks");
 			setSelection("top-tracks");
 		} else {
@@ -128,14 +131,12 @@ export interface IPickCallback {
 	(event: SyntheticEvent, choice: IPicks): void;
 }
 
-// export interface IDropdownOption {
-// 	key: string;
-// 	text: string;
-// 	value: string;
-// }
-
 export interface IDropdownCallback {
 	(event: SyntheticEvent<HTMLElement>, data: DropdownProps): void;
+}
+
+export interface ISliderCallback {
+	(event: FormEvent<HTMLInputElement>, data: CheckboxProps): void;
 }
 
 export interface IPicks {

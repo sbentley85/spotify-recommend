@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import SpotifyUtils from "../../util/spotify";
 import ArtistList from "./ArtistList";
+import { IPickCallback } from "../Choices/Choices";
 
-const TopArtists = (props: { term: string; handlePicks: any }) => {
+const TopArtists = (props: { term: string; handlePicks: IPickCallback }) => {
 	const [topArtists, setTopArtists] = useState([]);
 	const [term, setTerm] = useState("long-term");
 
