@@ -1,8 +1,9 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
 import selectionStyles from "./selection.module.css";
+import { IDropdownCallback } from "../Choices/Choices";
 
-const TermInput = (props: any) => {
+const TermInput = (props: { updateTerm: IDropdownCallback; term: string }) => {
 	const termOptions = [
 		{
 			key: "long",

@@ -93,6 +93,6 @@ export default SavePlaylist;
 
 // Interfaces
 
-export interface IPlayListNameCallback {
+export interface IInputChangeCallback {
 	(event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData): void;
 }

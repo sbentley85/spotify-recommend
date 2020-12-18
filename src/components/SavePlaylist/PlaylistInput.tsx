@@ -1,8 +1,8 @@
 import React from "react";
 import { Input } from "semantic-ui-react";
-import { IPlayListNameCallback } from "../SavePlaylist/SavePlaylist";
+import { IInputChangeCallback } from "../SavePlaylist/SavePlaylist";
 
-const PlaylistInput = (props: { setName: IPlayListNameCallback }) => {
+const PlaylistInput = (props: { setName: IInputChangeCallback }) => {
 	return (
 		<Input
 			placeholder="Name..."

@@ -1,16 +1,24 @@
 import React, { useState } from "react";
+import { InputOnChangeData } from "semantic-ui-react";
 import SearchInput from "./SearchInput";
 import Spotify from "../../util/spotify";
 import SearchResults from "./SearchResults";
+import { IPickCallback } from "../Choices/Choices";
 import selectionStyles from "../Selection/selection.module.css";
 import searchStyles from "./search.module.css";
 
-const SearchBar = (props: { handlePicks?: any; searchType: string }) => {
+const SearchBar = (props: {
+	handlePicks: IPickCallback;
+	searchType: string;
+}) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchTracks, setSearchTracks] = useState(null);
 	const [searchArtists, setSearchArtists] = useState(null);
 
-	const updateSearchTerm = (event: any) => {
+	const updateSearchTerm = (
+		event: React.ChangeEvent<HTMLInputElement>,
+		data: InputOnChangeData
+	) => {
 		const term = event.target.value;
 		setSearchTerm(term);
 		onSearch();
@@ -31,7 +39,10 @@ const SearchBar = (props: { handlePicks?: any; searchType: string }) => {
 	return (
 		<div className={searchStyles.searchBar}>
 			<div className={selectionStyles.searchInput}>
-				<SearchInput onChange={updateSearchTerm} onSearch={onSearch} />
+				<SearchInput
+					updateSearchTerm={updateSearchTerm}
+					onSearch={onSearch}
+				/>
 			</div>
 
 			{searchTracks ? (
