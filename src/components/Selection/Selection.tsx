@@ -1,5 +1,10 @@
-import React, { useState } from "react";
-import { IPlaylist } from "../Choices/Choices";
+import React, { SyntheticEvent, useState } from "react";
+import {
+	IPicks,
+	IPlaylist,
+	IPickCallback,
+	IDropdownCallback,
+} from "../Choices/Choices";
 import SearchBar from "../SearchBar/SearchBar";
 import MyPlaylists from "../Playlists/MyPlaylists";
 import TopTracks from "../Tracks/TopTracks";
@@ -11,17 +16,20 @@ import Spotify from "../../util/spotify";
 import selectionStyles from "./selection.module.css";
 
 const Selection = (props: {
-	handlePicks: any;
+	handlePicks: IPickCallback;
 	searchType: string;
 
 	selection: string;
 	term: string;
-	updateTerm: any;
+	updateTerm: IDropdownCallback;
 }) => {
-	const [playlistTracks, setPlaylistTracks] = useState<any>([]);
+	const [playlistTracks, setPlaylistTracks] = useState<Array<IPicks>>([]);
 	const [playlistName, setPlaylistName] = useState<string>("");
 
-	const selectPlaylist = async (event: any, playlist: IPlaylist) => {
+	const selectPlaylist = async (
+		event: SyntheticEvent,
+		playlist: IPlaylist
+	) => {
 		setPlaylistTracks([]);
 		const tracks = await Spotify.getPlaylistTracks(playlist);
 		await setPlaylistTracks(tracks);
@@ -90,3 +98,9 @@ const Selection = (props: {
 };
 
 export default Selection;
+
+// Interfaces
+
+export interface IPlaylistCallback {
+	(event: SyntheticEvent, playlist: IPlaylist): void;
+}

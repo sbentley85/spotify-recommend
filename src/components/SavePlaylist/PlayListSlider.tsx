@@ -1,8 +1,9 @@
 import React from "react";
 import { Checkbox } from "semantic-ui-react";
 import choicesStyles from "../Choices/choices.module.css";
+import { ISliderCallback } from "../Choices/Choices";
 
-const PlayListSlider = (props: { updateNewPlaylist: any }) => {
+const PlayListSlider = (props: { updateNewPlaylist: ISliderCallback }) => {
 	return (
 		<div className={choicesStyles.slider}>
 			<span className={choicesStyles.sliderLabel}>Add to existing</span>

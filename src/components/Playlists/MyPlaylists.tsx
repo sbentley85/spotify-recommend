@@ -3,8 +3,9 @@ import spotify from "../../util/spotify";
 import Playlist from "./Playlist";
 import { IPlaylist } from "../Choices/Choices";
 import playlistStyles from "../Tracks/tracks.module.css";
+import { IPlaylistCallback } from "../Selection/Selection";
 
-const MyPlaylists = (props: { selectPlaylist: any }) => {
+const MyPlaylists = (props: { selectPlaylist: IPlaylistCallback }) => {
 	const [myPlaylists, setMyPlaylists] = useState<Array<IPlaylist>>([]);
 
 	useEffect(() => {

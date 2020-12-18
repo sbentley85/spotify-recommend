@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Dropdown } from "semantic-ui-react";
-import { IPlaylist } from "../Choices/Choices";
+import { Dropdown, DropdownItemProps } from "semantic-ui-react";
+import { IPlaylist, IDropdownCallback } from "../Choices/Choices";
+
 import Spotify from "../../util/spotify";
 
 const MyPlaylistsDropdown = (props: {
-	selectPlaylist: any;
+	selectMyPlaylist: IDropdownCallback;
 	selectedPlaylist: string;
 }) => {
-	const [myPlaylists, setMyPlaylists] = useState<Array<any>>([]);
+	const [myPlaylists, setMyPlaylists] = useState<Array<DropdownItemProps>>(
+		[]
+	);
 
 	useEffect(() => {
 		const getPlaylists = async () => {
@@ -28,7 +31,7 @@ const MyPlaylistsDropdown = (props: {
 
 	return (
 		<Dropdown
-			onChange={props.selectPlaylist}
+			onChange={props.selectMyPlaylist}
 			placeholder="Select a playlist"
 			selection
 			value={props.selectedPlaylist}
