@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, SyntheticEvent } from "react";
 import SpotifyUtils from "../../util/spotify";
 import SpotifyPlayerUtils from "../../util/spotify-player";
 import { IPicks } from "../Choices/Choices";
@@ -20,21 +20,25 @@ const SpotifyPlayer = (props: {
 	const [currentTrack, setCurrentTrack] = useState<IPicks>(props.tracks[0]);
 	const [duration, setDuration] = useState<number>(0);
 	const [position, setPosition] = useState<number>(0);
+	const [volume, setVolume] = useState<number>(50);
 
 	useEffect(() => {
-		console.log("getting access token");
 		setAccessToken(SpotifyUtils.getAccessToken());
 	}, []);
 
 	useEffect(() => {
+		if (player) {
+			getVolume();
+		}
+	}, [player]);
+
+	useEffect(() => {
 		// loads spotify script from cdn
 		const loadScripts = async () => {
-			console.log("loading scripts");
 			const script = document.createElement("script");
 			script.src = "https://sdk.scdn.co/spotify-player.js";
 			script.async = true;
 			script.onload = () => setScriptsLoaded(true);
-
 			await document.body.appendChild(script);
 		};
 		loadScripts();
@@ -158,8 +162,8 @@ const SpotifyPlayer = (props: {
 									current_track,
 									next_tracks: [next_track],
 								} = state.track_window;
-								console.log(current_track);
-								console.log(next_track);
+								// console.log(current_track);
+								// console.log(next_track);
 
 								const nowPlaying: IPicks = {
 									id: current_track.id,
@@ -238,6 +242,22 @@ const SpotifyPlayer = (props: {
 		player.previousTrack();
 	};
 
+	// get volume from spotify player and save to state
+	const getVolume = () => {
+		player.getVolume().then((volume: number) => {
+			setVolume(volume * 100);
+		});
+	};
+
+	// update volume in state & spotify player with value from slider
+	const updateVolume = async (event: any) => {
+		let newVol = parseInt(event.target.value);
+		setVolume(newVol);
+		if (player) {
+			await player.setVolume(newVol / 100);
+		}
+	};
+
 	const parseMiliseconds = (miliseconds: number) => {
 		const totalSeconds = miliseconds / 1000;
 		const minutes = Math.floor(totalSeconds / 60);
@@ -261,6 +281,8 @@ const SpotifyPlayer = (props: {
 					nextTrack={nextTrack}
 					previousTrack={previousTrack}
 					togglePlay={togglePlay}
+					updateVolume={updateVolume}
+					volume={volume}
 				/>
 				<span className={playerStyles.time}>
 					{parseMiliseconds(duration)}

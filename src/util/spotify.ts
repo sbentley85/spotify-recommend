@@ -331,7 +331,7 @@ const SpotifyUtils = {
 		)
 			.then((response) => response.json())
 			.then((jsonResponse) => {
-				console.log(jsonResponse);
+				// console.log(jsonResponse);
 				return jsonResponse.tracks.map((track: any) => ({
 					id: track.id,
 					name: track.name,
