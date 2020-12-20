@@ -12,36 +12,30 @@ const Controls = (props: {
 	volume: number;
 }) => {
 	return (
-		<div className={playerStyles.controlsContainer}>
-			<div className={playerStyles.controls}>
+		<div className={playerStyles.controls}>
+			<Icon
+				name="step backward"
+				className={playerStyles.playerControl}
+				onClick={props.previousTrack}
+			/>
+			{props.playing ? (
 				<Icon
-					name="step backward"
+					name="pause"
 					className={playerStyles.playerControl}
-					onClick={props.previousTrack}
+					onClick={props.togglePlay}
 				/>
-				{props.playing ? (
-					<Icon
-						name="pause"
-						className={playerStyles.playerControl}
-						onClick={props.togglePlay}
-					/>
-				) : (
-					<Icon
-						name="play"
-						className={playerStyles.playerControl}
-						onClick={props.togglePlay}
-					/>
-				)}
+			) : (
+				<Icon
+					name="play"
+					className={playerStyles.playerControl}
+					onClick={props.togglePlay}
+				/>
+			)}
 
-				<Icon
-					name="step forward"
-					className={playerStyles.playerControl}
-					onClick={props.nextTrack}
-				/>
-			</div>
-			<VolumeSlider
-				updateVolume={props.updateVolume}
-				volume={props.volume}
+			<Icon
+				name="step forward"
+				className={playerStyles.playerControl}
+				onClick={props.nextTrack}
 			/>
 		</div>
 	);

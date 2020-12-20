@@ -4,6 +4,9 @@ import SpotifyPlayerUtils from "../../util/spotify-player";
 import { IPicks } from "../Choices/Choices";
 import Track from "../Tracks/Track";
 import Controls from "./Controls";
+import VolumeSlider from "./VolumeSlider";
+import { Icon } from "semantic-ui-react";
+
 import playerStyles from "./player.module.css";
 
 const SpotifyPlayer = (props: {
@@ -272,21 +275,36 @@ const SpotifyPlayer = (props: {
 				{currentTrack ? (
 					<Track track={currentTrack} handleClick={togglePlay} />
 				) : null}
-				<span className={playerStyles.time}>
-					{parseMiliseconds(position)}
-				</span>
+				<div className={playerStyles.playerInfo}>
+					<div className={playerStyles.controlsContainer}>
+						<span className={playerStyles.time}>
+							{parseMiliseconds(position)}
+						</span>
 
-				<Controls
-					playing={playing}
-					nextTrack={nextTrack}
-					previousTrack={previousTrack}
-					togglePlay={togglePlay}
-					updateVolume={updateVolume}
-					volume={volume}
-				/>
-				<span className={playerStyles.time}>
-					{parseMiliseconds(duration)}
-				</span>
+						<Controls
+							playing={playing}
+							nextTrack={nextTrack}
+							previousTrack={previousTrack}
+							togglePlay={togglePlay}
+							updateVolume={updateVolume}
+							volume={volume}
+						/>
+						<span className={playerStyles.time}>
+							{parseMiliseconds(duration)}
+						</span>
+					</div>
+					<div className={playerStyles.volume}>
+						<Icon
+							name="volume up"
+							id={playerStyles.volumeIcon}
+							className={playerStyles.playerControl}
+						/>
+						<VolumeSlider
+							updateVolume={updateVolume}
+							volume={volume}
+						/>
+					</div>
+				</div>
 			</div>
 		</div>
 	) : null;

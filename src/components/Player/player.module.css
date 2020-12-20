@@ -19,9 +19,26 @@
 	align-items: center;
 	background-color: rgb(241, 240, 240);
 	border-radius: 7px;
-	flex-wrap: wrap-reverse;
+	flex-wrap: nowrap;
 	justify-content: center;
 	padding: 0.5rem;
+}
+
+.playerInfo {
+	flex-shrink: 0;
+}
+
+.volume {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+
+#volumeIcon {
+	position: absolute;
+
+	left: 0;
 }
 
 .controls {
@@ -33,6 +50,8 @@
 }
 
 .controlsContainer {
+	display: flex;
+	align-items: center;
 }
 
 .time {

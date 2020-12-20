@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
-const VolumeSlider = (props: { updateVolume: () => void; volume: number }) => {
+const VolumeSlider = (props: {
+	updateVolume: (event: any) => void;
+	volume: number;
+}) => {
 	return (
 		<input
 			type="range"
