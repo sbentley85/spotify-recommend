@@ -1,5 +1,5 @@
 import React from "react";
-import { IPickCallback, IPlaylist } from "../Choices/Choices";
+import { IPlaylist } from "../Choices/Choices";
 import { IPlaylistCallback } from "../Selection/Selection";
 import playlistStyles from "../Tracks/tracks.module.css";
 

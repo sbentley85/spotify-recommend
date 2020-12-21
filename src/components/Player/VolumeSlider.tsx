@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { ChangeEvent } from "react";
 
 const VolumeSlider = (props: {
-	updateVolume: (event: any) => void;
+	updateVolume: (event: ChangeEvent<HTMLInputElement>) => void;
 	volume: number;
 }) => {
 	return (

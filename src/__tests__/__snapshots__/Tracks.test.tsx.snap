@@ -3,27 +3,35 @@
 exports[`Track component renders Track & Artist name from props 1`] = `
 <div
   className="track"
-  onClick={[Function]}
 >
   <div
-    className="trackImage"
-    style={
-      Object {
-        "backgroundImage": "url(https://i.scdn.co/image/ab67616d000048517ecffdcb0c079ce32b47be74)",
-      }
-    }
-  />
-  <div
-    className="trackDetails"
+    className="trackWrapper"
   >
     <div
-      className="trackDetail"
+      className="trackImage"
+      style={
+        Object {
+          "backgroundImage": "url(https://i.scdn.co/image/ab67616d000048517ecffdcb0c079ce32b47be74)",
+        }
+      }
+    />
+    <div
+      className="trackDetails"
+      onClick={[Function]}
     >
-      CHVRCHES
-        -  
-      You Caught the Light
+      <div
+        className="trackDetail"
+      >
+        CHVRCHES
+          -  
+        You Caught the Light
+      </div>
     </div>
   </div>
+  <Likebutton
+    handleLike={[Function]}
+    handleUnLike={[Function]}
+  />
 </div>
 `;
 

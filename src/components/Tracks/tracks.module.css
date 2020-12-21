@@ -57,3 +57,12 @@
 	overflow: hidden;
 	max-height: inherit;
 }
+
+.trackWrapper {
+	display: flex;
+	flex-grow: 1;
+}
+
+.likeButton {
+	margin: 0 1rem;
+}

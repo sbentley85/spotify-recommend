@@ -1,4 +1,4 @@
-import React, { useState, useEffect, SyntheticEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import SpotifyUtils from "../../util/spotify";
 import SpotifyPlayerUtils from "../../util/spotify-player";
 import { IPicks } from "../Choices/Choices";
@@ -253,7 +253,7 @@ const SpotifyPlayer = (props: {
 	};
 
 	// update volume in state & spotify player with value from slider
-	const updateVolume = async (event: any) => {
+	const updateVolume = async (event: ChangeEvent<HTMLInputElement>) => {
 		let newVol = parseInt(event.target.value);
 		setVolume(newVol);
 		if (player) {
@@ -286,7 +286,6 @@ const SpotifyPlayer = (props: {
 							nextTrack={nextTrack}
 							previousTrack={previousTrack}
 							togglePlay={togglePlay}
-							updateVolume={updateVolume}
 							volume={volume}
 						/>
 						<span className={playerStyles.time}>

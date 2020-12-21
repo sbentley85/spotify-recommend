@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import Track from "../components/Tracks/Track";
 import { shallow } from "enzyme";
 import TrackList from "../components/Tracks/TrackList";
+import trackStyles from "./tracks.module.css";
 
 // sample track
 const sampleTrack = {
@@ -86,11 +87,13 @@ describe("Track component", () => {
 
 	const clickFn = jest.fn();
 
+	// onclick moved temporarily to trackwrapper div
 	it("track click should call onClick function", () => {
 		const myTrack = shallow(
 			<Track track={sampleTrack} handleClick={clickFn} />
 		);
-		myTrack.simulate("click");
+		const trackWrapperDiv = myTrack.find(`.${trackStyles.trackDetails}`);
+		trackWrapperDiv.simulate("click");
 		expect(clickFn).toHaveBeenCalled();
 	});
 });

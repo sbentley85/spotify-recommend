@@ -1,14 +1,12 @@
 import React from "react";
 import { Icon } from "semantic-ui-react";
 import playerStyles from "./player.module.css";
-import VolumeSlider from "./VolumeSlider";
 
 const Controls = (props: {
-	previousTrack: any;
-	togglePlay: any;
-	nextTrack: any;
+	previousTrack: () => void;
+	togglePlay: () => void;
+	nextTrack: () => void;
 	playing: boolean;
-	updateVolume: any;
 	volume: number;
 }) => {
 	return (

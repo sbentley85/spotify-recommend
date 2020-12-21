@@ -13,7 +13,7 @@ const Choices = () => {
 	const [searchType, setSearchType] = useState("Artists");
 	const [term, setTerm] = useState("long_term");
 	const [picks, setPicks] = useState<Array<IPicks>>([]);
-	const [recommendations, setRecommendations] = useState([]);
+	const [recommendations, setRecommendations] = useState<Array<IPicks>>([]);
 
 	const updateSelection = (event: SyntheticEvent, data: DropdownProps) => {
 		const choice: any = data.value;
@@ -146,6 +146,7 @@ export interface IPicks {
 	smImg: { height: number; width: number; url: string };
 	medImg: { height: number; width: number; url: string };
 	uri: string;
+	liked?: boolean;
 }
 
 export interface IPlaylist {

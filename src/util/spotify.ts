@@ -1,4 +1,4 @@
-import { IPlaylist } from "../components/Choices/Choices";
+import { IPlaylist, IPicks } from "../components/Choices/Choices";
 
 let accessToken: string;
 const clientId = "2605e63cad504fc6889cb31b91f1eff3";
@@ -24,6 +24,7 @@ document.body.onload = function () {
 
 const SpotifyUtils = {
 	getAccessToken() {
+		// checks whether an access token exists and requests a new one if not
 		if (accessToken) {
 			return accessToken;
 		}
@@ -43,7 +44,7 @@ const SpotifyUtils = {
 			return accessToken;
 		} else {
 			const scopes =
-				"playlist-modify-public user-library-read user-top-read streaming user-read-email user-read-private";
+				"playlist-modify-public user-library-read user-top-read streaming user-read-email user-read-private user-library-modify";
 			const accessUri = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=${encodeURIComponent(
 				scopes
 			)}&redirect_uri=${redirectUri}`;
@@ -53,6 +54,7 @@ const SpotifyUtils = {
 	},
 
 	searchTracks(term: string) {
+		// search for a track
 		sessionStorage.setItem("searchTerm", term);
 		const accessToken = SpotifyUtils.getAccessToken();
 
@@ -93,6 +95,7 @@ const SpotifyUtils = {
 	},
 
 	searchArtists(term: string) {
+		// search for an artist
 		sessionStorage.setItem("searchTerm", term);
 		const accessToken = SpotifyUtils.getAccessToken();
 
@@ -120,6 +123,7 @@ const SpotifyUtils = {
 	},
 
 	getUserId() {
+		// gets a users id
 		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
@@ -131,6 +135,7 @@ const SpotifyUtils = {
 	},
 
 	createPlaylist(name: string, trackUris: any[]) {
+		// creates a new playlist and populates it with tracks
 		if (!name || !trackUris.length) {
 			return;
 		}
@@ -152,6 +157,7 @@ const SpotifyUtils = {
 	},
 
 	addToPlaylist(playlistId: string, trackUris: any[]) {
+		// adds tracks to a users playlist
 		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
@@ -165,11 +171,12 @@ const SpotifyUtils = {
 		);
 	},
 
-	getTopTracks(term: string) {
+	async getTopTracks(term: string) {
+		// gets a users toop tracks for a given time period
 		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
-		return fetch(
+		const tracks = await fetch(
 			`https://api.spotify.com/v1/me/top/tracks?time_range=${term}`,
 			{ headers: headers }
 		)
@@ -188,9 +195,14 @@ const SpotifyUtils = {
 					uri: track.uri,
 				}));
 			});
+
+		await SpotifyUtils.addLikes(tracks);
+
+		return tracks;
 	},
 
 	getTopArtists(term: string) {
+		// gets a users top 20 artists for a specific time period
 		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
@@ -213,6 +225,7 @@ const SpotifyUtils = {
 	},
 
 	getPlaylists() {
+		// gets all playlists in users library
 		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
@@ -237,6 +250,7 @@ const SpotifyUtils = {
 			});
 	},
 	async getMyPlaylists() {
+		// gets playlists created by user which can be added to
 		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
@@ -308,22 +322,62 @@ const SpotifyUtils = {
 			tracks = tracks.concat(newTracks);
 		}
 
+		await SpotifyUtils.addLikes(tracks);
 		return tracks;
 	},
 
-	getRecommendations(picks: any, searchType: string) {
+	// takes an array of tracks, queries whether tracks are in users library
+	async addLikes(tracks: IPicks[]) {
+		const accessToken = SpotifyUtils.getAccessToken();
+		const headers = { Authorization: `Bearer ${accessToken}` };
+
+		for (let i = 0; i < Math.ceil(tracks.length / 50); i++) {
+			const start = i * 50;
+			const end = start + 50;
+			console.log(start, end);
+			const ids = tracks
+				.slice(start, end)
+				.map((track) => track.id)
+				.join(",");
+			const url = `https://api.spotify.com/v1/me/tracks/contains?ids=${ids}`;
+			const response = await fetch(url, { headers });
+			if (response.ok) {
+				const jsonResponse = await response.json();
+				console.log("adding likes");
+				tracks
+					.slice(start, end)
+					.forEach((track: IPicks, index: number) => {
+						track.liked = jsonResponse[index];
+					});
+			}
+		}
+
+		return tracks;
+	},
+
+	async likeTrack(id: string) {
+		// toggles liked status of a track
+		const accessToken = SpotifyUtils.getAccessToken();
+		const headers = { Authorization: `Bearer ${accessToken}` };
+		const url = `https://api.spotify.com/v1/me/tracks?ids=${id}`;
+
+		const response = await fetch(url, { headers: headers, method: "PUT" });
+		return response.ok;
+	},
+
+	async getRecommendations(picks: IPicks[], searchType: string) {
 		const accessToken = SpotifyUtils.getAccessToken();
 		const headers = { Authorization: `Bearer ${accessToken}` };
 		const option =
 			searchType === "Artists" ? "seed_artists=" : "seed_tracks=";
 
 		let seedList = "";
-		picks.forEach((pick: any) => {
+		picks.forEach((pick: IPicks) => {
 			seedList = seedList.concat(pick.id, ",");
 		});
 		seedList = seedList.slice(0, seedList.length - 1);
 
-		return fetch(
+		const tracks = await fetch(
 			`https://api.spotify.com/v1/recommendations?${option}${seedList}&limit=50`,
 			{
 				headers: headers,
@@ -345,6 +399,8 @@ const SpotifyUtils = {
 					uri: track.uri,
 				}));
 			});
+		await SpotifyUtils.addLikes(tracks);
+		return tracks;
 	},
 };
 
