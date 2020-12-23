@@ -177,7 +177,7 @@ const SpotifyUtils = {
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
 		const tracks = await fetch(
-			`https://api.spotify.com/v1/me/top/tracks?time_range=${term}`,
+			`https://api.spotify.com/v1/me/top/tracks?time_range=${term}&limit=50`,
 			{ headers: headers }
 		)
 			.then((response) => response.json())
@@ -207,7 +207,7 @@ const SpotifyUtils = {
 		const headers = { Authorization: `Bearer ${accessToken}` };
 
 		return fetch(
-			`https://api.spotify.com/v1/me/top/artists?time_range=${term}`,
+			`https://api.spotify.com/v1/me/top/artists?time_range=${term}&limit=50`,
 			{
 				headers: headers,
 			}
