@@ -14,6 +14,7 @@ import TrackList from "../Tracks/TrackList";
 import BackButton from "../Playlists/BackButton";
 import Spotify from "../../util/spotify";
 import selectionStyles from "./selection.module.css";
+import Recenttracks from "../Tracks/RecentTracks";
 
 const Selection = (props: {
 	handlePicks: IPickCallback;
@@ -83,6 +84,10 @@ const Selection = (props: {
 					/>
 				</div>
 			) : null}
+			{props.selection === "recent-tracks" ? (
+				<Recenttracks handlePicks={props.handlePicks} />
+			) : null}
+
 			{props.selection === "top-artists" ? (
 				<div className={selectionStyles.termContainer}>
 					<TermInput

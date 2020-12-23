@@ -14,7 +14,7 @@ const TopTracks = (props: { term: string; handlePicks: any }) => {
 			setTerm(props.term);
 		};
 		if (topTracks.length === 0 || term !== props.term) getTopTracks();
-	}, [props.term]);
+	}, [props.term, term, topTracks]);
 
 	return (
 		<div id="my-top-tracks">

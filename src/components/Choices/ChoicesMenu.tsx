@@ -30,6 +30,12 @@ const ChoicesMenu = (props: {
 			icon: "music",
 		},
 		{
+			key: "recent-tracks",
+			text: "Recent Tracks",
+			value: "recent-tracks",
+			icon: "clock outline",
+		},
+		{
 			key: "my-playlists",
 			text: "My Playlists",
 			value: "my-playlists",

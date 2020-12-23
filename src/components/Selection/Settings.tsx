@@ -13,19 +13,14 @@ const Settings = (props: {
 	return (
 		<Grid.Row columns={2}>
 			<Grid.Column>
-				<ChoicesSlider updateSearchType={props.updateSearchType} />
-			</Grid.Column>
-			<Grid.Column>
-				{/* <ChoicesInput
-					searchType={props.searchType}
-					selection={props.selection}
-					updateSelection={props.updateSelection}
-				/> */}
 				<ChoicesMenu
 					searchType={props.searchType}
 					selection={props.selection}
 					updateSelection={props.updateSelection}
 				/>
+			</Grid.Column>
+			<Grid.Column>
+				<ChoicesSlider updateSearchType={props.updateSearchType} />
 			</Grid.Column>
 		</Grid.Row>
 	);

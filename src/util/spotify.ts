@@ -44,7 +44,7 @@ const SpotifyUtils = {
 			return accessToken;
 		} else {
 			const scopes =
-				"playlist-modify-public user-library-read user-top-read streaming user-read-email user-read-private user-library-modify";
+				"playlist-modify-public user-library-read user-top-read streaming user-read-email user-read-private user-library-modify user-read-recently-played";
 			const accessUri = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=${encodeURIComponent(
 				scopes
 			)}&redirect_uri=${redirectUri}`;
@@ -199,6 +199,33 @@ const SpotifyUtils = {
 		await SpotifyUtils.addLikes(tracks);
 
 		return tracks;
+	},
+
+	async getRecentTracks() {
+		// gets a users recently played tracks
+		const accessToken = SpotifyUtils.getAccessToken();
+		const headers = { Authorization: `Bearer ${accessToken}` };
+		const url = `https://api.spotify.com/v1/me/player/recently-played?limit=50`;
+
+		const response = await fetch(url, { headers });
+		if (response.ok) {
+			const jsonResponse = await response.json();
+			return jsonResponse.items.map((item: any) => {
+				return {
+					id: item.track.id,
+					name: item.track.name,
+					artist: item.track.artists
+						.map((artist: any) => {
+							return artist.name;
+						})
+						.join(", "),
+					medImg: item.track.album.images[1],
+					smImg: item.track.album.images[2],
+					uri: item.track.uri,
+				};
+			});
+		}
+		return [];
 	},
 
 	getTopArtists(term: string) {

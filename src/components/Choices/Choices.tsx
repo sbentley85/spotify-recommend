@@ -15,11 +15,6 @@ const Choices = () => {
 	const [picks, setPicks] = useState<Array<IPicks>>([]);
 	const [recommendations, setRecommendations] = useState<Array<IPicks>>([]);
 
-	// const updateSelection = (event: SyntheticEvent, data: DropdownProps) => {
-	// 	const choice: any = data.value;
-	// 	setSelection(choice);
-	// };
-
 	const updateSelection = (event: SyntheticEvent, value: string) => {
 		setSelection(value);
 	};
