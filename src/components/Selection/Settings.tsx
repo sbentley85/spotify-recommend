@@ -1,5 +1,4 @@
 import React, { SyntheticEvent } from "react";
-import ChoicesInput from "../Choices/ChoicesInput";
 import ChoicesSlider from "../Choices/ChoicesSlider";
 import ChoicesMenu from "../Choices/ChoicesMenu";
 import { ISliderCallback, IDropdownCallback } from "../Choices/Choices";

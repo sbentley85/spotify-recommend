@@ -21,7 +21,7 @@ const Selection = (props: {
 
 	selection: string;
 	term: string;
-	updateTerm: IDropdownCallback;
+	updateTerm: (event: SyntheticEvent, value: string) => void;
 }) => {
 	const [playlistTracks, setPlaylistTracks] = useState<Array<IPicks>>([]);
 	const [playlistName, setPlaylistName] = useState<string>("");
@@ -53,7 +53,11 @@ const Selection = (props: {
 					{playlistTracks.length > 0 ? (
 						<div className={selectionStyles.playlistContainer}>
 							<div className={selectionStyles.playlistTitle}>
-								{playlistName}
+								<BackButton clearTracks={clearTracks} />
+
+								<div className={selectionStyles.playlistName}>
+									{playlistName}
+								</div>
 							</div>
 							<div className="playlistTracks">
 								<TrackList
@@ -61,8 +65,6 @@ const Selection = (props: {
 									tracks={playlistTracks}
 								/>
 							</div>
-
-							<BackButton clearTracks={clearTracks} />
 						</div>
 					) : (
 						<MyPlaylists selectPlaylist={selectPlaylist} />

@@ -24,9 +24,9 @@ const Choices = () => {
 		setSelection(value);
 	};
 
-	const updateTerm = (event: SyntheticEvent, data: DropdownProps) => {
-		const termSelection: any = data.value;
-		setTerm(termSelection);
+	const updateTerm = (event: SyntheticEvent, term: string) => {
+		// const termSelection: any = data.value;
+		setTerm(term);
 	};
 
 	const updateSearchType = (

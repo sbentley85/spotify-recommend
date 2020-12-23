@@ -1,12 +1,15 @@
 .searchInput,
 .termInput,
 .playlistTitle {
-	position: absolute;
+	/* position: absolute;
 	left: 50%;
 	top: -5%;
 	transform: translate(-50%, 0);
 	height: 38px;
-	width: 196px;
+	width: 196px; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 /* added to playlist title to duplicate term input styles */
@@ -19,11 +22,16 @@
 	background-color: white;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	margin: 1rem;
 }
 
 .playlistContainer,
 .termContainer {
 	position: relative;
+}
+
+.playlistName {
+	flex-grow: 1;
 }
 
 /* .select {

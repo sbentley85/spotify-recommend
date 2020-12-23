@@ -1,5 +1,6 @@
 import React, { SyntheticEvent } from "react";
-import { Menu } from "semantic-ui-react";
+import { Menu, Icon } from "semantic-ui-react";
+import menuStyles from "./menu.module.css";
 
 const SelectionMenu = (props: {
 	options: any[];
@@ -7,7 +8,7 @@ const SelectionMenu = (props: {
 	handleClick: (event: SyntheticEvent, value: string) => void;
 }) => {
 	return (
-		<Menu inverted secondary>
+		<Menu inverted secondary icon>
 			{props.options.map((option) => {
 				return (
 					<Menu.Item
@@ -16,7 +17,13 @@ const SelectionMenu = (props: {
 						onClick={(event) =>
 							props.handleClick(event, option.value)
 						}
-					/>
+					>
+						<Icon
+							name={option.icon}
+							className={menuStyles.menuIcon}
+						/>
+						{option.text}
+					</Menu.Item>
 				);
 			})}
 		</Menu>

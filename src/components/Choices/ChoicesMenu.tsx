@@ -1,7 +1,6 @@
 import React, { SyntheticEvent } from "react";
 import choicesStyles from "./choices.module.css";
 import SelectionMenu from "../Menu/SelectionMenu";
-import { Menu } from "semantic-ui-react";
 
 const ChoicesMenu = (props: {
 	searchType: string;
@@ -13,11 +12,13 @@ const ChoicesMenu = (props: {
 			key: "top-artists",
 			text: "My Top Artists",
 			value: "top-artists",
+			icon: "user",
 		},
 		{
 			key: "search",
 			text: "Search",
 			value: "search",
+			icon: "search",
 		},
 	];
 
@@ -26,16 +27,19 @@ const ChoicesMenu = (props: {
 			key: "top-tracks",
 			text: "My Top Tracks",
 			value: "top-tracks",
+			icon: "music",
 		},
 		{
 			key: "my-playlists",
 			text: "My Playlists",
 			value: "my-playlists",
+			icon: "list ol",
 		},
 		{
 			key: "search",
 			text: "Search",
 			value: "search",
+			icon: "search",
 		},
 	];
 
