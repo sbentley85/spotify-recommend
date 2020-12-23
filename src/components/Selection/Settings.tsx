@@ -1,14 +1,14 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import ChoicesInput from "../Choices/ChoicesInput";
 import ChoicesSlider from "../Choices/ChoicesSlider";
 import ChoicesMenu from "../Choices/ChoicesMenu";
 import { ISliderCallback, IDropdownCallback } from "../Choices/Choices";
-import { Menu, Container, Grid } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
 const Settings = (props: {
 	searchType: string;
 	selection: string;
-	updateSelection: any;
+	updateSelection: (event: SyntheticEvent, value: string) => void;
 	updateSearchType: ISliderCallback;
 }) => {
 	return (

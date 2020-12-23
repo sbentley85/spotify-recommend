@@ -1,11 +1,12 @@
-import React from "react";
-import { IDropdownCallback } from "../Choices/Choices";
+import React, { SyntheticEvent } from "react";
+import choicesStyles from "./choices.module.css";
+import SelectionMenu from "../Menu/SelectionMenu";
 import { Menu } from "semantic-ui-react";
 
 const ChoicesMenu = (props: {
 	searchType: string;
 	selection: string;
-	updateSelection: any;
+	updateSelection: (event: SyntheticEvent, value: string) => void;
 }) => {
 	const ArtistOptions = [
 		{
@@ -39,31 +40,17 @@ const ChoicesMenu = (props: {
 	];
 
 	return (
-		<Menu inverted secondary>
-			{props.searchType === "Artists"
-				? ArtistOptions.map((option) => {
-						return (
-							<Menu.Item
-								name={option.text}
-								active={props.selection === option.value}
-								onClick={(event) =>
-									props.updateSelection(event, option.value)
-								}
-							/>
-						);
-				  })
-				: TrackOptions.map((option) => {
-						return (
-							<Menu.Item
-								name={option.text}
-								active={props.selection === option.value}
-								onClick={(event) =>
-									props.updateSelection(event, option.value)
-								}
-							/>
-						);
-				  })}
-		</Menu>
+		<div className={choicesStyles.menuContainer}>
+			<SelectionMenu
+				options={
+					props.searchType === "Artists"
+						? ArtistOptions
+						: TrackOptions
+				}
+				selection={props.selection}
+				handleClick={props.updateSelection}
+			/>
+		</div>
 	);
 };
 
