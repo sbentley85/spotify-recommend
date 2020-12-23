@@ -334,7 +334,7 @@ const SpotifyUtils = {
 		for (let i = 0; i < Math.ceil(tracks.length / 50); i++) {
 			const start = i * 50;
 			const end = start + 50;
-			console.log(start, end);
+
 			const ids = tracks
 				.slice(start, end)
 				.map((track) => track.id)
@@ -343,7 +343,7 @@ const SpotifyUtils = {
 			const response = await fetch(url, { headers });
 			if (response.ok) {
 				const jsonResponse = await response.json();
-				console.log("adding likes");
+
 				tracks
 					.slice(start, end)
 					.forEach((track: IPicks, index: number) => {

@@ -3,16 +3,13 @@ import "./App.css";
 
 import Choices from "./components/Choices/Choices";
 import "semantic-ui-css/semantic.min.css";
-import { Grid, Container } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 
 function App() {
 	return (
 		<div className="App">
-			<div className="header"></div>
 			<Container>
-				<Grid stackable columns={1}>
-					<Choices />
-				</Grid>
+				<Choices />
 			</Container>
 		</div>
 	);

@@ -15,9 +15,13 @@ const Choices = () => {
 	const [picks, setPicks] = useState<Array<IPicks>>([]);
 	const [recommendations, setRecommendations] = useState<Array<IPicks>>([]);
 
-	const updateSelection = (event: SyntheticEvent, data: DropdownProps) => {
-		const choice: any = data.value;
-		setSelection(choice);
+	// const updateSelection = (event: SyntheticEvent, data: DropdownProps) => {
+	// 	const choice: any = data.value;
+	// 	setSelection(choice);
+	// };
+
+	const updateSelection = (event: SyntheticEvent, value: string) => {
+		setSelection(value);
 	};
 
 	const updateTerm = (event: SyntheticEvent, data: DropdownProps) => {
@@ -89,38 +93,42 @@ const Choices = () => {
 
 	return (
 		<>
-			<Grid.Row className={choicesStyles.settings} columns={2}>
+			<Grid stackable columns={1}>
 				<Settings
 					searchType={searchType}
 					selection={selection}
 					updateSelection={updateSelection}
 					updateSearchType={updateSearchType}
 				/>
-			</Grid.Row>
-			<Grid.Row columns={2}>
-				<Grid.Column>
-					<Selection
-						handlePicks={handlePicks}
-						searchType={searchType}
-						selection={selection}
-						term={term}
-						updateTerm={updateTerm}
-					/>
-				</Grid.Column>
-				<Grid.Column>
-					<Picks
-						searchType={searchType}
-						picks={picks}
-						handlePicks={handlePicks}
-					/>
-				</Grid.Column>
-			</Grid.Row>
 
-			<Grid.Row columns={1}>
-				<Grid.Column>
-					<MyRecommendations picks={picks} tracks={recommendations} />
-				</Grid.Column>
-			</Grid.Row>
+				<Grid.Row columns={2}>
+					<Grid.Column>
+						<Selection
+							handlePicks={handlePicks}
+							searchType={searchType}
+							selection={selection}
+							term={term}
+							updateTerm={updateTerm}
+						/>
+					</Grid.Column>
+					<Grid.Column>
+						<Picks
+							searchType={searchType}
+							picks={picks}
+							handlePicks={handlePicks}
+						/>
+					</Grid.Column>
+				</Grid.Row>
+
+				<Grid.Row columns={1}>
+					<Grid.Column>
+						<MyRecommendations
+							picks={picks}
+							tracks={recommendations}
+						/>
+					</Grid.Column>
+				</Grid.Row>
+			</Grid>
 		</>
 	);
 };
