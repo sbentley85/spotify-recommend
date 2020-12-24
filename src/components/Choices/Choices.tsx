@@ -96,7 +96,7 @@ const Choices = () => {
 					updateSearchType={updateSearchType}
 				/>
 
-				<Grid.Row columns={2}>
+				<Grid.Row columns={1}>
 					<Grid.Column>
 						<Selection
 							handlePicks={handlePicks}
@@ -106,6 +106,8 @@ const Choices = () => {
 							updateTerm={updateTerm}
 						/>
 					</Grid.Column>
+				</Grid.Row>
+				<Grid.Row columns={1}>
 					<Grid.Column>
 						<Picks
 							searchType={searchType}
@@ -114,7 +116,6 @@ const Choices = () => {
 						/>
 					</Grid.Column>
 				</Grid.Row>
-
 				<Grid.Row columns={1}>
 					<Grid.Column>
 						<MyRecommendations

@@ -8,7 +8,7 @@ const SelectionMenu = (props: {
 	handleClick: (event: SyntheticEvent, value: string) => void;
 }) => {
 	return (
-		<Menu inverted secondary icon>
+		<Menu inverted secondary icon className={menuStyles.menu}>
 			{props.options.map((option) => {
 				return (
 					<Menu.Item

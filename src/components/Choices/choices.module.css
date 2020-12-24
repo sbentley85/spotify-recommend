@@ -17,5 +17,17 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-wrap: wrap;
 	width: 100%;
+}
+
+.picks {
+	display: flex;
+	flex-wrap: wrap;
+	overflow-x: auto;
+	justify-content: space-evenly;
+}
+
+.pick {
+	width: 300px;
 }

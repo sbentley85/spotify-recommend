@@ -1,3 +1,9 @@
 .menuIcon {
-	margin: 0 0.5rem !important;
+	margin-right: 0.5rem !important;
+}
+
+.menu {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
 }

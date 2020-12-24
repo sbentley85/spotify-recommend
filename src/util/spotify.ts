@@ -53,14 +53,14 @@ const SpotifyUtils = {
 		}
 	},
 
-	searchTracks(term: string) {
+	async searchTracks(term: string) {
 		// search for a track
 		sessionStorage.setItem("searchTerm", term);
 		const accessToken = SpotifyUtils.getAccessToken();
+		const headers = { Authorization: `Bearer ${accessToken}` };
+		let url = `https://api.spotify.com/v1/search?type=track&q=${term}`;
 
-		let endpoint = `https://api.spotify.com/v1/search?type=track&q=${term}`;
-
-		return fetch(endpoint, {
+		const tracks = await fetch(url, {
 			headers: { Authorization: `Bearer ${accessToken}` },
 		})
 			.then((response) => {
@@ -92,6 +92,8 @@ const SpotifyUtils = {
 					})
 				);
 			});
+		await SpotifyUtils.addLikes(tracks);
+		return tracks;
 	},
 
 	searchArtists(term: string) {
@@ -210,7 +212,7 @@ const SpotifyUtils = {
 		const response = await fetch(url, { headers });
 		if (response.ok) {
 			const jsonResponse = await response.json();
-			return jsonResponse.items.map((item: any) => {
+			const tracks = jsonResponse.items.map((item: any) => {
 				return {
 					id: item.track.id,
 					name: item.track.name,
@@ -224,6 +226,8 @@ const SpotifyUtils = {
 					uri: item.track.uri,
 				};
 			});
+			await SpotifyUtils.addLikes(tracks);
+			return tracks;
 		}
 		return [];
 	},

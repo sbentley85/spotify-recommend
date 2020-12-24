@@ -34,7 +34,13 @@
 	flex-grow: 1;
 }
 
-/* .select {
-	max-height: 350px;
-	overflow-y: auto;
-} */
+.select {
+	width: 80%;
+	margin: 0 auto;
+}
+
+@media only screen and (max-width: 900px) {
+	.select {
+		width: 100%;
+	}
+}
